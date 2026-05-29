@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>외부강의 & 겸직 판별 도우미 v2.0</title>
+    <title>외부강의 & 겸직 판별 도우미 v2.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,13 +14,13 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
     <div class="bg-indigo-600 text-white text-center py-2 text-sm font-semibold shadow-sm">
-        <i class="fa-solid fa-bullhorn mr-2"></i> 대상: 각급 학교의 장 및 교직원 (2026년 최신 교육청 지침 완벽 반영)
+        <i class="fa-solid fa-bullhorn mr-2"></i> 대상: 각급 학교의 장 및 교직원 (2026년 최신 교육청 지침 반영)
     </div>
 
     <header class="bg-white border-b border-slate-200 py-6 text-center shadow-xs">
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3">
             <i class="fa-solid fa-shield-halved text-indigo-600"></i>
-            외부강의 & 겸직 판별 도우미 <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-md vertical-middle">v2.0</span>
+            외부강의 & 겸직 판별 도우미 <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-md">v2.1</span>
         </h1>
         <p class="text-sm text-slate-500 mt-2">나이스(NEIS) 입력 전, 내가 해야 할 올바른 복무 신청 형태를 확인하세요.</p>
     </header>
@@ -73,7 +73,7 @@
             </div>
             
             <div id="stepA2" class="hidden">
-                <p class="text-base font-semibold mb-4 text-slate-800">Q2. 해당 활동이 본인의 직무와 관련되거나, 지위·직책에서 유래하는 사실상의 영향력을 통해 외부로부터 요청받은 것인가요?</p>
+                <p class="text-base font-semibold mb-4 text-slate-800">Q2. 해당 활동이 본인의 직무와 관련되거나, 지위·직책 등에서 유래하는 사실상의 영향력을 통해 외부로부터 요청받은 것인가요?</p>
                 <div class="flex gap-4">
                     <button onclick="nextStep('A', 3)" class="bg-indigo-600 text-white px-6 py-2.5 rounded-xl font-medium hover:bg-indigo-700 transition">예</button>
                     <button onclick="showResult('A-NOT')" class="bg-slate-200 text-slate-700 px-6 py-2.5 rounded-xl font-medium hover:bg-slate-300 transition">아니오</button>
@@ -84,22 +84,30 @@
                 <p class="text-base font-semibold mb-2 text-slate-800">Q3. 강의를 요청한 기관(기관장 명의)이 국가기관 또는 지방자치단체인가요?</p>
                 
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-5 shadow-inner">
-                    <label class="block text-sm font-bold text-slate-800 mb-2"><i class="fa-solid fa-magnifying-glass text-indigo-500 mr-1"></i> 헷갈리는 요청 기관 판별기 <span class="text-xs text-indigo-600 font-normal">(교원 빈출 기관 마스터 DB 적용)</span></label>
+                    <label class="block text-sm font-bold text-slate-800 mb-2"><i class="fa-solid fa-magnifying-glass text-indigo-500 mr-1"></i> 헷갈리는 요청 기관 판별기</label>
                     <div class="flex gap-2">
-                        <input type="text" id="agencyInput" placeholder="예: 한국교육학술정보원, KERIS, 평가원, 서울시교육청" class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none">
+                        <input type="text" id="agencyInput" placeholder="예: 한국교육학술정보원, KERIS, 케리스, 평가원" class="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none">
                         <button onclick="checkAgency()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-indigo-700 transition">성격 판별</button>
                     </div>
+                    
+                    <div class="mt-2 text-right">
+                        <a href="https://www.gov.kr/portal/orgSite?srchOrder=&srchOrgCd=&srchAsndOrgClsCd=&srchOrgAstCd=&srchFsOrgAstCd=ALL&jrsdOrgCdAll=&jrsdOrgAstCd=ALL&jrsdOrgAstCd=ALL&jrsdOrgAstCd=ALL&jrsdOrgAstCd=ALL&srchTxt=" target="_blank" class="text-[11px] text-indigo-600 hover:text-indigo-800 hover:underline inline-flex items-center gap-1 font-semibold">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 찾으시는 기관이 없나요? Gov.kr 정부 조직도에서 직접 검색하기
+                        </a>
+                    </div>
+
                     <div id="agencyResult" class="hidden mt-3"></div>
+                    
                     <details class="text-xs text-slate-500 mt-3">
                         <summary class="cursor-pointer font-semibold hover:text-indigo-600">🏛️ 대표적인 국가기관 vs 🏢 공공·출연기관 예시 확인하기</summary>
                         <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-3 border rounded-lg shadow-sm">
                             <div>
                                 <span class="text-blue-600 font-bold block mb-1">🏛️ 국가·지자체 (신고 면제)</span>
-                                <p class="text-slate-600 leading-relaxed">교육부, 시·도교육청 및 소속 교육지원청, 국·공립 학교(유초중고 및 국공립대), 시청/도청/구청, 경찰청, 중앙행정부처, 국회, 법원 등</p>
+                                <p class="text-slate-600 leading-relaxed">교육부, 시·도교육청 및 교육지원청, 국·공립 학교, 시청/도청/구청, 정부행정부처, 소방청, 경찰청, 국회, 법원 등</p>
                             </div>
                             <div>
                                 <span class="text-rose-600 font-bold block mb-1">🏢 공공기관·기타법인 (신고 필수)</span>
-                                <p class="text-slate-600 leading-relaxed"><strong>한국교육학술정보원(KERIS)</strong>, 한국교육과정평가원, 한국과학창의재단, 사립학교(사립대 포함), 한국교육개발원(KEDI), 각종 재단/공사/공단/협회 등</p>
+                                <p class="text-slate-600 leading-relaxed"><strong>한국교육학술정보원(KERIS)</strong>, 한국교육과정평가원(KICE), 한국과학창의재단, 사립학교, 한국교육개발원(KEDI), 각종 재단/공사/공단/협회 등</p>
                             </div>
                         </div>
                     </details>
@@ -233,7 +241,7 @@
                         <i id="faqIcon4" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
                     </button>
                     <div id="faqAns4" class="hidden p-5 border-t border-slate-100 text-xs text-slate-600 leading-relaxed bg-white">
-                        <strong>수익 창출 시점부터 의무입니다.</strong> 광고 수익 요건(유튜브 기준 구독자 1천 명, 누적 시청 4천 시간 등)에 도달하여 플랫폼으로부터 <span class="text-rose-600 font-bold">최초 대자가 발생하는 시점 직전</span>에 반드시 학교장 겸직 허가를 신청해야 합니다. 수익이 전혀 없는 단순 취미 업로드는 허가가 필요 없습니다.
+                        <strong>수익 창출 시점부터 의무입니다.</strong> 광고 수익 요건(유튜브 기준 구독자 1천 명, 누적 시청 4천 시간 등)에 도달하여 플랫폼으로부터 <span class="text-rose-600 font-bold">최초 대가가 발생하는 시점 직전</span>에 반드시 학교장 겸직 허가를 신청해야 합니다. 수익이 전혀 없는 단순 취미 업로드는 허가가 필요 없습니다.
                     </div>
                 </div>
             </div>
@@ -255,123 +263,53 @@
             maxMonthlyCount: 3,
             maxMonthlyHours: 6
         };
-// 💡 [최종 보정] 공백/대소문자 무력화 마스터 데이터베이스
-const MASTER_AGENCY_DB = {
-    "국가기관": [
-        "국가교육위원회", "국립국제교육원", "국립특수교육원", "중앙교육연수원", 
-        "교육부", "문화체육관광부", "과학기술정보통신부", "보건복지부", "고용노동부",
-        "국회", "법원", "헌법재판소", "중앙선거관리위원회", "인사혁신처"
-    ],
-    // ⚠️ KERIS 관련 키워드를 공백 없이 대문자로 완전히 매칭되도록 보조 키워드 추가
-    "공공기관": [
-        "한국교육학술정보원", "KERIS", "케리스",
-        "한국교육과정평가원", "평가원", "KICE",
-        "한국과학창의재단", "창의재단",
-        "한국청소년정책연구원", "한국교육개발원", "KEDI",
-        "한국직업능력연구원", "직능원",
-        "한국장학재단", "국제방송교류재단", "아리랑TV",
-        "유네스코한국위원회", "유네스코"
-    ]
-};
 
-// 💡 띄어쓰기나 대소문자 오류를 100% 잡아내는 고도화된 판별 함수
-function checkAgency() {
-    const input = document.getElementById('agencyInput').value.trim();
-    const res = document.getElementById('agencyResult');
-    res.classList.remove('hidden');
+        // 💡 [오류 수정 완료] 모든 항목에 완벽히 문자열 따옴표("")를 부여하여 먹통 현상 해결
+        const MASTER_AGENCY_DB = {
+            "국가기관": [
+                "국가교육위원회", "국립국제교육원", "국립특수교육원", "중앙교육연수원", 
+                "교육부", "문화체육관광부", "과학기술정보통신부", "보건복지부", "고용노동부",
+                "국회", "법원", "헌법재판소", "중앙선거관리위원회", "인사혁신처", "소방청", "경찰청"
+            ],
+            "공공기관": [
+                "한국교육학술정보원", "KERIS", "케리스",
+                "한국교육과정평가원", "평가원", "KICE",
+                "한국과학창의재단", "창의재단",
+                "한국청소년정책연구원", "한국교육개발원", "KEDI",
+                "한국직업능력연구원", "직능원",
+                "한국장학재단", "국제방송교류재단", "아리랑TV",
+                "유네스코한국위원회", "유네스코"
+            ]
+        };
 
-    if(!input) {
-        res.innerHTML = "기관명을 먼저 입력해주세요.";
-        res.className = "text-sm mt-3 text-slate-500 bg-slate-100 p-2.5 rounded-lg";
-        return;
-    }
+        let lectureTypeTarget = '';
+        let isRequestedByGovernment = false;
 
-    // 🔥 핵심 대처: 사용자가 입력한 값의 모든 공백을 제거하고 무조건 대문자로 변환
-    // 예: "Keris " -> "KERIS", "한국 교육학술 정보원" -> "한국교육학술정보원"
-    const normalizedInput = input.toUpperCase().replace(/\s/g, "");
+        // 대소문자, 공백 및 텍스트 꼬임 없는 고도화된 매칭 판별기
+        function checkAgency() {
+            const input = document.getElementById('agencyInput').value.trim();
+            const res = document.getElementById('agencyResult');
+            res.classList.remove('hidden');
 
-    // 1단계: 공공기관 마스터 DB 검색 (KERIS 타겟팅)
-    for (let target of MASTER_AGENCY_DB.공공기관) {
-        // DB에 등록된 키워드도 공백 제거 및 대문자화하여 비교
-        const normalizedTarget = target.toUpperCase().replace(/\s/g, "");
-        
-        // 사용자가 입력한 내용에 DB 키워드가 포함되어 있거나, 반대의 경우 모두 잡아냄
-        if (normalizedInput.includes(normalizedTarget) || normalizedTarget.includes(normalizedInput)) {
-            res.innerHTML = `
-                <div class="font-bold text-sm mb-1"><i class="fa-solid fa-building-flag mr-1"></i> 🏢 공공기관 · 정부출연기관 판정</div>
-                <div class="text-xs"><strong>"${input}"</strong>은(는) 교육부 산하 기관이지만, 법적으로 국가기관이 아닌 <strong>공직유관단체/공공기관</strong>입니다.</div>
-                <div class="mt-2 text-rose-700 font-bold text-xs"><i class="fa-solid fa-circle-exclamation"></i> [외부강의등 신고 필수 대상] 입니다.</div>
-                <div class="mt-2 bg-white p-2.5 rounded border text-[11px] text-slate-600 leading-relaxed shadow-xs">
-                    📌 <strong>학교 실무 가이드:</strong><br>
-                    공문에 명시된 사업 성격에 따라 <strong>[출장(여비 부지급)]</strong>으로 복무를 올리시되, 소속 학교 성격에 맞춰 나이스(NEIS)에서 <strong>[외부강의등 신고]를 반드시 병행</strong>하셔야 행정처분을 피할 수 있습니다.
-                </div>
-            `;
-            res.className = "text-sm mt-3 text-rose-600 bg-rose-50 p-4 rounded-xl border border-rose-200 shadow-xs";
-            return; // 매칭 성공 시 함수 종료
-        }
-    }
+            if(!input) {
+                res.innerHTML = "기관명을 먼저 입력해주세요.";
+                res.className = "text-sm mt-3 text-slate-500 bg-slate-100 p-2.5 rounded-lg";
+                return;
+            }
 
-    // 2단계: 국가기관 마스터 DB 검색
-    for (let target of MASTER_AGENCY_DB.국가기관) {
-        const normalizedTarget = target.toUpperCase().replace(/\s/g, "");
-        if (normalizedInput.includes(normalizedTarget) || normalizedTarget.includes(normalizedInput)) {
-            res.innerHTML = `
-                <div class="font-bold text-sm mb-1"><i class="fa-solid fa-landmark mr-1"></i> 🏛️ 국가기관 · 중앙부처 판정</div>
-                <div class="text-xs"><strong>"${input}"</strong>은(는) 청탁금지법 제10조에 따라 신고가 면제되는 <strong>대통령 직속기관 또는 정부 행정부처</strong>입니다.</div>
-                <div class="mt-2 text-blue-700 font-bold text-xs"><i class="fa-solid fa-circle-check"></i> [외부강의등 신고 면제 대상] 입니다.</div>
-                <div class="mt-2 bg-white p-2.5 rounded border text-[11px] text-slate-600 shadow-xs">
-                    📌 <strong>학교 실무 가이드:</strong><br>
-                    나이스 외부강의 신고서를 작성하실 필요가 전혀 없습니다. 요청 공문을 근거로 소속 학교에 <strong>[출장] 또는 관련 복무 상신만 완료</strong>하시면 됩니다.
-                </div>
-            `;
-            res.className = "text-sm mt-3 text-blue-600 bg-blue-50 p-4 rounded-xl border border-blue-200 shadow-xs";
-            return;
-        }
-    }
+            const normalizedInput = input.toUpperCase().replace(/\s/g, "");
 
-    // 3단계: EBS 특례 판정
-    if (normalizedInput.includes("EBS") || normalizedInput.includes("한국교육방송공사")) {
-        res.innerHTML = `
-            <div class="font-bold text-sm mb-1"><i class="fa-solid fa-tv mr-1"></i> 📺 EBS (한국교육방송공사) 특례 판정</div>
-            <div class="text-xs"><strong>"EBS"</strong>는 공사 형태이지만, 사교육 카르텔 근절 및 교육부 특별 지침상 수능 연계 공익 사업 강의 등은 <strong>외부강의 신고가 유연하게 면제</strong>됩니다.</div>
-            <div class="mt-2 text-indigo-700 font-bold text-xs">⚠️ [단, 계속성 활동 시 유의]</div>
-            <div class="mt-1 text-[11px] text-slate-500 leading-relaxed">일회성 자문·강의는 면제되나, 정기 교재 집필이나 연속적인 모의고사 검토 등은 반드시 학교장 사전 겸직허가를 득해야 합니다.</div>
-        `;
-        res.className = "text-sm mt-3 text-indigo-600 bg-indigo-50 p-4 rounded-xl border border-indigo-200 shadow-xs";
-        return;
-    }
-
-    // 4단계: 힌트 키워드 기반 규칙 추론 (폴백 로직)
-    const govKeywords = ['교육청', '교육지원청', '국립', '공립', '시청', '도청', '구청', '군청', '교육부', '행정안전부', '지방자치단체', '경찰청', '소방청', '의회'];
-    const nonGovKeywords = ['사립', '재단', '공사', '공단', '진흥원', '협회', '조합', '센터', '주식회사', '사단법인', '복지관', '연구원', '연구소', '병원'];
-
-    let isGov = govKeywords.some(kw => normalizedInput.includes(kw));
-    let isNonGov = nonGovKeywords.some(kw => normalizedInput.includes(kw));
-
-    if(isNonGov) {
-        res.innerHTML = `
-            <div class="font-bold text-sm mb-1">⚠️ 공공기관 / 사단·재단법인 추정</div>
-            <div class="text-xs">입력하신 <strong>"${input}"</strong>은(는) 명칭 특성상 공기업, 재단법인, 혹은 사설 단체일 확률이 매우 높습니다.</div>
-            <div class="mt-2 text-rose-600 font-semibold text-xs">➡️ 청탁금지법상 [외부강의등 신고 필수 대상] 가능성이 큽니다.</div>
-        `;
-        res.className = "text-sm mt-3 text-rose-600 bg-rose-50 p-3 rounded-lg border border-rose-200";
-    } else if(isGov) {
-        res.innerHTML = `
-            <div class="font-bold text-sm mb-1">✅ 지자체 / 교육청 소속기관 추정</div>
-            <div class="text-xs">입력하신 <strong>"${input}"</strong>은(는) 교육청 및 지자체 직속 국가기관 조직 명칭에 가깝습니다.</div>
-            <div class="mt-2 text-blue-600 font-semibold text-xs">➡️ 청탁금지법 제10조에 따른 [신고 면제 대상] 가능성이 큽니다.</div>
-        `;
-        res.className = "text-sm mt-3 text-blue-600 bg-blue-50 p-3 rounded-lg border border-blue-200";
-    } else {
-        res.innerHTML = `
-            <div class="font-bold text-sm mb-1 text-amber-700">🤔 판별 모호 (공문 직인 확인 필요)</div>
-            <div class="text-xs">명칭만으로는 국가기관 여부를 100% 확정하기 어렵습니다. 수신된 공문서의 <strong>최하단 [발신인 직인 명의]</strong>를 확인해보세요.</div>
-            <div class="mt-2 bg-white p-2.5 rounded border text-[11px] text-slate-600 space-y-1">
-                <div>• 직인이 <strong>~장관, ~교육감, ~시장, ~구청장, ~학교장(국공립)</strong> 명의 ➡️ <span class="text-blue-600 font-bold">신고 면제</span></div>
-                <div>• 직인이 <strong>~이사장, ~원장, ~대표이사, ~회장, ~총장(사립대)</strong> 명의 ➡️ <span class="text-rose-600 font-bold">외부강의 신고 필수</span></div>
-            </div>
-        `;
-        res.className = "text-sm mt-3 text-amber-600 bg-amber-50 p-3 rounded-lg border border-amber-200";
-    }
-}
-      
+            // 1) 공공기관 마스터 DB 검색 (KERIS 완벽 캐치)
+            for (let target of MASTER_AGENCY_DB.공공기관) {
+                const normalizedTarget = target.toUpperCase().replace(/\s/g, "");
+                if (normalizedInput.includes(normalizedTarget) || normalizedTarget.includes(normalizedInput)) {
+                    res.innerHTML = `
+                        <div class="font-bold text-sm mb-1"><i class="fa-solid fa-building-flag mr-1"></i> 🏢 공공기관 · 정부출연기관 판정</div>
+                        <div class="text-xs"><strong>"${input}"</strong>은(는) 교육부 산하 기관이지만 법적으로 국가기관이 아닌 <strong>공직유관단체/공공기관</strong>입니다.</div>
+                        <div class="mt-2 text-rose-700 font-bold text-xs"><i class="fa-solid fa-circle-exclamation"></i> [외부강의등 신고 필수 대상] 입니다.</div>
+                        <div class="mt-2 bg-white p-2.5 rounded border text-[11px] text-slate-600 leading-relaxed shadow-xs">
+                            📌 <strong>학교 실무 가이드:</strong><br>
+                            공문서 내용에 따라 <strong>[출장(여비 부지급)]</strong> 등으로 지자체 복무를 올리시되, 나이스(NEIS)에서 <strong>[외부강의등 신고]를 누락 없이 병행</strong>하셔야 안전합니다.
+                        </div>
+                    `;
+                    res.className = "text-sm mt
