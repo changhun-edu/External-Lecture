@@ -108,3 +108,45 @@
                         <input type="date" id="lectureDate" onchange="calculateDeadline()" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none">
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">1시간당 대가 수령액 (원)</label>
+                        <input type="number" id="feePerHour" placeholder="예: 300000" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none">
+                    </div>
+                    <div id="monthlyCountDiv">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">이번 달 누적 외부강의 횟수 (해당 건 포함)</label>
+                        <input type="number" id="monthlyCount" placeholder="예: 4" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none">
+                    </div>
+                    <div id="monthlyHoursDiv">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">이번 달 누적 외부강의 시간 (해당 건 포함)</label>
+                        <input type="number" id="monthlyHours" placeholder="예: 7" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none">
+                    </div>
+                </div>
+                <div id="groupReportDiv" class="flex items-center gap-2 mb-4">
+                    <input type="checkbox" id="isGroupReport" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                    <label for="isGroupReport" class="text-sm text-slate-600 font-medium">동일 교육과정 일괄(묶음)신고인가요?</label>
+                </div>
+                <button onclick="processLectureResult()" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition">판별 결과 리포트 생성</button>
+            </div>
+        </div>
+
+        <div id="menuB" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <button onclick="goBack()" class="mb-6 text-sm text-slate-500 hover:text-indigo-600 font-semibold flex items-center gap-1">
+                <i class="fa-solid fa-arrow-left"></i> 처음으로 돌아가기
+            </button>
+            <h2 class="text-xl font-bold mb-4 text-rose-600 border-b pb-2"><i class="fa-solid fa-ban-smoke mr-2"></i>사교육 카르텔 근절 가이드라인</h2>
+            <div class="bg-rose-50 border border-rose-200 rounded-2xl p-5 mb-6 text-rose-900">
+                <h3 class="text-lg font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-rose-600"></i> 🔴 절대 금지 판정</h3>
+                <p class="text-sm leading-relaxed mb-4">
+                    학원법상 <strong>학교교과교습학원 및 사교육 업체</strong>와 연계된 모의고사 문항 출제, 출제 검토, 입시 컨설팅, 강연, 유/무상 교재 제작 등 일체의 영리 행위는 계속성 유무를 불문하고 <strong>원칙적 절대 금지</strong> 대상입니다. 1회성 강의 계약 형태여도 적발 시 중징계 처분을 받을 수 있습니다.
+                </p>
+                <div class="bg-white border border-rose-100 rounded-xl p-3 text-xs text-rose-700">
+                    <strong>💡 예외 인정 범위:</strong> 국가기관, 시도교육청, EBS 등 정부 공익 사업의 일환으로 요청된 수능 연계 사업 등은 기관 검토 후 엄격한 제한 하에 허가될 수 있습니다.
+                </div>
+            </div>
+        </div>
+
+        <div id="menuC" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <button onclick="goBack()" class="mb-6 text-sm text-slate-500 hover:text-indigo-600 font-semibold flex items-center gap-1">
+                <i class="fa-solid fa-arrow-left"></i> 처음으로 돌아가기
+            </button>
+            <h2 class="text-xl font-bold mb-4 text-amber-600 border-b pb-2"><i class="fa-brands fa-youtube mr-2"></i>인터넷 개인 미디어 활동 지침</h2>
+            <p class="text-base font-semibold
