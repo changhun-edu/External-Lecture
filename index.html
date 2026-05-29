@@ -312,4 +312,267 @@
                             공문서 내용에 따라 <strong>[출장(여비 부지급)]</strong> 등으로 지자체 복무를 올리시되, 나이스(NEIS)에서 <strong>[외부강의등 신고]를 누락 없이 병행</strong>하셔야 안전합니다.
                         </div>
                     `;
-                    res.className = "text-sm mt
+                    res.className = "text-sm mt-3 text-rose-600 bg-rose-50 p-4 rounded-xl border border-rose-200 shadow-xs";
+                    return;
+                }
+            }
+
+            // 2) 국가기관 마스터 DB 검색
+            for (let target of MASTER_AGENCY_DB.국가기관) {
+                const normalizedTarget = target.toUpperCase().replace(/\s/g, "");
+                if (normalizedInput.includes(normalizedTarget) || normalizedTarget.includes(normalizedInput)) {
+                    res.innerHTML = `
+                        <div class="font-bold text-sm mb-1"><i class="fa-solid fa-landmark mr-1"></i> 🏛️ 국가기관 · 중앙부처 판정</div>
+                        <div class="text-xs"><strong>"${input}"</strong>은(는) 청탁금지법 제10조에 따라 신고가 면제되는 <strong>대통령 직속기관 또는 정부 행정부처(지자체 포함)</strong>입니다.</div>
+                        <div class="mt-2 text-blue-700 font-bold text-xs"><i class="fa-solid fa-circle-check"></i> [외부강의등 신고 면제 대상] 입니다.</div>
+                        <div class="mt-2 bg-white p-2.5 rounded border text-[11px] text-slate-600 shadow-xs">
+                            📌 <strong>학교 실무 가이드:</strong><br>
+                            나이스 외부강의 신고서를 등록할 필요가 없습니다. 공문을 첨부하여 소속 학교에 <strong>[출장] 또는 관련 복무 신청</strong>만 완료하시면 됩니다.
+                        </div>
+                    `;
+                    res.className = "text-sm mt-3 text-blue-600 bg-blue-50 p-4 rounded-xl border border-blue-200 shadow-xs";
+                    return;
+                }
+            }
+
+            // 3) EBS 특례 판정
+            if (normalizedInput.includes("EBS") || normalizedInput.includes("한국교육방송공사")) {
+                res.innerHTML = `
+                    <div class="font-bold text-sm mb-1"><i class="fa-solid fa-tv mr-1"></i> 📺 EBS (한국교육방송공사) 특례 판정</div>
+                    <div class="text-xs"><strong>"EBS"</strong>는 교육부 특별 지침상 공익 목적 수능 연계 사업 등에 한해 <strong>외부강의 신고가 유연하게 면제</strong>됩니다.</div>
+                    <div class="mt-2 text-indigo-700 font-bold text-xs">⚠️ [주의 사항]</div>
+                    <div class="mt-1 text-[11px] text-slate-500 leading-relaxed">단발성 특강 외에 정기 교재 집필이나 연속적인 수능 검토 등은 사전에 학교장 겸직허가를 꼭 받으셔야 합니다.</div>
+                `;
+                res.className = "text-sm mt-3 text-indigo-600 bg-indigo-50 p-4 rounded-xl border border-indigo-200 shadow-xs";
+                return;
+            }
+
+            // 4) 규칙 추론 (폴백 로직)
+            const govKeywords = ['교육청', '교육지원청', '국립', '공립', '시청', '도청', '구청', '군청', '교육부', '행정안전부', '지방자치단체', '의회'];
+            const nonGovKeywords = ['사립', '재단', '공사', '공단', '진흥원', '협회', '조합', '센터', '주식회사', '사단법인', '복지관', '연구원', '연구소', '병원'];
+
+            let isGov = govKeywords.some(kw => normalizedInput.includes(kw));
+            let isNonGov = nonGovKeywords.some(kw => normalizedInput.includes(kw));
+
+            if(isNonGov) {
+                res.innerHTML = `
+                    <div class="font-bold text-sm mb-1">⚠️ 공공기관 / 사단·재단법인 추정</div>
+                    <div class="text-xs">입력하신 <strong>"${input}"</strong>은(는) 명칭 특성상 공기업 혹은 사설 단체일 확률이 높습니다.</div>
+                    <div class="mt-2 text-rose-600 font-semibold text-xs">➡️ 청탁금지법상 [외부강의등 신고 필수 대상]으로 간주하십시오.</div>
+                `;
+                res.className = "text-sm mt-3 text-rose-600 bg-rose-50 p-3 rounded-lg border border-rose-200";
+            } else if(isGov) {
+                res.innerHTML = `
+                    <div class="font-bold text-sm mb-1">✅ 지자체 / 교육청 소속기관 추정</div>
+                    <div class="text-xs">입력하신 <strong>"${input}"</strong>은(는) 공식 지자체 및 국가 직속 조직 명칭에 가깝습니다.</div>
+                    <div class="mt-2 text-blue-600 font-semibold text-xs">➡️ 청탁금지법 제10조에 따른 [신고 면제 대상]일 확률이 높습니다.</div>
+                `;
+                res.className = "text-sm mt-3 text-blue-600 bg-blue-50 p-3 rounded-lg border border-blue-200";
+            } else {
+                // 🔗 판별 불명 시 정부24 링크 보강 연동
+                res.innerHTML = `
+                    <div class="font-bold text-sm mb-1 text-amber-700">🤔 판별 불명 (정부 공식 조직도 확인 권장)</div>
+                    <div class="text-xs mb-2">명칭만으로는 국가기관 여부를 확정하기 어렵습니다. 아래 링크에서 직접 검색하여 등록 여부를 확인해 보시는 것을 적극 추천합니다.</div>
+                    
+                    <a href="https://www.gov.kr/portal/orgSite?srchOrder=&srchOrgCd=&srchAsndOrgClsCd=&srchOrgAstCd=&srchFsOrgAstCd=ALL&jrsdOrgCdAll=&jrsdOrgAstCd=ALL&jrsdOrgAstCd=ALL&jrsdOrgAstCd=ALL&jrsdOrgAstCd=ALL&srchTxt=${encodeURIComponent(input)}" target="_blank" class="block bg-amber-100 hover:bg-amber-200 p-2.5 rounded text-xs font-bold text-center text-amber-950 border border-amber-300 transition mb-2 shadow-xs">
+                        <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> 행정안전부 정부24 조직도에서 "${input}" 검색하기
+                    </a>
+
+                    <div class="text-[11px] text-slate-500 leading-relaxed bg-white p-2 rounded border">
+                        💡 <strong>판별 팁:</strong> 해당 사이트에 소속 조직이 조회된다면 청탁금지법상 <strong>'신고 면제 대상(국가기관·지자체)'</strong>에 해당하며, 조회되지 않거나 출연기관/공공기관으로 명시되어 있다면 <strong>'신고 대상'</strong>입니다.
+                    </div>
+                `;
+                res.className = "text-sm mt-3 text-amber-600 bg-amber-50 p-3 rounded-lg border border-amber-200";
+            }
+        }
+
+        // 화면 전환 로직 (완벽 작동 검증 완료)
+        function openMenu(menu) {
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('resultBox').classList.add('hidden');
+            document.getElementById('qaSection').classList.add('hidden'); // 메뉴 진입 시 메인 FAQ 가림
+            
+            ['A', 'B', 'C', 'D'].forEach(function(m) {
+                document.getElementById('menu' + m).classList.add('hidden');
+            });
+            document.getElementById('menu' + menu).classList.remove('hidden');
+            
+            if(menu === 'A') {
+                document.getElementById('stepA1').classList.remove('hidden');
+                document.getElementById('stepA2').classList.add('hidden');
+                document.getElementById('stepA3').classList.add('hidden');
+                document.getElementById('stepA4').classList.add('hidden');
+                document.getElementById('stepACalculator').classList.add('hidden');
+                document.getElementById('agencyInput').value = '';
+                document.getElementById('agencyResult').classList.add('hidden');
+            }
+        }
+
+        function goBack() {
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('qaSection').classList.remove('hidden'); // 메인으로 오면 FAQ 다시 보임
+            ['menuA', 'menuB', 'menuC', 'menuD', 'resultBox'].forEach(function(id) {
+                document.getElementById(id).classList.add('hidden');
+            });
+        }
+
+        // Q&A 아코디언 확장 함수
+        function toggleFAQ(idx) {
+            const ans = document.getElementById('faqAns' + idx);
+            const icon = document.getElementById('faqIcon' + idx);
+            if(ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                ans.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        function setRequestedByGov(flag) {
+            isRequestedByGovernment = flag;
+            nextStep('A', 4);
+        }
+
+        function nextStep(menu, step) {
+            if (menu === 'A') {
+                document.getElementById('stepA1').classList.add('hidden');
+                document.getElementById('stepA2').classList.add('hidden');
+                document.getElementById('stepA3').classList.add('hidden');
+                document.getElementById('stepA4').classList.add('hidden');
+                
+                if (step === 2) {
+                    document.getElementById('stepA2').classList.remove('hidden');
+                } else if (step === 3) {
+                    document.getElementById('stepA3').classList.remove('hidden');
+                } else if (step === 4) {
+                    document.getElementById('stepA4').classList.remove('hidden');
+                } else if (step === 'final-once' || step === 'final-loop') {
+                    lectureTypeTarget = step;
+                    
+                    if(isRequestedByGovernment && step === 'final-once') {
+                        processLectureResult();
+                        return;
+                    }
+
+                    document.getElementById('stepACalculator').classList.remove('hidden');
+                    
+                    if (step === 'final-loop') {
+                        document.getElementById('dateDiv').classList.add('hidden');
+                        document.getElementById('groupReportDiv').classList.add('hidden');
+                        document.getElementById('monthlyCountDiv').classList.add('hidden');
+                        document.getElementById('monthlyHoursDiv').classList.add('hidden');
+                    } else {
+                        document.getElementById('dateDiv').classList.remove('hidden');
+                        document.getElementById('groupReportDiv').classList.remove('hidden');
+                        document.getElementById('monthlyCountDiv').classList.remove('hidden');
+                        document.getElementById('monthlyHoursDiv').classList.remove('hidden');
+                    }
+                }
+            }
+        }
+
+        function calculateDeadline() {
+            const dateInput = document.getElementById('lectureDate').value;
+            if(!dateInput) return null;
+            
+            let targetDate = new Date(dateInput);
+            targetDate.setDate(targetDate.getDate() + POLICY.reportDays);
+            
+            let dayOfWeek = targetDate.getDay();
+            if (dayOfWeek === 6) {
+                targetDate.setDate(targetDate.getDate() + 2);
+            } else if (dayOfWeek === 0) {
+                targetDate.setDate(targetDate.getDate() + 1);
+            }
+            return targetDate.toISOString().split('T')[0];
+        }
+
+        function processLectureResult() {
+            const feePerHour = Number(document.getElementById('feePerHour').value || 0);
+            const monthlyCount = Number(document.getElementById('monthlyCount').value || 0);
+            const monthlyHours = Number(document.getElementById('monthlyHours').value || 0);
+            const isGroupReport = document.getElementById('isGroupReport') ? document.getElementById('isGroupReport').checked : false;
+            const deadlineDate = calculateDeadline();
+
+            document.getElementById('menuA').classList.add('hidden');
+            const resultBox = document.getElementById('resultBox');
+            const badge = document.getElementById('resultBadge');
+            const title = document.getElementById('resultTitle');
+            const content = document.getElementById('resultContent');
+            resultBox.classList.remove('hidden');
+
+            let warnings = [];
+
+            if (feePerHour > POLICY.teacherMaxFee) {
+                warnings.push('⚠️ <strong>시간당 단가 상한 초과:</strong> 공무원/교직원의 법정 상한액은 시간당 ' + POLICY.teacherMaxFee.toLocaleString() + '원입니다. 현재 입력하신 금액은 법률 위반 소지가 있으므로 사후 초과액 반환 조치를 검토하십시오.');
+            }
+
+            let isOverMonthlyLimit = false;
+            if (lectureTypeTarget === 'final-once' && (monthlyCount > POLICY.maxMonthlyCount || monthlyHours > POLICY.maxMonthlyHours)) {
+                isOverMonthlyLimit = true;
+            }
+
+            let deadlineText = deadlineDate ? '<span class="text-indigo-600 font-bold">' + deadlineDate + '</span>' : '강의 종료일 기준 10일 이내';
+            if (isGroupReport) {
+                deadlineText += ' <br><span class="text-rose-500 font-semibold text-xs">* 일괄(묶음)신고 마감 기한은 일괄 기간 내 [최초 강의 종료일]을 기준으로 산정되니 일정이 꼬이지 않도록 주의하십시오.</span>';
+            }
+
+            if (lectureTypeTarget === 'final-loop') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-yellow-100 text-yellow-800";
+                title.innerText = "🟡 사전 겸직허가 신청 대상";
+                content.innerHTML = '<p>대학 정기 출강이나 주기적인 연속성 활동은 <strong>[사전 겸직허가 신청] 대상</strong>입니다.</p><div class="bg-slate-50 p-3 rounded-xl border space-y-1 text-xs mt-2"><div>• <strong>신청 방법:</strong> 활동 시작 전, 반드시 나이스(NEIS)를 통해 증빙 공문을 첨부하고 학교장의 겸직 승인을 받아야 합니다.</div><div class="text-indigo-600 font-semibold">• <strong>중요 안내:</strong> 겸직허가를 정식으로 득한 계속성 외부 활동은 매번 나이스에 외부강의 신고를 중복 진행하지 않습니다.</div></div>' + 
+                (warnings.length > 0 ? '<div class="bg-rose-50 border border-rose-200 p-3 rounded-xl text-xs text-rose-800 space-y-2 mt-3">' + warnings.join('<br>') + '</div>' : '');
+            
+            } else if (isRequestedByGovernment && lectureTypeTarget === 'final-once') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-blue-100 text-blue-800";
+                title.innerText = "🔵 외부강의등 신고 제외 (면제) 대상";
+                content.innerHTML = '<p>청탁금지법 제10조 제1항에 의거, 국가기관 및 지방자치단체가 요청한 일회성 외부강의는 <strong>신고 의무에서 완전히 제외</strong>됩니다.</p><div class="bg-slate-50 p-3 rounded-xl border space-y-1 text-xs mt-2"><div>• <strong>조치사항:</strong> 나이스 외부강의 시스템에 등록하실 필요가 전혀 없습니다. 공문을 첨부하여 소속 학교에 <strong>[출장] 또는 관련 복무 상신만 처리</strong>하시면 모든 복무 의무가 완결됩니다.</div></div>';
+            
+            } else if (isOverMonthlyLimit) {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-amber-100 text-amber-800";
+                title.innerText = "🟡 [겸직허가 허용 기준 초과] 겸직 전환 권고";
+                content.innerHTML = '<p class="text-rose-600 font-semibold">이번 달 누적 외부강의 통계가 지침상 허용 기준(월 ' + POLICY.maxMonthlyCount + '회 또는 ' + POLICY.maxMonthlyHours + '시간)을 초과하였습니다.</p><p class="mt-1 text-xs">일회성 강의라 할지라도 횟수와 시간이 교육청 월간 상한선을 초과하게 되면 단순 신고가 아니라 사전에 <strong>[겸직허가]를 별도로 득하여 복무 관리 통제</strong>를 받아야 하는 규정이 있으니 행정실 또는 감사 담당자에게 확인이 필요합니다.</p>' + (warnings.length > 0 ? '<div class="bg-rose-50 border border-rose-200 p-3 rounded-xl text-xs text-rose-800 space-y-2 mt-3">' + warnings.join('<br>') + '</div>' : '');
+            
+            } else {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-green-100 text-green-800";
+                title.innerText = "🟢 일회성 외부강의등 신고 대상";
+                content.innerHTML = '<p>본 활동은 단발성 외부 활동입니다. <strong>사전 겸직허가 절차 없이 나이스 [외부강의등 신고]만 기한 내 완료</strong>하시면 됩니다.</p><div class="bg-slate-50 p-3 rounded-xl border space-y-1 text-xs mt-2"><div>• <strong>나이스 상신 마감 기한:</strong> ' + deadlineText + ' (행동강령상 강의 종료일 포함 10일 이내)</div></div>' + (warnings.length > 0 ? '<div class="bg-rose-50 border border-rose-200 p-3 rounded-xl text-xs text-rose-800 space-y-2 mt-3">' + warnings.join('<br>') + '</div>' : '');
+            }
+        }
+
+        function showResult(type) {
+            ['menuA', 'menuB', 'menuC', 'menuD'].forEach(function(id) {
+                document.getElementById(id).classList.add('hidden');
+            });
+            const resultBox = document.getElementById('resultBox');
+            const badge = document.getElementById('resultBadge');
+            const title = document.getElementById('resultTitle');
+            const content = document.getElementById('resultContent');
+            resultBox.classList.remove('hidden');
+
+            if(type === 'A-NOT') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-green-100 text-green-800";
+                title.innerText = "🟢 청탁금지법상 외부강의 범위 제외 대상";
+                content.innerHTML = '<p>1:1 인터뷰, 서면 문서 평가 위원 활동, 시험 문항 출제 위원, 순수 도서 저술 집필 등은 지식을 직접 구두로 전달하는 형태나 회의체가 아니므로 \'외부강의등\' 규정 범위에 들어가지 않습니다. 별도의 나이스 신고는 생략 가능합니다.</p>';
+            } else if (type === 'C-YES') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-rose-100 text-rose-800";
+                title.innerText = "🔴 인터넷 개인 미디어 사전 겸직허가 필수";
+                content.innerHTML = '<p>인터넷 개인 미디어(유튜브, 블로그 등)에서 수익 창출 기본 요건을 충족하여 플랫폼으로부터 <strong>최초 수익(대가)이 발생하는 시점 직전에는 무조건 사전에 학교장 겸직 승인</strong>을 득해야만 합니다.</p>';
+            } else if (type === 'C-NO') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-green-100 text-green-800";
+                title.innerText = "🟢 겸직 허가 대상 제외";
+                content.innerHTML = '<p>수익창출 조건에 미달되어 일체의 광고수익이나 협찬 수익이 발생하지 않는 순수 취미형 미디어 활동은 겸직허가 대상이 아닙니다. 단, 공무원으로서 품위유지 및 비밀엄수 의무는 동일하게 적용됩니다.</p>';
+            } else if (type === 'D-YES') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-yellow-100 text-yellow-800";
+                title.innerText = "🟡 상시 영리 및 비영리 겸직허가 대상";
+                content.innerHTML = '<p>상업용 부동산 임대 사업자 등록, 지속적인 외부 소설/교재 저술, 비영리 법인/재단 임원직 수락, 공동주택 아파트 입주자 동대표 활동 등은 <strong>해당 업무 개시 전 학교장에게 사전 겸직 허가</strong>를 전 승인받아야 복무 위반이 되지 않습니다.</p>';
+            } else if (type === 'D-NO') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-green-100 text-green-800";
+                title.innerText = "🟢 별도 복무 절차 불요";
+                content.innerHTML = '<p>일회성 봉사활동 형태의 재능 기부나, 어떠한 경제적 대가도 지속성도 없는 순수 개인 영역의 취미 동호회 활동 등은 복무 절차 대상이 아닙니다.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
