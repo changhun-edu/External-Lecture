@@ -446,4 +446,49 @@
                 content.innerHTML = '<p>청탁금지법 제10조에 따라 국가기관 및 지방자치단체에서 요청한 외부강의는 <strong>신고 대상에서 제외</strong>됩니다.</p><div class="bg-slate-50 p-3 rounded-xl border space-y-1 text-xs mt-2"><div>• <strong>조치사항:</strong> 별도의 외부강의등 신고서 작성 없이, 소속 기관의 <strong>출장(여비 부지급) 또는 연가 등 복무 상신만 처리</strong>하시면 됩니다.</div></div>';
             
             } else if (isOverMonthlyLimit) {
-                badge.className = "inline-block px-3 py-1 rounded-full text-xs font
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-amber-100 text-amber-800";
+                title.innerText = "🟡 [겸직허가 신청 권고] 월간 허용 기준 초과";
+                content.innerHTML = '<p class="text-rose-600 font-semibold">이번 달 누적 외부강의가 허용 기준(월 ' + POLICY.maxMonthlyCount + '회 또는 ' + POLICY.maxMonthlyHours + '시간)을 초과했습니다.</p><p class="mt-1">외부강의 빈도가 기준을 초과하면 단순 신고가 아닌, <strong>[사전 겸직허가]를 받아 복무를 관리하는 것이 원칙</strong>입니다.</p>' + (warnings.length > 0 ? '<div class="bg-rose-50 border border-rose-200 p-3 rounded-xl text-xs text-rose-800 space-y-2 mt-3">' + warnings.join('<br>') + '</div>' : '');
+            
+            } else {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-green-100 text-green-800";
+                title.innerText = "🟢 일회성 외부강의 신고 대상";
+                content.innerHTML = '<p>본 활동은 단발성 강의입니다. <strong>사전 겸직허가 없이 [외부강의등 신고]만 진행</strong>하시면 됩니다.</p><div class="bg-slate-50 p-3 rounded-xl border space-y-1 text-xs mt-2"><div>• <strong>NEIS 마감 기한:</strong> ' + deadlineText + '</div></div>' + (warnings.length > 0 ? '<div class="bg-rose-50 border border-rose-200 p-3 rounded-xl text-xs text-rose-800 space-y-2 mt-3">' + warnings.join('<br>') + '</div>' : '');
+            }
+        }
+
+        function showResult(type) {
+            ['menuA', 'menuB', 'menuC', 'menuD'].forEach(function(id) {
+                document.getElementById(id).classList.add('hidden');
+            });
+            const resultBox = document.getElementById('resultBox');
+            const badge = document.getElementById('resultBadge');
+            const title = document.getElementById('resultTitle');
+            const content = document.getElementById('resultContent');
+            resultBox.classList.remove('hidden');
+
+            if(type === 'A-NOT') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-green-100 text-green-800";
+                title.innerText = "🟢 청탁금지법상 외부강의 제외 대상";
+                content.innerHTML = '<p>1:1 인터뷰, 서면 평가 및 심사, 시험 출제 위원 활동, 도서 집필 등은 \'외부강의등\' 범위에 포함되지 않아 별도 신고가 필요 없습니다.</p>';
+            } else if (type === 'C-YES') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-rose-100 text-rose-800";
+                title.innerText = "🔴 인터넷 개인 미디어 사전 겸직허가 필수";
+                content.innerHTML = '<p>수익 창출 요건을 충족하여 최초 대자가 발생하는 시점부터는 <strong>반드시 사전에 학교장 겸직허가</strong>를 받아야 합니다.</p>';
+            } else if (type === 'C-NO') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-green-100 text-green-800";
+                title.innerText = "🟢 겸직 허가 불요 (사전 보고 권장)";
+                content.innerHTML = '<p>수익창출 조건 미달로 광고 수익이 없는 단순 미디어 활동은 겸직허가 대상이 아닙니다.</p>';
+            } else if (type === 'D-YES') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-yellow-100 text-yellow-800";
+                title.innerText = "🟡 영리 및 비영리 겸직허가 대상";
+                content.innerHTML = '<p>부동산 임대업, 계속성 있는 외부 저술, 비영리 법인 임원 및 동대표 등은 <strong>활동 개시 전 사전 겸직허가</strong>를 받아야 합니다.</p>';
+            } else if (type === 'D-NO') {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-green-100 text-green-800";
+                title.innerText = "🟢 복무 조치 불요";
+                content.innerHTML = '<p>일회성 재능 기부, 대가가 없는 순수 개인 취미 활동 등은 절차가 필요 없습니다.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
