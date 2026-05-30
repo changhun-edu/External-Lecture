@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>외부강의 & 겸직 복무 자가진단 시스템 v5.2</title>
+    <title>외부강의 & 겸직 복무 자가진단 시스템 v5.3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -161,6 +161,37 @@
                         <strong>수익 창출 시점부터 의무입니다.</strong> 플랫폼으로부터 <span class="text-rose-600 font-bold">최초 대가가 발생하는 시점 직전</span>에 반드시 학교장 겸직 허가를 신청해야 합니다. 수익이 전혀 없는 단순 취미 업로드는 허가가 필요 없습니다.
                     </div>
                 </div>
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                    <button onclick="toggleFAQ(5)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                        <span>💡 Q5. 영리업무와 비영리업무의 정확한 기준이 무엇인가요?</span>
+                        <i id="faqIcon5" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faqAns5" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
+                        <strong>영리업무</strong>는 상업·공업·금융업 등을 스스로 경영하여 명백히 수익을 추구하거나, 사기업체의 임원이 되는 것, 직무 관련 기업 투자 등 <span class="text-amber-600 font-bold">'계속적으로 재산상 이득을 취하는 업무'</span>를 의미합니다. <strong>비영리업무</strong>는 이에 해당하지 않는 학술, 자선, 종교 등 목적의 사적 활동을 뜻하며, 비영리 성격이라도 '계속성'을 띠고 종사한다면 사전에 반드시 겸직 허가를 득해야 합니다.
+                    </div>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                    <button onclick="toggleFAQ(6)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                        <span>💡 Q6. 겸직 허가를 받으면 기간이 얼마나 유지되나요?</span>
+                        <i id="faqIcon6" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faqAns6" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
+                        겸직 허가 기간은 <strong>2년 이내가 원칙</strong>입니다. 다만, 복무 점검 및 영리성 관리가 대폭 강화된 <span class="text-rose-600 font-bold">사교육업체 관련 활동 및 인터넷 개인방송(유튜브 등)의 경우에는 최대 1년</span>으로 제한되므로 매 학년도 말 또는 만료 전에 반드시 갱신 신청을 완료해야 합니다. (시간강사, 자문위원 등 임명·위촉 기간이 수 개월 단위로 명시된 업무는 그 계약 종료일까지 허가 가능)
+                    </div>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                    <button onclick="toggleFAQ(7)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                        <span>💡 Q7. 겸직 활동 시 반드시 지켜야 할 의무나 준수사항은 무엇인가요?</span>
+                        <i id="faqIcon7" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                    </button>
+                    <div id="faqAns7" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
+                        겸직 허가를 승인받은 교원은 범위 내 성실 활동 의무 외에도 공직자로서 다음 법령을 상시 준수해야 합니다:
+                        <ul class="list-disc pl-5 mt-2 space-y-1.5 text-slate-600 text-sm md:text-base">
+                            <li><strong class="text-slate-900">비밀 엄수 의무 (국가공무원법 제60조):</strong> 직무수행 중 알게 된 내부 비밀이나 기관 미공개 정보를 사적 겸직 활동에 연계·누설 금지</li>
+                            <li><strong class="text-slate-900">품위 유지 의무 (국가공무원법 제63조):</strong> 타인의 명예나 초상권 침해, 비속어 사용, 과도한 선정성·사행성 콘텐츠 유포 등 교원 품위를 저해하는 경우 예고 없이 즉시 겸직 허가가 취소될 수 있습니다.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -247,9 +278,15 @@
                         <i class="fa-solid fa-check text-3xl"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-green-700 mb-2">모든 관문 통과 완료!</h3>
-                    <div class="text-green-900 bg-green-50 border border-green-200 p-4 rounded-xl font-semibold mb-6 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
-                        🎉 축하합니다! 선생님이 계획하신 활동은 규정상 겸직 허가를 받을 수 있는 기본 요건(계속성, 공무 무관, 능률 비저해, 법령 준수)을 모두 충족합니다.<br><br>
-                        수익 발생 또는 활동 개시 전에 <strong>[나이스 복무] - [겸직허가신청]</strong> 메뉴를 통해 관련 증빙 서류(계약서, 임대등록증 등)를 첨부하여 사전 결재를 진행해 주시기 바랍니다.
+                    <div class="text-green-900 bg-green-50 border border-green-200 p-4 rounded-xl font-semibold mb-6 max-w-lg mx-auto leading-relaxed text-sm md:text-base text-left">
+                        <p class="text-center mb-4">🎉 축하합니다! 선생님이 계획하신 활동은 규정상 겸직 허가를 받을 수 있는 기본 요건(계속성, 공무 무관, 능률 비저해, 법령 준수)을 모두 충족합니다.<br><br>
+                        수익 발생 또는 활동 개시 전에 <strong>[나이스 복무] - [겸직허가신청]</strong> 메뉴를 통해 관련 증빙 서류(계약서, 임대등록증 등)를 첨부하여 사전 결재를 진행해 주시기 바랍니다.</p>
+                        
+                        <div class="bg-white border border-dashed border-slate-300 p-3 rounded-lg text-xs md:text-sm text-slate-700 font-normal space-y-1.5 mt-4">
+                            <span class="inline-block bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded text-[11px] mb-1">💡 겸직 승인 후 필수 준수사항(가이드 반영)</span>
+                            <p>• <strong>비밀 엄수 의무 (국가공무원법 제60조):</strong> 직무 수행 중 알게 된 비밀이나 소속 기관의 미공개 정보를 외부 겸직 활동에 절대 이용하거나 누설해서는 안 됩니다.</p>
+                            <p>• <strong>품위 유지 의무 (국가공무원법 제63조):</strong> 타인의 명예훼손, 비속어 사용, 선정성 자극 등 교원으로서의 품위를 손상하는 행위가 확인될 경우 즉시 겸직 허가가 취소되거나 징계 처분을 받을 수 있습니다.</p>
+                        </div>
                     </div>
                     <button onclick="goHome()" class="px-6 py-2 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition">메인 화면으로 돌아가기</button>
                 </div>
@@ -419,7 +456,7 @@
             }
         }
 
-        // FAQ 토글 기능
+        // FAQ 토글 기능 (동적 인덱싱 유지)
         function toggleFAQ(idx) {
             const ans = document.getElementById('faqAns' + idx);
             const icon = document.getElementById('faqIcon' + idx);
@@ -448,7 +485,7 @@
             document.getElementById('qaSection').classList.remove('hidden');
         }
 
-        // E섹션 셀프 모의고사 로직
+        // E(실제 D메뉴)섹션 셀프 모의고사 로직
         function startTypeE() {
             hideAll();
             document.getElementById('section-E').classList.remove('hidden');
@@ -461,6 +498,7 @@
                 document.getElementById('step-e-' + i).classList.add('hidden');
             }
             document.getElementById('step-e-fail').classList.add('hidden');
+            document.getElementById('step-e-success').classList.remove('hidden'); // 성공창 리셋
             document.getElementById('step-e-success').classList.add('hidden');
             document.getElementById('step-e-1').classList.remove('hidden');
         }
@@ -480,12 +518,12 @@
             }
         }
 
-        // A유형 로직 (클릭 시 하단으로 스크롤 자동 이동 추가)
+        // A유형 로직 (클릭 시 하단 스크롤 유지)
         function startTypeA() {
             hideAll();
             const precheck = document.getElementById('precheck-section');
             precheck.classList.remove('hidden');
-            precheck.scrollIntoView({ behavior: 'smooth' }); // 자동 스크롤 로직 반영
+            precheck.scrollIntoView({ behavior: 'smooth' });
             
             const radios = document.getElementsByName('precheck');
             radios.forEach(r => r.checked = false);
@@ -506,7 +544,7 @@
                 document.getElementById('precheck-section').classList.add('hidden');
                 const secA = document.getElementById('section-A');
                 secA.classList.remove('hidden');
-                secA.scrollIntoView({ behavior: 'smooth' }); // 자동 스크롤 로직 반영
+                secA.scrollIntoView({ behavior: 'smooth' });
                 checkThreshold(); 
             }
         }
@@ -635,7 +673,7 @@
             resultCard.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // B, C, D 아코디언 로직 유지
+        // B, C, D 아코디언 로직 유지 (아이디어 2: C(기존 D)메뉴 디테일 보강 반영)
         function showStaticResult(category) {
             hideAll();
             const resultCard = document.getElementById('result-card');
@@ -775,6 +813,27 @@
                                     <li><strong class="text-slate-900">증빙 서류 첨부:</strong> 나이스(NEIS) 신청 시 출판계약서, 임대사업자등록증, 위촉장, 단체 회칙 등을 반드시 스캔하여 첨부해야 반려되지 않습니다.</li>
                                     <li><strong class="text-slate-900">유효 기간 및 갱신:</strong> 겸직 허가 기간은 <strong>최장 1년</strong>(통상 학년도 단위)이며, 활동이 계속될 경우 만료 전 매년 재심사 및 연장 신청을 해야 합니다.</li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                                <span class="text-slate-800"><i class="fa-solid fa-gavel text-slate-600 mr-2"></i>법령상 영리업무 기준 및 허가 기간 세부 지침</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-3">
+                                <div>
+                                    <strong class="text-indigo-900 block mb-1">⚖️ 영리업무의 판단 기준</strong>
+                                    <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                                        <li>상업·공업·금융업 등 영리적인 업무를 스스로 경영하여 영리를 추구함이 뚜렷한 업무</li>
+                                        <li>영리를 목적으로 하는 사기업체의 이사·감사·지배인 등 임원이 되는 것</li>
+                                        <li>본인의 직무와 관련 있는 타인의 기업에 대한 투자 행위</li>
+                                        <li>그 밖에 계속적으로 재산상 이득을 목적으로 하는 업무</li>
+                                    </ul>
+                                </div>
+                                <div class="pt-2 border-t border-slate-100">
+                                    <strong class="text-indigo-900 block mb-1">⏳ 겸직 허가 허용 기간 지침</strong>
+                                    <p class="text-xs md:text-sm leading-relaxed">일반 겸직은 복무규정에 의거하여 <strong>원칙적으로 2년 이내</strong>로 허가됩니다. 다만 복무점검 및 관리가 더욱 엄격히 요구되는 <span class="text-rose-600 font-bold">사교육업체 관련 및 인터넷 개인방송(유튜브 등) 활동은 최대 1년</span>으로 제한되므로, 활동 연장 시 반드시 기간 만료 전 연장 및 갱신 신청을 완료해야 합니다.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
