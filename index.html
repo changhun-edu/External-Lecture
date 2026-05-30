@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>외부강의 & 겸직 복무 자가진단 시스템 v5.1</title>
+    <title>외부강의 & 겸직 복무 자가진단 시스템 v5.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -56,7 +56,7 @@
                             <i class="fa-brands fa-youtube text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="font-bold text-lg text-slate-900">C. 인터넷 개인 미디어 활동</h3>
+                            <h3 class="font-bold text-lg text-slate-900">B. 인터넷 개인 미디어 활동</h3>
                             <p class="text-slate-500 text-sm mt-1">유튜브 운영 및 영상 업로드 (수익 창출 요건별 기준 안내)</p>
                         </div>
                     </button>
@@ -66,7 +66,7 @@
                             <i class="fa-solid fa-building-circle-check text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="font-bold text-lg text-slate-900">D. 기타 영리/비영리 업무</h3>
+                            <h3 class="font-bold text-lg text-slate-900">C. 기타 영리/비영리 업무</h3>
                             <p class="text-slate-500 text-sm mt-1">부동산 임대업, 계속적 저술, 동대표, 학회 임원 등</p>
                         </div>
                     </button>
@@ -80,7 +80,7 @@
                         <i class="fa-solid fa-clipboard-question text-3xl"></i>
                     </div>
                     <div class="z-10 text-center md:text-left">
-                        <h3 class="font-bold text-xl md:text-2xl text-white mb-1">E. 내 활동은 겸직 허가가 날까? 1분 셀프 모의고사</h3>
+                        <h3 class="font-bold text-xl md:text-2xl text-white mb-1">D. 내 활동은 겸직 허가가 날까? 1분 셀프 모의고사</h3>
                         <p class="text-emerald-50 text-sm md:text-base">"이게 겸직 대상인가?" 헷갈리는 규정, 실제 심사 기준 5가지 질문으로 확인해 보세요!</p>
                     </div>
                 </button>
@@ -98,7 +98,7 @@
                         <i class="fa-solid fa-user-slash text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-lg text-slate-900">B. 학원 출제 & 사교육 컨설팅</h3>
+                        <h3 class="font-bold text-lg text-slate-900">E. 학원 출제 & 사교육 컨설팅</h3>
                         <p class="text-slate-500 text-sm mt-1">입시학원 문항 출제, 사설 모의고사 검토, 사교육 컨설팅 (일회성·계속성 불문 절대 금지)</p>
                     </div>
                 </button>
@@ -448,7 +448,7 @@
             document.getElementById('qaSection').classList.remove('hidden');
         }
 
-        // [신규] E섹션 셀프 모의고사 로직 (5단계)
+        // E섹션 셀프 모의고사 로직
         function startTypeE() {
             hideAll();
             document.getElementById('section-E').classList.remove('hidden');
@@ -469,24 +469,24 @@
             document.getElementById('step-e-' + currentStep).classList.add('hidden');
             
             if(isFail) {
-                // 하나라도 위반 요소/오답이 있으면 실패 처리
                 document.getElementById('fail-reason-text').innerText = failReason;
                 document.getElementById('step-e-fail').classList.remove('hidden');
             } else {
                 if(currentStep === 5) {
-                    // 5단계까지 무사히 통과
                     document.getElementById('step-e-success').classList.remove('hidden');
                 } else {
-                    // 다음 질문으로 이동
                     document.getElementById('step-e-' + (currentStep + 1)).classList.remove('hidden');
                 }
             }
         }
 
-        // A유형 로직
+        // A유형 로직 (클릭 시 하단으로 스크롤 자동 이동 추가)
         function startTypeA() {
             hideAll();
-            document.getElementById('precheck-section').classList.remove('hidden');
+            const precheck = document.getElementById('precheck-section');
+            precheck.classList.remove('hidden');
+            precheck.scrollIntoView({ behavior: 'smooth' }); // 자동 스크롤 로직 반영
+            
             const radios = document.getElementsByName('precheck');
             radios.forEach(r => r.checked = false);
         }
@@ -501,9 +501,12 @@
                 document.getElementById('resultHeader').innerHTML = `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2">🟢 외부강의등 신고 제외 대상입니다.</h3>`;
                 document.getElementById('resultContent').innerHTML = `<p class="font-semibold text-green-900">별도의 신고 의무가 없습니다.</p>`;
                 resultCard.classList.remove('hidden');
+                resultCard.scrollIntoView({ behavior: 'smooth' });
             } else {
                 document.getElementById('precheck-section').classList.add('hidden');
-                document.getElementById('section-A').classList.remove('hidden');
+                const secA = document.getElementById('section-A');
+                secA.classList.remove('hidden');
+                secA.scrollIntoView({ behavior: 'smooth' }); // 자동 스크롤 로직 반영
                 checkThreshold(); 
             }
         }
