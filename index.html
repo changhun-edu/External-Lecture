@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>외부강의 & 겸직 복무 자가진단 시스템 v5.0 (셀프 모의심사 추가)</title>
+    <title>외부강의 & 겸직 복무 자가진단 시스템 v5.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -28,59 +28,82 @@
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
         
-        <div id="menu-section" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <button onclick="startTypeA()" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-indigo-500 hover:shadow-md transition text-left w-full group">
-                <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition">
-                    <i class="fa-solid fa-chalkboard-user text-xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg text-slate-900">A. 일반 외부강의·강연·기고</h3>
-                    <p class="text-slate-500 text-sm mt-1">사례금을 받는 일시적 강의, 토론, 자문, 원고 기고 등</p>
-                </div>
-            </button>
+        <div id="menu-section" class="mb-6 fade-in">
+            
+            <div class="mb-6 border-2 border-indigo-200 bg-indigo-50/40 rounded-2xl p-4 md:p-6 shadow-sm">
+                <h2 class="text-lg md:text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-chalkboard-user text-indigo-600"></i> [구역 1] 일회성 활동 (사전·사후 신고 대상)
+                </h2>
+                <button onclick="startTypeA()" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-indigo-500 hover:shadow-md transition text-left w-full group">
+                    <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition shrink-0">
+                        <i class="fa-solid fa-pen-nib text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-900">A. 일반 외부강의·강연·기고</h3>
+                        <p class="text-slate-500 text-sm mt-1">단발성으로 요청받은 사례금을 받는 강의, 토론, 자문, 원고 기고 등</p>
+                    </div>
+                </button>
+            </div>
 
-            <button onclick="showStaticResult('B')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-red-500 hover:shadow-md transition text-left w-full group">
-                <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition">
-                    <i class="fa-solid fa-user-slash text-xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg text-slate-900">B. 학원 출제 & 사교육 컨설팅</h3>
-                    <p class="text-slate-500 text-sm mt-1">입시학원, 영리 매체 출제 및 입시 컨설팅 (절대 금지)</p>
-                </div>
-            </button>
+            <div class="mb-6 border-2 border-emerald-200 bg-emerald-50/40 rounded-2xl p-4 md:p-6 shadow-sm">
+                <h2 class="text-lg md:text-xl font-bold text-emerald-900 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-briefcase text-emerald-600"></i> [구역 2] 계속적 활동 (업무 개시 전 겸직허가 필수)
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <button onclick="showStaticResult('C')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-amber-500 hover:shadow-md transition text-left w-full group">
+                        <div class="p-3 bg-amber-50 text-amber-600 rounded-lg group-hover:bg-amber-600 group-hover:text-white transition shrink-0">
+                            <i class="fa-brands fa-youtube text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-900">C. 인터넷 개인 미디어 활동</h3>
+                            <p class="text-slate-500 text-sm mt-1">유튜브 운영 및 영상 업로드 (수익 창출 요건별 기준 안내)</p>
+                        </div>
+                    </button>
 
-            <button onclick="showStaticResult('C')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-amber-500 hover:shadow-md transition text-left w-full group">
-                <div class="p-3 bg-amber-50 text-amber-600 rounded-lg group-hover:bg-amber-600 group-hover:text-white transition">
-                    <i class="fa-brands fa-youtube text-xl"></i>
+                    <button onclick="showStaticResult('D')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-emerald-500 hover:shadow-md transition text-left w-full group">
+                        <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-600 group-hover:text-white transition shrink-0">
+                            <i class="fa-solid fa-building-circle-check text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-slate-900">D. 기타 영리/비영리 업무</h3>
+                            <p class="text-slate-500 text-sm mt-1">부동산 임대업, 계속적 저술, 동대표, 학회 임원 등</p>
+                        </div>
+                    </button>
                 </div>
-                <div>
-                    <h3 class="font-bold text-lg text-slate-900">C. 인터넷 개인 미디어 활동</h3>
-                    <p class="text-slate-500 text-sm mt-1">유튜브 운영 및 동영상 강의 (수익 성격별 분리 안내)</p>
-                </div>
-            </button>
 
-            <button onclick="showStaticResult('D')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-emerald-500 hover:shadow-md transition text-left w-full group">
-                <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-600 group-hover:text-white transition">
-                    <i class="fa-solid fa-building-circle-check text-xl"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg text-slate-900">D. 기타 지속적 영리/비영리 업무</h3>
-                    <p class="text-slate-500 text-sm mt-1">부동산 임대업, 저술, 동대표 등 (사전 겸직허가)</p>
-                </div>
-            </button>
+                <button onclick="startTypeE()" class="flex flex-col md:flex-row items-center md:items-start gap-4 p-5 md:p-6 bg-gradient-to-r from-emerald-600 to-teal-800 rounded-xl shadow-md hover:shadow-lg transition text-left w-full group relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 opacity-10 text-9xl">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div class="p-4 bg-white/20 text-white rounded-2xl backdrop-blur-sm shrink-0 transition group-hover:scale-105">
+                        <i class="fa-solid fa-clipboard-question text-3xl"></i>
+                    </div>
+                    <div class="z-10 text-center md:text-left">
+                        <h3 class="font-bold text-xl md:text-2xl text-white mb-1">E. 내 활동은 겸직 허가가 날까? 1분 셀프 모의고사</h3>
+                        <p class="text-emerald-50 text-sm md:text-base">"이게 겸직 대상인가?" 헷갈리는 규정, 실제 심사 기준 5가지 질문으로 확인해 보세요!</p>
+                    </div>
+                </button>
+            </div>
 
-            <button onclick="startTypeE()" class="md:col-span-2 mt-2 flex flex-col md:flex-row items-center md:items-start gap-4 p-5 md:p-6 bg-gradient-to-r from-sky-700 to-indigo-800 rounded-xl shadow-md hover:shadow-lg transition text-left w-full group relative overflow-hidden">
-                <div class="absolute -right-4 -top-4 opacity-10 text-9xl">
-                    <i class="fa-solid fa-scale-balanced"></i>
+            <div class="mb-2 border-2 border-rose-300 bg-rose-50/60 rounded-2xl p-4 md:p-6 shadow-sm relative overflow-hidden">
+                <div class="absolute right-0 top-0 w-16 h-16 bg-rose-600 flex items-center justify-center rounded-bl-3xl shadow-md">
+                    <i class="fa-solid fa-siren-on text-white text-2xl animate-pulse"></i>
                 </div>
-                <div class="p-4 bg-white/20 text-white rounded-2xl backdrop-blur-sm shrink-0 transition group-hover:scale-105">
-                    <i class="fa-solid fa-clipboard-question text-3xl"></i>
-                </div>
-                <div class="z-10 text-center md:text-left">
-                    <h3 class="font-bold text-xl md:text-2xl text-white mb-1">E. 내 활동은 겸직 허가가 날까? 1분 셀프 모의심사</h3>
-                    <p class="text-sky-100 text-sm md:text-base">어렵고 복잡한 규정, 4가지 핵심 질문으로 징계 위험과 허가 가능성을 즉시 확인해 보세요!</p>
-                </div>
-            </button>
+                <h2 class="text-lg md:text-xl font-bold text-rose-900 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-ban text-rose-600"></i> [구역 3] 징계 대상 (원칙적 절대 금지)
+                </h2>
+                <button onclick="showStaticResult('B')" class="flex items-start gap-4 p-5 bg-white border-2 border-rose-100 rounded-xl shadow-xs hover:border-red-500 hover:shadow-md transition text-left w-full group">
+                    <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition shrink-0">
+                        <i class="fa-solid fa-user-slash text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-900">B. 학원 출제 & 사교육 컨설팅</h3>
+                        <p class="text-slate-500 text-sm mt-1">입시학원 문항 출제, 사설 모의고사 검토, 사교육 컨설팅 (일회성·계속성 불문 절대 금지)</p>
+                    </div>
+                </button>
+            </div>
+
         </div>
 
         <div id="trap-warning" class="bg-slate-800 text-white rounded-xl p-5 mb-6 flex gap-4 items-start shadow-md">
@@ -141,55 +164,72 @@
             </div>
         </div>
 
-        <div id="section-E" class="hidden bg-white border-2 border-sky-300 rounded-xl p-5 md:p-8 shadow-lg mb-6 fade-in">
+        <div id="section-E" class="hidden bg-white border-2 border-teal-400 rounded-xl p-5 md:p-8 shadow-lg mb-6 fade-in">
             <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-100">
-                <h2 class="text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-sky-600"></i> 겸직 허가 1분 셀프 모의심사</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-teal-600"></i> 겸직 허가 1분 셀프 모의고사</h2>
                 <button onclick="goHome()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-2xl"></i></button>
             </div>
             
             <div id="wizard-container" class="max-w-2xl mx-auto py-4">
                 
                 <div id="step-e-1" class="text-center fade-in hidden">
-                    <span class="inline-block bg-sky-100 text-sky-800 font-bold px-3 py-1 rounded-full text-sm mb-4">1단계: 사교육 연관성 필터링</span>
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q1. 업무 성격 검토</span>
                     <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
-                        계획 중인 활동이 <strong class="text-rose-600 underline">사교육(입시학원 강사, 사설 과외, 모의고사 출제 및 컨설팅 등)</strong>과 관련이 있습니까?
+                        퇴근 후 건강 관리를 위해 학원을 다니거나, 자기계발을 위해 야간 대학원에 입학하여 학업을 이어가고 있습니다. 사적인 활동이므로 <strong class="text-teal-600 underline">겸직 허가를 신청</strong>해야 할까요?
                     </h3>
                     <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(1, true, '학원법 제3조 및 사교육 카르텔 근절 지침에 따라 영리 목적의 사교육 관련 업무는 원칙적으로 절대 금지되며, 무상·재능기부 형태도 불가합니다.')" class="flex-1 max-w-[160px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition">예 (관련 있음)</button>
-                        <button onclick="nextStepE(1, false, '')" class="flex-1 max-w-[160px] bg-sky-600 text-white font-bold py-3 rounded-lg hover:bg-sky-700 transition shadow-sm">아니오</button>
+                        <button onclick="nextStepE(1, true, '직업 또는 계속적으로 종사하는 사무는 업무에 해당하지만, 단순 취미활동이나 학업 등은 애초에 법상 업무로 볼 수 없어 겸직 허가 신청 대상이 아닙니다.')" class="flex-1 max-w-[160px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">해야 한다 (O)</button>
+                        <button onclick="nextStepE(1, false, '')" class="flex-1 max-w-[160px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">안 해도 된다 (X)</button>
                     </div>
                 </div>
 
                 <div id="step-e-2" class="text-center fade-in hidden">
-                    <span class="inline-block bg-sky-100 text-sky-800 font-bold px-3 py-1 rounded-full text-sm mb-4">2단계: 품위 유지 및 이익 상반 필터링</span>
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q2. 계속성 여부 검토</span>
                     <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
-                        <strong class="text-amber-600">유흥·사행업, 다단계 판매</strong>이거나, 직무상 알게 된 <strong class="text-amber-600">비밀(비공개 정보)을 이용</strong>하는 등 교원으로서의 품위를 손상할 우려가 있습니까?
+                        외부 공공기관의 요청을 받아 <strong class="text-indigo-600">딱 한 번(1회성) 특강</strong>을 진행하고 강사료를 받기로 했습니다. 영리 수익이 발생하니 <strong class="text-teal-600 underline">겸직 허가</strong>를 신청해야 할까요?
                     </h3>
                     <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(2, true, '국가공무원법 제63조(품위 유지의 의무) 및 영리업무 금지 조항에 따라 교원의 명예를 훼손하거나 직무상 비밀을 이용하는 행위는 엄격히 금지됩니다.')" class="flex-1 max-w-[160px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition">예 (우려 있음)</button>
-                        <button onclick="nextStepE(2, false, '')" class="flex-1 max-w-[160px] bg-sky-600 text-white font-bold py-3 rounded-lg hover:bg-sky-700 transition shadow-sm">아니오</button>
+                        <button onclick="nextStepE(2, true, '겸직 허가를 신청하는 업무는 반드시 계속성이 있어야 합니다. 어쩌다 한 번 발생하는 단발성 활동은 겸직이 아닌 [A. 외부강의 신고] 대상입니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">겸직 대상이다 (O)</button>
+                        <button onclick="nextStepE(2, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">외부강의 대상이다 (X)</button>
                     </div>
                 </div>
 
                 <div id="step-e-3" class="text-center fade-in hidden">
-                    <span class="inline-block bg-sky-100 text-sky-800 font-bold px-3 py-1 rounded-full text-sm mb-4">3단계: 학생 대상 영리행위 필터링</span>
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q3. 직무 범위 및 능률 검토</span>
                     <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
-                        본인이 현재 소속 학교에서 가르치고 있는 <strong class="text-indigo-600">학생이나 학부모를 직접적인 고객</strong>으로 하거나 영리 행위의 대상으로 삼는 업무입니까?
+                        현재 학교에서 <strong class="text-amber-600">본인이 담당하는 공무와 직접 연관</strong>된 내용으로 사설 업체에 유료 콘텐츠를 제작 납품하거나, <strong class="text-amber-600">심야/과다 근무</strong>로 수업 지장이 예상됩니다. 승인이 될까요?
                     </h3>
                     <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(3, true, '공무원 행동강령 및 직무 전념 의무에 위배되며, 교육 및 평가의 공정성을 심각하게 훼손할 우려가 있어 절대 허가되지 않습니다.')" class="flex-1 max-w-[160px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition">예 (대상임)</button>
-                        <button onclick="nextStepE(3, false, '')" class="flex-1 max-w-[160px] bg-sky-600 text-white font-bold py-3 rounded-lg hover:bg-sky-700 transition shadow-sm">아니오</button>
+                        <button onclick="nextStepE(3, true, '겸직 허가는 담당 공무 범위 밖의 사적인 일이어야 하며, 직무 공정성을 해치거나 능률을 저해할 우려(심야 근무 등)가 있는 영리 활동은 승인 불가능합니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">승인 가능하다 (O)</button>
+                        <button onclick="nextStepE(3, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">승인 불가능하다 (X)</button>
                     </div>
                 </div>
 
                 <div id="step-e-4" class="text-center fade-in hidden">
-                    <span class="inline-block bg-sky-100 text-sky-800 font-bold px-3 py-1 rounded-full text-sm mb-4">4단계: 직무 능률 저해 필터링</span>
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q4. 관련 법령 (사교육 카르텔) 검토</span>
                     <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
-                        해당 업무를 학교의 <strong class="text-teal-600 underline">정규 근무시간 중에 수행</strong>해야 하거나, <strong class="text-teal-600 underline">심야/과다 근무</strong>로 인하여 다음 날 본연의 수업 등 직무에 지장을 줍니까?
+                        사교육 업체로부터 주기적으로 <strong class="text-rose-600 underline">모의고사 문제를 출제</strong>해 달라는 제안을 받았습니다. 계속성이 있으니 <strong class="text-teal-600 underline">겸직 신청 시 활동이 가능</strong>할까요?
                     </h3>
                     <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(4, true, '국가공무원 복무규정에 따라 본연의 직무(수업 및 학생 지도) 능률을 저해할 우려가 있는 형태의 계속적 겸직은 소속 기관장의 허가를 받을 수 없습니다.')" class="flex-1 max-w-[160px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition">예 (지장 있음)</button>
-                        <button onclick="nextStepE(4, false, '')" class="flex-1 max-w-[160px] bg-sky-600 text-white font-bold py-3 rounded-lg hover:bg-sky-700 transition shadow-sm">아니오</button>
+                        <button onclick="nextStepE(4, true, '학원법 제3조 및 지침에 따라 사교육 업체 연계 활동은 일절 금지되며, 겸직 신청조차 불가한 [원칙적 절대 금지] 및 중징계 대상입니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">신청 가능 (O)</button>
+                        <button onclick="nextStepE(4, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">절대 금지 (X)</button>
+                    </div>
+                </div>
+
+                <div id="step-e-5" class="text-center fade-in hidden">
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q5. 인터넷 미디어 활동 최종 체크</span>
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-6 text-left text-sm md:text-base">
+                        <p class="font-bold text-slate-800 mb-2">※ 다음 중 귀하의 활동 내용에 <span class="text-rose-600">하나라도 해당하는 사항</span>이 있습니까?</p>
+                        <ul class="list-disc pl-5 space-y-1.5 text-slate-600">
+                            <li>학생 초상권 침해(미동의 노출) 등 법령 위반 우려가 있다.</li>
+                            <li>비속어, 허위사실, 선정성 등 교원의 품위 손상 우려가 있다.</li>
+                            <li>특정 정당·후보자 지지 등 정치적 중립성을 위반한다.</li>
+                            <li>근무 시간 중 유튜브 등 라이브 방송을 진행할 예정이다.</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-4 justify-center">
+                        <button onclick="nextStepE(5, true, '위 항목 중 하나라도 해당된다면 법령 위반(비밀누설, 품위손상, 정치적 중립 등)으로 겸직 허가가 절대 불가합니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">예 (해당함)</button>
+                        <button onclick="nextStepE(5, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">아니오 (해당 없음)</button>
                     </div>
                 </div>
 
@@ -197,21 +237,21 @@
                     <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-red-100 text-red-500 mb-4">
                         <i class="fa-solid fa-xmark text-3xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-red-700 mb-2">진단 결과: 겸직 허가 불가</h3>
+                    <h3 class="text-2xl font-bold text-red-700 mb-2">오답 / 신청 불가</h3>
                     <p id="fail-reason-text" class="text-red-900 bg-red-50 border border-red-200 p-4 rounded-xl font-semibold mb-6 max-w-lg mx-auto leading-relaxed"></p>
-                    <button onclick="resetWizardE()" class="px-6 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">다시 진단하기</button>
+                    <button onclick="resetWizardE()" class="px-6 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">처음부터 다시 풀기</button>
                 </div>
 
                 <div id="step-e-success" class="hidden fade-in text-center py-4">
                     <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-green-100 text-green-500 mb-4">
                         <i class="fa-solid fa-check text-3xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-green-700 mb-2">진단 결과: 겸직 허가 신청 가능</h3>
+                    <h3 class="text-2xl font-bold text-green-700 mb-2">모든 관문 통과 완료!</h3>
                     <div class="text-green-900 bg-green-50 border border-green-200 p-4 rounded-xl font-semibold mb-6 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
-                        🎉 축하합니다! 선생님의 활동은 규정상 겸직 허가를 받을 수 있는 기본 요건을 충족합니다.<br><br>
-                        활동 개시 전에 <strong>[나이스 복무] - [겸직허가신청]</strong> 메뉴를 통해 관련 증빙 서류(계약서 등)를 첨부하여 사전 결재를 진행해 주시기 바랍니다.
+                        🎉 축하합니다! 선생님이 계획하신 활동은 규정상 겸직 허가를 받을 수 있는 기본 요건(계속성, 공무 무관, 능률 비저해, 법령 준수)을 모두 충족합니다.<br><br>
+                        수익 발생 또는 활동 개시 전에 <strong>[나이스 복무] - [겸직허가신청]</strong> 메뉴를 통해 관련 증빙 서류(계약서, 임대등록증 등)를 첨부하여 사전 결재를 진행해 주시기 바랍니다.
                     </div>
-                    <button onclick="goHome()" class="px-6 py-2 bg-sky-600 text-white font-bold rounded-lg hover:bg-sky-700 transition">메인으로 돌아가기</button>
+                    <button onclick="goHome()" class="px-6 py-2 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition">메인 화면으로 돌아가기</button>
                 </div>
 
             </div>
@@ -399,7 +439,7 @@
             document.getElementById('result-card').classList.add('hidden');
             document.getElementById('neisCopier').classList.add('hidden');
             document.getElementById('qaSection').classList.add('hidden');
-            document.getElementById('section-E').classList.add('hidden'); // E섹션 숨김 처리 추가
+            document.getElementById('section-E').classList.add('hidden');
         }
 
         function goHome() {
@@ -408,7 +448,7 @@
             document.getElementById('qaSection').classList.remove('hidden');
         }
 
-        // [신규] E섹션 셀프 심사 로직
+        // [신규] E섹션 셀프 모의고사 로직 (5단계)
         function startTypeE() {
             hideAll();
             document.getElementById('section-E').classList.remove('hidden');
@@ -417,7 +457,7 @@
         }
 
         function resetWizardE() {
-            for(let i=1; i<=4; i++) {
+            for(let i=1; i<=5; i++) {
                 document.getElementById('step-e-' + i).classList.add('hidden');
             }
             document.getElementById('step-e-fail').classList.add('hidden');
@@ -425,16 +465,16 @@
             document.getElementById('step-e-1').classList.remove('hidden');
         }
 
-        function nextStepE(currentStep, isYes, failReason) {
+        function nextStepE(currentStep, isFail, failReason) {
             document.getElementById('step-e-' + currentStep).classList.add('hidden');
             
-            if(isYes) {
-                // 하나라도 위반 요소가 있으면 즉시 실패 처리
+            if(isFail) {
+                // 하나라도 위반 요소/오답이 있으면 실패 처리
                 document.getElementById('fail-reason-text').innerText = failReason;
                 document.getElementById('step-e-fail').classList.remove('hidden');
             } else {
-                if(currentStep === 4) {
-                    // 모두 무사히 통과
+                if(currentStep === 5) {
+                    // 5단계까지 무사히 통과
                     document.getElementById('step-e-success').classList.remove('hidden');
                 } else {
                     // 다음 질문으로 이동
@@ -443,7 +483,7 @@
             }
         }
 
-        // 기존 로직들
+        // A유형 로직
         function startTypeA() {
             hideAll();
             document.getElementById('precheck-section').classList.remove('hidden');
@@ -592,6 +632,7 @@
             resultCard.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // B, C, D 아코디언 로직 유지
         function showStaticResult(category) {
             hideAll();
             const resultCard = document.getElementById('result-card');
