@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>외부강의 & 겸직 복무 자가진단 시스템 v4.6 (유형별 실무 지침 최종 완성판)</title>
+    <title>외부강의 & 겸직 복무 자가진단 시스템 v4.7 (아코디언 UI 적용판)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -465,7 +465,7 @@
             resultCard.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // [핵심 보강] B, C, D 유형 세부 지침 완벽 반영 (A유형 및 기타 로직은 건드리지 않음)
+        // [핵심 개선] B, C, D 유형에 클릭 시 작동하는 '접기/펴기 아코디언 메뉴' 구조 완벽 적용
         function showStaticResult(category) {
             hideAll();
             const resultCard = document.getElementById('result-card');
@@ -480,17 +480,31 @@
                     <div class="bg-red-50 text-red-900 p-4 rounded-xl border border-red-200 font-bold mb-4 text-sm md:text-base">
                         ⚠️ 사교육 카르텔 근절 지침에 따라 영리 목적의 사교육 업체와 관련된 일체의 행위는 무상·재능기부라도 원칙적으로 절대 금지되며, 적발 시 엄중 문책 및 중징계 처분됩니다.
                     </div>
-                    <div class="space-y-4">
-                        <div class="p-4 bg-white border border-slate-200 rounded-xl">
-                            <h4 class="font-bold text-slate-900 mb-2"><i class="fa-solid fa-ban text-red-500 mr-1"></i> 주요 금지 행위 및 사각지대 주의사항</h4>
-                            <ul class="list-disc pl-5 space-y-1.5 text-slate-600 text-sm">
-                                <li><strong class="text-slate-900">학원·모의고사 업체:</strong> 문항 출제, 문제 검토, 자문, 교재 집필, 동영상 출연 등 일체 금지</li>
-                                <li><strong class="text-slate-900">사설 입시 컨설팅:</strong> 사설 업체 유료 회원 가입 후 입시 상담, 컨설팅 진행 금지</li>
-                                <li><strong class="text-slate-900">가족 운영 학원 주의:</strong> 배우자나 직계가족이 운영하는 학원이라도 실질적인 강의·차량 운행·상담 등에 관여하는 것은 중대한 영리업무 종사 위반입니다.</li>
-                                <li><strong class="text-slate-900">무상 제공 금지:</strong> 대가(사례금)를 전혀 받지 않더라도 사교육 업체에 참여하는 행위 자체를 금지합니다.</li>
-                            </ul>
+                    <div class="space-y-3">
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                                <span class="text-slate-800"><i class="fa-solid fa-ban text-red-500 mr-2"></i>주요 금지 행위 및 사각지대 주의사항</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
+                                <ul class="list-disc pl-5 space-y-1.5">
+                                    <li><strong class="text-slate-900">학원·모의고사 업체:</strong> 문항 출제, 문제 검토, 자문, 교재 집필, 동영상 출연 등 일체 금지</li>
+                                    <li><strong class="text-slate-900">사설 입시 컨설팅:</strong> 사설 업체 유료 회원 가입 후 입시 상담, 컨설팅 진행 금지</li>
+                                    <li><strong class="text-slate-900">가족 운영 학원 주의:</strong> 배우자나 직계가족이 운영하는 학원이라도 실질적인 강의·차량 운행·상담 등에 관여하는 것은 중대한 영리업무 종사 위반입니다.</li>
+                                    <li><strong class="text-slate-900">무상 제공 금지:</strong> 대가(사례금)를 전혀 받지 않는 재능기부 형태라도 사교육 업체에 참여하는 행위 자체를 금지합니다.</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="text-sm text-slate-500">※ 본 유형은 나이스(NEIS)를 통한 복무 신고나 겸직 허가 신청 자체가 원칙적으로 불가능합니다.</div>
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                                <span class="text-slate-800"><i class="fa-solid fa-scale-balanced text-slate-600 mr-2"></i>관련 처분 수위 및 징계</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
+                                <p>고의뿐만 아니라 "지침을 몰랐다"는 과실 또한 인정되지 않으며, 적발 시 국가공무원법 및 공무원 행동강령 위반으로 최소 <strong class="text-red-600">정직·강등에서 최대 파면·해임</strong>에 처해질 수 있으며, 사안에 따라 수사기관에 고발 조치됩니다.</p>
+                                <p class="text-xs text-slate-500 mt-2">※ 본 유형은 나이스(NEIS)를 통한 복무 신고나 겸직 허가 신청 자체가 원칙적으로 불가능합니다.</p>
+                            </div>
+                        </div>
                     </div>
                 `;
                 neisCopier.classList.add('hidden');
@@ -500,34 +514,48 @@
                 
                 resContent.innerHTML = `
                     <div class="bg-amber-50 text-amber-900 p-4 rounded-xl border border-amber-200 font-semibold mb-4 text-sm md:text-base">
-                        📢 유튜브, 블로그, 트위치 등 인터넷 개인 미디어 활동은 <span class="text-amber-700 font-bold">수익 발생 여부</span>에 따라 겸직허가 대상이 됩니다.
+                        📢 유튜브, 블로그 등 인터넷 개인 미디어 활동은 <span class="text-amber-700 font-bold">수익 발생 여부</span>에 따라 겸직허가 대상이 됩니다.
                     </div>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="border border-rose-200 rounded-xl p-4 bg-rose-50/50">
-                                <h4 class="font-bold text-rose-900 mb-2 flex items-center gap-1"><i class="fa-solid fa-circle-dollar-to-slot"></i> 1. 수익 창출 요건 충족 (허가 필수)</h4>
-                                <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-2">
-                                    유튜브(구독자 1천명/시청 4천시간), 블로그(애드포스트 승인) 등 수익 창출 요건을 충족하면, <span class="text-rose-600 font-bold">최초 수익 발생 직전</span>에 반드시 나이스 겸직 허가를 받아야 합니다.
-                                </p>
-                                <ul class="list-disc pl-4 text-xs text-slate-500 space-y-1">
-                                    <li>타인 채널에 1회성 게스트로 출연하여 사례금을 받는 것은 '외부강의(A유형)'로 별도 신고해야 합니다.</li>
+                    <div class="space-y-3">
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                                <span class="text-slate-800"><i class="fa-solid fa-circle-dollar-to-slot text-rose-500 mr-2"></i>플랫폼별 수익 창출 요건 (허가 필수 기준)</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-3">
+                                <p>아래와 같은 수익 창출 요건을 충족하면, <strong class="text-rose-600">최초 수익 발생 직전</strong>에 반드시 나이스 겸직 허가를 받아야 합니다.</p>
+                                <ul class="list-disc pl-5 space-y-1 text-slate-700">
+                                    <li><strong>유튜브:</strong> 구독자 1,000명 및 연간 시청시간 4,000시간 도달 시</li>
+                                    <li><strong>블로그:</strong> 네이버 애드포스트 등 광고 배너 게재 승인 시</li>
+                                    <li><strong>아프리카TV/트위치 등:</strong> 별풍선, 후원 기능 활성화 시점</li>
                                 </ul>
-                            </div>
-                            <div class="border border-green-200 rounded-xl p-4 bg-green-50/50">
-                                <h4 class="font-bold text-green-900 mb-2 flex items-center gap-1"><i class="fa-solid fa-heart text-green-600"></i> 2. 순수 취미 및 비수익형 (면제)</h4>
-                                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
-                                    수익 창출 설정을 하지 않은 순수 일상/취미용 채널은 별도의 겸직 허가 신청이 필요 없습니다. (품위유지 의무는 동일 적용)
-                                </p>
+                                <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs mt-2">
+                                    <i class="fa-solid fa-circle-info text-indigo-500"></i> 타인 채널에 1회성 게스트로 출연하여 사례금을 받는 것은 '외부강의(A유형)'로 별도 신고해야 합니다.
+                                </div>
                             </div>
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm">
-                            <h4 class="font-bold text-slate-900 mb-1.5"><i class="fa-solid fa-triangle-exclamation text-amber-600"></i> 인터넷 개인 미디어 3-OUT 절대 금지 행위</h4>
-                            <ul class="list-disc pl-5 space-y-1 text-slate-600 text-xs md:text-sm">
-                                <li>학생 등장 영상 무단 업로드 금지 (초상권 및 개인정보 동의서 필수 구비)</li>
-                                <li>근무시간 중 라이브 방송 진행 엄단 (슈퍼챗 등 근무 중 수익 창출 행위 금지)</li>
-                                <li>특정 기업 제품을 유료로 홍보하는 '뒷광고' 및 부적절한 협찬 수수 금지</li>
-                                <li>교원의 품위를 손상시키는 자극적·혐오성 표현 및 편향적 발언 불가</li>
-                            </ul>
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                                <span class="text-slate-800"><i class="fa-solid fa-heart text-green-500 mr-2"></i>순수 취미 및 비수익형 활동 (면제)</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
+                                <p>수익 창출 설정을 하지 않은 순수 일상/취미용 채널은 별도의 겸직 허가 신청이 필요 없습니다.</p>
+                                <p class="text-xs text-slate-500">※ 단, 수익이 없더라도 교원으로서의 품위유지 의무는 동일하게 적용됩니다.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                                <span class="text-slate-800"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2"></i>인터넷 미디어 3-OUT 절대 금지 행위</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
+                                <ul class="list-disc pl-5 space-y-1.5">
+                                    <li><strong class="text-slate-900">학생 초상권 침해:</strong> 학생 등장 영상 무단 업로드 금지 (개인정보 동의서 필수 구비)</li>
+                                    <li><strong class="text-slate-900">근무 중 수익 창출:</strong> 근무시간 중 라이브 방송 진행 엄단 (슈퍼챗 등 수수 금지)</li>
+                                    <li><strong class="text-slate-900">부적절한 협찬:</strong> 특정 기업 제품을 유료로 홍보하는 '뒷광고' 및 부적절한 협찬 수수 금지</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -540,31 +568,44 @@
                     <div class="bg-emerald-50 text-emerald-900 p-4 rounded-xl border border-emerald-200 font-semibold mb-4 text-sm md:text-base">
                         💼 일시적인 단발성 활동이 아닌 주기적·상시적인 영리/비영리 업무는 <span class="text-emerald-700 font-bold">업무 개시 전 사전에 소속 기관장(학교장)의 승인</span>을 받아야 합니다.
                     </div>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                            <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs">
-                                <strong class="text-indigo-900 block mb-1">🏠 부동산 임대 사업</strong>
-                                <p class="text-xs text-slate-600 leading-relaxed">주택임대사업자 등록을 하거나, 상가를 소유하며 직접 상시 관리하여 직무에 지장을 초래할 우려가 있을 때 허가 대상입니다. (단, 건물 관리인을 두는 등 본업에 지장이 없어야 허가 가능)</p>
-                            </div>
-                            <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs">
-                                <strong class="text-indigo-900 block mb-1">✍️ 지속적인 저술·집필</strong>
-                                <p class="text-xs text-slate-600 leading-relaxed">1회성 서면 원고 기고(A유형)가 아니라, 출판사와 장기 계약을 맺고 도서를 출판하여 지속적인 인세(수익)를 수령하는 경우 겸직 대상입니다.</p>
-                            </div>
-                            <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs">
-                                <strong class="text-indigo-900 block mb-1">👥 비영리 단체·학회 임원</strong>
-                                <p class="text-xs text-slate-600 leading-relaxed">비영리라 하여도 사례금이 없더라도 학회, 재단법인, 시민단체의 이사·감사 등 직위를 지속적으로 수행하면 사전 승인이 원칙입니다.</p>
-                            </div>
-                            <div class="p-3 bg-white border border-slate-200 rounded-lg shadow-2xs">
-                                <strong class="text-indigo-900 block mb-1">🏢 공동주택 입주자대표(동대표)</strong>
-                                <p class="text-xs text-slate-600 leading-relaxed">봉사 성격의 자치 활동이더라도 지속적인 의결권과 책임이 수반되므로 학교 업무에 지장이 없는지 심사 후 허가를 득해야 합니다.</p>
+                    <div class="space-y-3">
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                                <span class="text-slate-800"><i class="fa-solid fa-check-double text-emerald-600 mr-2"></i>대표적인 사전 겸직허가 심사 대상</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform rotate-180"></i>
+                            </button>
+                            <div class="p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-3">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                                        <strong class="text-indigo-900 block mb-1">🏠 부동산 임대 사업</strong>
+                                        <p class="text-xs leading-relaxed">주택임대사업자 등록을 하거나, 직접 상시 관리하여 직무에 지장을 초래할 우려가 있을 때 허가 대상. (관리인을 두어 본업 지장이 없어야 허가 가능)</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                                        <strong class="text-indigo-900 block mb-1">✍️ 지속적인 저술·집필</strong>
+                                        <p class="text-xs leading-relaxed">출판사와 장기 계약을 맺고 도서를 출판하여 지속적인 인세(수익)를 수령하는 경우 겸직 대상입니다.</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                                        <strong class="text-indigo-900 block mb-1">👥 비영리 단체·학회 임원</strong>
+                                        <p class="text-xs leading-relaxed">사례금이 없는 비영리라도 학회, 재단법인, 시민단체의 이사·감사 등 직위를 지속적으로 수행하면 사전 승인이 원칙입니다.</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                                        <strong class="text-indigo-900 block mb-1">🏢 공동주택 입주자대표(동대표)</strong>
+                                        <p class="text-xs leading-relaxed">봉사 성격이더라도 지속적인 의결권과 책임이 수반되므로 학교 업무에 지장이 없는지 심사 후 허가를 득해야 합니다.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-lg text-sm">
-                            <strong class="text-indigo-900 block mb-1"><i class="fa-solid fa-circle-info"></i> 겸직허가 신청 가이드 (나이스 NEIS):</strong>
-                            <ul class="list-disc pl-5 mt-1 space-y-1 text-slate-600 text-xs md:text-sm">
-                                <li><strong>증빙 서류 필수 첨부:</strong> 출판계약서, 임대사업자등록증, 위촉장, 단체 회칙 등을 스캔하여 첨부해야 합니다.</li>
-                                <li><strong>유효 기간 및 갱신:</strong> 겸직 허가 기간은 <strong>최장 1년</strong>이며, 활동이 계속될 경우 만료 전 매년 재심사 및 연장 신청을 해야 합니다.</li>
-                            </ul>
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
+                                <span class="text-slate-800"><i class="fa-solid fa-folder-open text-indigo-500 mr-2"></i>겸직허가 신청 필수 증빙 서류 및 갱신</span>
+                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+                            </button>
+                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
+                                <ul class="list-disc pl-5 space-y-1.5">
+                                    <li><strong class="text-slate-900">증빙 서류 첨부:</strong> 나이스(NEIS) 신청 시 출판계약서, 임대사업자등록증, 위촉장, 단체 회칙 등을 반드시 스캔하여 첨부해야 반려되지 않습니다.</li>
+                                    <li><strong class="text-slate-900">유효 기간 및 갱신:</strong> 겸직 허가 기간은 <strong>최장 1년</strong>(통상 학년도 단위)이며, 활동이 계속될 경우 만료 전 매년 재심사 및 연장 신청을 해야 합니다.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 `;
