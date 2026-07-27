@@ -3,338 +3,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>외부강의 & 겸직 복무 자가진단 시스템 v5.3</title>
+    <title>교직원 외부강의·겸직 도우미 v6.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght=400;600;700&display=swap');
-        body { font-family: 'Pretendard', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
+        body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; }
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 키보드 포커스 가시성 */
+        a:focus-visible, button:focus-visible, input:focus-visible,
+        select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+            outline: 3px solid #4f46e5;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* 모션 최소화 설정 존중 */
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in { animation: none; }
+            .animate-pulse { animation: none; }
+            * { transition-duration: 0.01ms !important; }
+        }
+
+        .basis-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 1px 7px;
+            border-radius: 9999px;
+            background: #eef2ff;
+            color: #4338ca;
+            border: 1px solid #c7d2fe;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
     <div class="bg-rose-600 text-white text-center py-2.5 text-sm md:text-base font-semibold shadow-sm px-4">
-        <i class="fa-solid fa-triangle-exclamation mr-2 animate-pulse"></i> 중요: "몰라서 못했다"는 행동강령 미숙지도 고의·과실 불문 징계 대상입니다! 반드시 사전 확인하세요.
+        <i class="fa-solid fa-triangle-exclamation mr-2" aria-hidden="true"></i> 중요: "몰라서 못했다"는 행동강령 미숙지도 고의·과실 불문 징계 대상입니다. 반드시 사전에 확인하세요.
     </div>
 
     <header class="bg-white border-b border-slate-200 py-6 text-center shadow-xs">
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3 px-4">
-            <i class="fa-solid fa-user-shield text-indigo-600"></i> 교직원 외부강의·겸직 도우미
+            <i class="fa-solid fa-user-shield text-indigo-600" aria-hidden="true"></i> 교직원 외부강의·겸직 도우미
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base">2026년 기준 광주광역시교육청 감사관실 최신 지침 완벽 반영</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v6.0</p>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
-        
+
+        <!-- ===================== 메인 메뉴 ===================== -->
         <div id="menu-section" class="mb-6 fade-in">
-            
+
             <div class="mb-6 border-2 border-indigo-200 bg-indigo-50/40 rounded-2xl p-4 md:p-6 shadow-sm">
                 <h2 class="text-lg md:text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-chalkboard-user text-indigo-600"></i> [구역 1] 일회성 활동 (사전·사후 신고 대상)
+                    <i class="fa-solid fa-chalkboard-user text-indigo-600" aria-hidden="true"></i> [구역 1] 일회성 활동 (사전·사후 신고 대상)
                 </h2>
-                <button onclick="startTypeA()" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-indigo-500 hover:shadow-md transition text-left w-full group">
+                <button onclick="startLecture()" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-indigo-500 hover:shadow-md transition text-left w-full group">
                     <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition shrink-0">
-                        <i class="fa-solid fa-pen-nib text-xl"></i>
+                        <i class="fa-solid fa-pen-nib text-xl" aria-hidden="true"></i>
                     </div>
                     <div>
                         <h3 class="font-bold text-lg text-slate-900">A. 일반 외부강의·강연·기고</h3>
-                        <p class="text-slate-500 text-sm mt-1">단발성으로 요청받은 사례금을 받는 강의, 토론, 자문, 원고 기고 등</p>
+                        <p class="text-slate-500 text-sm mt-1">단발성으로 요청받아 사례금을 받는 강의, 토론, 자문, 원고 기고 등</p>
                     </div>
                 </button>
             </div>
 
             <div class="mb-6 border-2 border-emerald-200 bg-emerald-50/40 rounded-2xl p-4 md:p-6 shadow-sm">
                 <h2 class="text-lg md:text-xl font-bold text-emerald-900 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-briefcase text-emerald-600"></i> [구역 2] 계속적 활동 (업무 개시 전 겸직허가 필수)
+                    <i class="fa-solid fa-briefcase text-emerald-600" aria-hidden="true"></i> [구역 2] 계속적 활동 (업무 개시 전 겸직허가 필수)
                 </h2>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <button onclick="showStaticResult('C')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-amber-500 hover:shadow-md transition text-left w-full group">
+                    <button onclick="showGuide('MEDIA')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-amber-500 hover:shadow-md transition text-left w-full group">
                         <div class="p-3 bg-amber-50 text-amber-600 rounded-lg group-hover:bg-amber-600 group-hover:text-white transition shrink-0">
-                            <i class="fa-brands fa-youtube text-xl"></i>
+                            <i class="fa-brands fa-youtube text-xl" aria-hidden="true"></i>
                         </div>
                         <div>
                             <h3 class="font-bold text-lg text-slate-900">B. 인터넷 개인 미디어 활동</h3>
-                            <p class="text-slate-500 text-sm mt-1">유튜브 운영 및 영상 업로드 (수익 창출 요건별 기준 안내)</p>
+                            <p class="text-slate-500 text-sm mt-1">유튜브·블로그 운영 및 영상 업로드 (플랫폼 유형별 신청 시점 안내)</p>
                         </div>
                     </button>
 
-                    <button onclick="showStaticResult('D')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-emerald-500 hover:shadow-md transition text-left w-full group">
+                    <button onclick="showGuide('OTHER')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-emerald-500 hover:shadow-md transition text-left w-full group">
                         <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-600 group-hover:text-white transition shrink-0">
-                            <i class="fa-solid fa-building-circle-check text-xl"></i>
+                            <i class="fa-solid fa-building-circle-check text-xl" aria-hidden="true"></i>
                         </div>
                         <div>
                             <h3 class="font-bold text-lg text-slate-900">C. 기타 영리/비영리 업무</h3>
-                            <p class="text-slate-500 text-sm mt-1">부동산 임대업, 계속적 저술, 동대표, 학회 임원 등</p>
+                            <p class="text-slate-500 text-sm mt-1">부동산 임대, 계속적 저술, 동대표, 단체 임원 등 겸직 유형 15종</p>
                         </div>
                     </button>
                 </div>
 
-                <button onclick="startTypeE()" class="flex flex-col md:flex-row items-center md:items-start gap-4 p-5 md:p-6 bg-gradient-to-r from-emerald-600 to-teal-800 rounded-xl shadow-md hover:shadow-lg transition text-left w-full group relative overflow-hidden">
-                    <div class="absolute -right-4 -top-4 opacity-10 text-9xl">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                    </div>
-                    <div class="p-4 bg-white/20 text-white rounded-2xl backdrop-blur-sm shrink-0 transition group-hover:scale-105">
-                        <i class="fa-solid fa-clipboard-question text-3xl"></i>
-                    </div>
-                    <div class="z-10 text-center md:text-left">
-                        <h3 class="font-bold text-xl md:text-2xl text-white mb-1">D. 내 활동은 겸직 허가가 날까? 1분 셀프 모의고사</h3>
-                        <p class="text-emerald-50 text-sm md:text-base">"이게 겸직 대상인가?" 헷갈리는 규정, 실제 심사 기준 5가지 질문으로 확인해 보세요!</p>
-                    </div>
-                </button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button onclick="startRequirements()" class="flex flex-col items-start gap-3 p-5 bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-xl shadow-md hover:shadow-lg transition text-left w-full group relative overflow-hidden">
+                        <div class="absolute -right-5 -top-5 opacity-10 text-8xl" aria-hidden="true">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div class="p-3 bg-white/20 text-white rounded-xl backdrop-blur-sm shrink-0 transition group-hover:scale-105">
+                            <i class="fa-solid fa-gauge-high text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <div class="z-10">
+                            <span class="inline-block bg-white/25 text-white text-[11px] font-bold px-2 py-0.5 rounded mb-1.5">NEW</span>
+                            <h3 class="font-bold text-lg md:text-xl text-white mb-1">D. 겸직 허가 4대 요건 자가체크</h3>
+                            <p class="text-indigo-100 text-sm">주 52시간·1일 12시간 등 실제 심사표 기준으로 허가 가능성을 계산합니다</p>
+                        </div>
+                    </button>
+
+                    <button onclick="startQuiz()" class="flex flex-col items-start gap-3 p-5 bg-gradient-to-br from-emerald-600 to-teal-800 rounded-xl shadow-md hover:shadow-lg transition text-left w-full group relative overflow-hidden">
+                        <div class="absolute -right-5 -top-5 opacity-10 text-8xl" aria-hidden="true">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <div class="p-3 bg-white/20 text-white rounded-xl backdrop-blur-sm shrink-0 transition group-hover:scale-105">
+                            <i class="fa-solid fa-clipboard-question text-2xl" aria-hidden="true"></i>
+                        </div>
+                        <div class="z-10">
+                            <h3 class="font-bold text-lg md:text-xl text-white mb-1">E. 1분 셀프 모의고사</h3>
+                            <p class="text-emerald-50 text-sm">헷갈리는 규정, 실제 심사 기준 5문항으로 빠르게 점검해 보세요</p>
+                        </div>
+                    </button>
+                </div>
             </div>
 
             <div class="mb-2 border-2 border-rose-300 bg-rose-50/60 rounded-2xl p-4 md:p-6 shadow-sm relative overflow-hidden">
-                <div class="absolute right-0 top-0 w-16 h-16 bg-rose-600 flex items-center justify-center rounded-bl-3xl shadow-md">
-                    <i class="fa-solid fa-siren-on text-white text-2xl animate-pulse"></i>
+                <div class="absolute right-0 top-0 w-16 h-16 bg-rose-600 flex items-center justify-center rounded-bl-3xl shadow-md" aria-hidden="true">
+                    <i class="fa-solid fa-siren-on text-white text-2xl"></i>
                 </div>
-                <h2 class="text-lg md:text-xl font-bold text-rose-900 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-ban text-rose-600"></i> [구역 3] 징계 대상 (원칙적 절대 금지)
+                <h2 class="text-lg md:text-xl font-bold text-rose-900 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-ban text-rose-600" aria-hidden="true"></i> [구역 3] 사교육업체 관련 (원칙적 금지)
                 </h2>
-                <button onclick="showStaticResult('B')" class="flex items-start gap-4 p-5 bg-white border-2 border-rose-100 rounded-xl shadow-xs hover:border-red-500 hover:shadow-md transition text-left w-full group">
+                <p class="text-sm text-rose-800/80 mb-4 pr-16">원칙적으로 금지되지만, 공익성이 인정되면 예외적으로 심사받을 수 있습니다. 판별기로 내 활동이 어느 쪽인지 확인하세요.</p>
+                <button onclick="startScreener()" class="flex items-start gap-4 p-5 bg-white border-2 border-rose-100 rounded-xl shadow-xs hover:border-red-500 hover:shadow-md transition text-left w-full group">
                     <div class="p-3 bg-red-50 text-red-600 rounded-lg group-hover:bg-red-600 group-hover:text-white transition shrink-0">
-                        <i class="fa-solid fa-user-slash text-xl"></i>
+                        <i class="fa-solid fa-magnifying-glass-chart text-xl" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-lg text-slate-900">E. 학원 출제 & 사교육 컨설팅</h3>
-                        <p class="text-slate-500 text-sm mt-1">입시학원 문항 출제, 사설 모의고사 검토, 사교육 컨설팅 (일회성·계속성 불문 절대 금지)</p>
+                        <span class="inline-block bg-rose-100 text-rose-700 text-[11px] font-bold px-2 py-0.5 rounded mb-1.5">NEW</span>
+                        <h3 class="font-bold text-lg text-slate-900">F. 사교육업체 겸직 판별기</h3>
+                        <p class="text-slate-500 text-sm mt-1">학원 출제·컨설팅·교재 집필·에듀테크 자문 등이 금지인지 예외 심사 대상인지 3단계로 판별</p>
                     </div>
                 </button>
             </div>
 
         </div>
 
+        <!-- ===================== 사각지대 경고 ===================== -->
         <div id="trap-warning" class="bg-slate-800 text-white rounded-xl p-5 mb-6 flex gap-4 items-start shadow-md">
-            <i class="fa-solid fa-siren-on text-rose-500 text-2xl mt-1 animate-pulse"></i>
+            <i class="fa-solid fa-siren-on text-rose-500 text-2xl mt-1 shrink-0" aria-hidden="true"></i>
             <div>
-                <h4 class="font-bold text-rose-300 text-base md:text-lg mb-2">🚨 징계 단골 사례! 교직원 사각지대 필수 체크</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-200 list-disc">
-                    <li><strong class="text-white">퇴근 후 & 주말:</strong> 근무시간 외라도 사례금을 받으면 무조건 신고</li>
-                    <li><strong class="text-white">휴직자:</strong> 육아/질병 휴직 중이라도 사례금 발생 시 신고 의무 동일</li>
-                    <li><strong class="text-white">교원 동아리 함정:</strong> 교육청 주관이라도 공문 주체가 '동아리'면 필수 신고</li>
-                    <li><strong class="text-white">위탁 단체 함정:</strong> 교육청 위탁 민간단체나 사립학교 출강도 필수 신고</li>
-                </div>
+                <h4 class="font-bold text-rose-300 text-base md:text-lg mb-2">징계 단골 사례! 교직원 사각지대 필수 체크</h4>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-200 list-disc pl-4">
+                    <li><strong class="text-white">퇴근 후 &amp; 주말:</strong> 근무시간 외라도 사례금을 받으면 신고 대상</li>
+                    <li><strong class="text-white">휴직 중:</strong> 겸직금지 의무는 '공무원 신분'에 부여되므로 휴직 중에도 겸직허가 신청 필수</li>
+                    <li><strong class="text-white">교원 동아리:</strong> 교육청 주관이라도 공문 주체가 '동아리'면 별도 확인 필요</li>
+                    <li><strong class="text-white">허가 전 업로드:</strong> 겸직 신청 후 최종 허가 전까지 새 콘텐츠 방송·업로드 금지</li>
+                    <li><strong class="text-white">신규임용자:</strong> 기존 영리·비영리업무를 계속하려면 임용일부터 1개월 이내 신청</li>
+                    <li><strong class="text-white">담당직무 변경:</strong> 직무가 바뀌면 변경일부터 1개월 이내 재심사 신청</li>
+                </ul>
             </div>
         </div>
 
+        <!-- ===================== FAQ ===================== -->
         <div id="qaSection" class="mt-12 block fade-in">
             <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-circle-question text-indigo-600"></i>
-                선생님들이 가장 자주 묻는 복무 Q&A
+                <i class="fa-solid fa-circle-question text-indigo-600" aria-hidden="true"></i>
+                선생님들이 가장 자주 묻는 복무 Q&amp;A
             </h2>
-            <div class="space-y-3">
-                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(1)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                        <span>💡 Q1. 대학 출강이나 정기적인 외부 원격 강연은 외부강의 신고만 하면 되나요?</span>
-                        <i id="faqIcon1" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="faqAns1" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
-                        <strong>아닙니다!</strong> 대학 정기 출강 등 주기적이거나 장기간 계속되는 활동은 외부강의 신고가 아닌 <span class="text-amber-600 font-bold">사전 겸직허가</span> 대상입니다. 겸직 허가를 받으면 개별 외부강의 신고는 면제됩니다.
-                    </div>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(2)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                        <span>💡 Q2. 사설 학원에서 교재를 만들어 주거나 문항 검토 자문료를 받는 것은 가능한가요?</span>
-                        <i id="faqIcon2" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="faqAns2" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
-                        <strong class="text-rose-600">절대 불가합니다.</strong> 사교육 카르텔 근절 지침에 따라 사교육 업체와 관련된 문항 출제, 검토, 교재 제작 등은 일회성이어도 <span class="text-rose-600 font-bold">원칙적 절대 금지</span>이며 징계 처분을 받게 됩니다.
-                    </div>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(3)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                        <span>💡 Q3. 교육청이나 정부 부처에서 요청한 강의는 신고 대상인가요?</span>
-                        <i id="faqIcon3" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="faqAns3" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
-                        <strong>신고 대상이 아닙니다.</strong> 청탁금지법 제10조에 따라 교육청, 교육지원청 및 각 부처 등 국가기관 및 지방자치단체가 요청한 외부강의는 외부강의 신고 대상에서 제외됩니다. 소속 기관의 출장 등 복무 상신만 하시면 됩니다.
-                    </div>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(4)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                        <span>💡 Q4. 유튜브 채널을 개설하여 영상을 올리기만 해도 바로 겸직 신청을 해야 하나요?</span>
-                        <i id="faqIcon4" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="faqAns4" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
-                        <strong>수익 창출 시점부터 의무입니다.</strong> 플랫폼으로부터 <span class="text-rose-600 font-bold">최초 대가가 발생하는 시점 직전</span>에 반드시 학교장 겸직 허가를 신청해야 합니다. 수익이 전혀 없는 단순 취미 업로드는 허가가 필요 없습니다.
-                    </div>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(5)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                        <span>💡 Q5. 영리업무와 비영리업무의 정확한 기준이 무엇인가요?</span>
-                        <i id="faqIcon5" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="faqAns5" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
-                        <strong>영리업무</strong>는 상업·공업·금융업 등을 스스로 경영하여 명백히 수익을 추구하거나, 사기업체의 임원이 되는 것, 직무 관련 기업 투자 등 <span class="text-amber-600 font-bold">'계속적으로 재산상 이득을 취하는 업무'</span>를 의미합니다. <strong>비영리업무</strong>는 이에 해당하지 않는 학술, 자선, 종교 등 목적의 사적 활동을 뜻하며, 비영리 성격이라도 '계속성'을 띠고 종사한다면 사전에 반드시 겸직 허가를 득해야 합니다.
-                    </div>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(6)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                        <span>💡 Q6. 겸직 허가를 받으면 기간이 얼마나 유지되나요?</span>
-                        <i id="faqIcon6" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="faqAns6" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
-                        겸직 허가 기간은 <strong>2년 이내가 원칙</strong>입니다. 다만, 복무 점검 및 영리성 관리가 대폭 강화된 <span class="text-rose-600 font-bold">사교육업체 관련 활동 및 인터넷 개인방송(유튜브 등)의 경우에는 최대 1년</span>으로 제한되므로 매 학년도 말 또는 만료 전에 반드시 갱신 신청을 완료해야 합니다. (시간강사, 자문위원 등 임명·위촉 기간이 수 개월 단위로 명시된 업무는 그 계약 종료일까지 허가 가능)
-                    </div>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                    <button onclick="toggleFAQ(7)" class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                        <span>💡 Q7. 겸직 활동 시 반드시 지켜야 할 의무나 준수사항은 무엇인가요?</span>
-                        <i id="faqIcon7" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="faqAns7" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">
-                        겸직 허가를 승인받은 교원은 범위 내 성실 활동 의무 외에도 공직자로서 다음 법령을 상시 준수해야 합니다:
-                        <ul class="list-disc pl-5 mt-2 space-y-1.5 text-slate-600 text-sm md:text-base">
-                            <li><strong class="text-slate-900">비밀 엄수 의무 (국가공무원법 제60조):</strong> 직무수행 중 알게 된 내부 비밀이나 기관 미공개 정보를 사적 겸직 활동에 연계·누설 금지</li>
-                            <li><strong class="text-slate-900">품위 유지 의무 (국가공무원법 제63조):</strong> 타인의 명예나 초상권 침해, 비속어 사용, 과도한 선정성·사행성 콘텐츠 유포 등 교원 품위를 저해하는 경우 예고 없이 즉시 겸직 허가가 취소될 수 있습니다.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <div class="space-y-3" id="faqList"></div>
         </div>
 
-        <div id="section-E" class="hidden bg-white border-2 border-teal-400 rounded-xl p-5 md:p-8 shadow-lg mb-6 fade-in">
-            <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-100">
-                <h2 class="text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-teal-600"></i> 겸직 허가 1분 셀프 모의고사</h2>
-                <button onclick="goHome()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-2xl"></i></button>
+        <!-- ===================== 사교육업체 겸직 판별기 ===================== -->
+        <div id="section-screener" class="hidden bg-white border-2 border-rose-300 rounded-xl p-5 md:p-8 shadow-lg mb-6 fade-in">
+            <div class="flex justify-between items-center mb-2 pb-3 border-b border-slate-100">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-magnifying-glass-chart text-rose-600" aria-hidden="true"></i> 사교육업체 겸직 판별기
+                </h2>
+                <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-2xl" aria-hidden="true"></i></button>
             </div>
-            
-            <div id="wizard-container" class="max-w-2xl mx-auto py-4">
-                
-                <div id="step-e-1" class="text-center fade-in hidden">
-                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q1. 업무 성격 검토</span>
-                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
-                        퇴근 후 건강 관리를 위해 학원을 다니거나, 자기계발을 위해 야간 대학원에 입학하여 학업을 이어가고 있습니다. 사적인 활동이므로 <strong class="text-teal-600 underline">겸직 허가를 신청</strong>해야 할까요?
-                    </h3>
-                    <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(1, true, '직업 또는 계속적으로 종사하는 사무는 업무에 해당하지만, 단순 취미활동이나 학업 등은 애초에 법상 업무로 볼 수 없어 겸직 허가 신청 대상이 아닙니다.')" class="flex-1 max-w-[160px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">해야 한다 (O)</button>
-                        <button onclick="nextStepE(1, false, '')" class="flex-1 max-w-[160px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">안 해도 된다 (X)</button>
+            <p class="text-sm text-slate-500 mb-6">겸직 허가 신청서의 '사교육업체 관련 여부' 항목을 그대로 따라갑니다. <span class="basis-tag">근거 Q10·Q11·Q12 / 붙임2</span></p>
+
+            <div id="screener-progress" class="flex gap-1.5 mb-6" aria-hidden="true"></div>
+
+            <!-- 1단계 -->
+            <div id="scr-step-1" class="hidden fade-in">
+                <span class="inline-block bg-rose-100 text-rose-800 font-bold px-3 py-1 rounded-full text-sm mb-3">1단계. 원칙적 금지 항목</span>
+                <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-4 leading-relaxed">겸직하려는 기관·업체가 다음 중 <strong class="text-rose-600">하나라도</strong> 해당합니까?</h3>
+                <fieldset class="space-y-3 mb-6">
+                    <legend class="sr-only">원칙적 금지 항목</legend>
+                    <label class="flex gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                        <input type="checkbox" class="scr-ban w-5 h-5 mt-0.5 shrink-0 accent-rose-600">
+                        <span class="text-sm md:text-base text-slate-700"><strong class="text-slate-900">「학원법」상 학교교과교습학원</strong> 또는 관련 기관·업체<br><span class="text-xs text-slate-500">특정 학교교과교습학원을 대상으로 문항 등을 제공하는 업체 포함</span></span>
+                    </label>
+                    <label class="flex gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                        <input type="checkbox" class="scr-ban w-5 h-5 mt-0.5 shrink-0 accent-rose-600">
+                        <span class="text-sm md:text-base text-slate-700"><strong class="text-slate-900">「학원법」상 평생직업교육학원</strong>이면서 대학 입시(실기)·편입 등 <strong>사교육 유발 요인</strong>이 있음<br><span class="text-xs text-slate-500">성인 대상 실기·편입학원 포함</span></span>
+                    </label>
+                    <label class="flex gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                        <input type="checkbox" class="scr-ban w-5 h-5 mt-0.5 shrink-0 accent-rose-600">
+                        <span class="text-sm md:text-base text-slate-700"><strong class="text-slate-900">출판사·정보통신판매업</strong> 등 학원은 아니지만 업무에 <strong>(원격) 컨설팅, 유상 강의영상 제작</strong> 등 교습행위가 포함됨</span>
+                    </label>
+                </fieldset>
+                <div class="flex gap-3">
+                    <button onclick="screenerStep1()" class="flex-1 bg-rose-600 text-white font-bold py-3 rounded-lg hover:bg-rose-700 transition shadow-xs">다음 단계로</button>
+                    <button onclick="goHome()" class="px-5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">취소</button>
+                </div>
+            </div>
+
+            <!-- 2단계 -->
+            <div id="scr-step-2" class="hidden fade-in">
+                <span class="inline-block bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full text-sm mb-3">2단계. 예외적 허용 사유</span>
+                <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-4 leading-relaxed">원칙적 금지에 해당하지만, 다음 <strong class="text-amber-600">예외 사유</strong>가 있습니까?</h3>
+                <fieldset class="space-y-3 mb-6">
+                    <legend class="sr-only">예외적 허용 사유</legend>
+                    <label class="flex gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-amber-400 transition">
+                        <input type="checkbox" class="scr-exc w-5 h-5 mt-0.5 shrink-0 accent-amber-600">
+                        <span class="text-sm md:text-base text-slate-700"><strong class="text-slate-900">겸직 목적의 공익성</strong>이 인정됨<br><span class="text-xs text-slate-500">에듀테크 소프트랩 등 정부사업 컨설팅, 디지털교과서 개발, 교원연수자료 개발, 자문 등</span></span>
+                    </label>
+                    <label class="flex gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-amber-400 transition">
+                        <input type="checkbox" class="scr-exc w-5 h-5 mt-0.5 shrink-0 accent-amber-600">
+                        <span class="text-sm md:text-base text-slate-700">결과물이 <strong class="text-slate-900">학원 수강생 등 특정인이 아닌 대중</strong>에게 판매·활용됨<br><span class="text-xs text-slate-500">예: 검인정 교과서 출판사의 참고서·문제집 제작 참여</span></span>
+                    </label>
+                </fieldset>
+                <div class="flex gap-3">
+                    <button onclick="screenerStep2()" class="flex-1 bg-amber-600 text-white font-bold py-3 rounded-lg hover:bg-amber-700 transition shadow-xs">다음 단계로</button>
+                    <button onclick="resetScreener()" class="px-5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">처음부터</button>
+                </div>
+            </div>
+
+            <!-- 3단계 -->
+            <div id="scr-step-3" class="hidden fade-in">
+                <span class="inline-block bg-indigo-100 text-indigo-800 font-bold px-3 py-1 rounded-full text-sm mb-3">3단계. 결과물의 성격</span>
+                <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-4 leading-relaxed">공익성이 있어도 아래에 해당하면 <strong class="text-rose-600">금지되는 영리업무</strong>로 판단됩니다.</h3>
+                <fieldset class="space-y-3 mb-6">
+                    <legend class="sr-only">결과물의 성격</legend>
+                    <label class="flex gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                        <input type="checkbox" class="scr-kill w-5 h-5 mt-0.5 shrink-0 accent-rose-600">
+                        <span class="text-sm md:text-base text-slate-700">제작한 <strong class="text-slate-900">강의 영상이 유상으로 제공</strong>됨<br><span class="text-xs text-slate-500">유상 제공 시 원격교습학원 인터넷강의와 다르지 않다고 봅니다</span></span>
+                    </label>
+                    <label class="flex gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                        <input type="checkbox" class="scr-kill w-5 h-5 mt-0.5 shrink-0 accent-rose-600">
+                        <span class="text-sm md:text-base text-slate-700"><strong class="text-slate-900">학원 등록 학생들만을 위한</strong> 교재 활용 목적으로 문항을 제작·판매함</span>
+                    </label>
+                </fieldset>
+                <div class="flex gap-3">
+                    <button onclick="screenerStep3()" class="flex-1 bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition shadow-xs">판별 결과 보기</button>
+                    <button onclick="resetScreener()" class="px-5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">처음부터</button>
+                </div>
+            </div>
+
+            <!-- 판별 결과 -->
+            <div id="scr-result" class="hidden fade-in"></div>
+        </div>
+
+        <!-- ===================== 4대 요건 자가체크 ===================== -->
+        <div id="section-requirements" class="hidden bg-white border-2 border-indigo-300 rounded-xl p-5 md:p-8 shadow-lg mb-6 fade-in">
+            <div class="flex justify-between items-center mb-2 pb-3 border-b border-slate-100">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-gauge-high text-indigo-600" aria-hidden="true"></i> 겸직 허가 4대 요건 자가체크
+                </h2>
+                <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-2xl" aria-hidden="true"></i></button>
+            </div>
+            <p class="text-sm text-slate-500 mb-6">겸직 심사 체크리스트를 그대로 옮겼습니다. 4가지 금지요건에 <strong>모두 해당하지 않아야</strong> 허가가 가능합니다. <span class="basis-tag">근거 Q14 / 붙임3</span></p>
+
+            <form id="reqForm" onsubmit="event.preventDefault(); analyzeRequirements();" class="space-y-6">
+
+                <!-- 0. 대상 여부 -->
+                <fieldset class="bg-slate-50 border border-slate-200 rounded-xl p-4 md:p-5">
+                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="bg-slate-700 text-white w-6 h-6 rounded flex items-center justify-center text-sm">0</span> 겸직 허가 대상인지 먼저 확인</legend>
+                    <div class="space-y-2 mt-3">
+                        <label class="flex gap-3 items-start p-2 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req0_work" class="w-4 h-4 mt-1 accent-indigo-600"> <span>직업 또는 계속적으로 종사하는 <strong>사무·사업</strong>에 해당한다 <span class="text-slate-500">(단순 취미활동·학업은 업무로 보지 않음)</span></span></label>
+                        <label class="flex gap-3 items-start p-2 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req0_cont" class="w-4 h-4 mt-1 accent-indigo-600"> <span><strong>계속성</strong>이 있다 <span class="text-slate-500">(매일·매주·매월 주기적, 계절적, 또는 계속할 의지와 가능성이 있음)</span></span></label>
+                        <label class="flex gap-3 items-start p-2 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req0_out" class="w-4 h-4 mt-1 accent-indigo-600"> <span>본인이 담당하는 <strong>공무 범위 밖</strong>의 사항이다</span></label>
                     </div>
+                </fieldset>
+
+                <!-- 겸직 유형 -->
+                <div>
+                    <label for="reqType" class="block text-sm font-bold text-slate-700 mb-2">겸직 유형 <span class="text-slate-400 font-normal">(실태조사표 분류 15종)</span></label>
+                    <select id="reqType" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500"></select>
+                    <p id="reqTypeNote" class="text-xs text-slate-500 mt-2"></p>
                 </div>
 
-                <div id="step-e-2" class="text-center fade-in hidden">
-                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q2. 계속성 여부 검토</span>
-                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
-                        외부 공공기관의 요청을 받아 <strong class="text-indigo-600">딱 한 번(1회성) 특강</strong>을 진행하고 강사료를 받기로 했습니다. 영리 수익이 발생하니 <strong class="text-teal-600 underline">겸직 허가</strong>를 신청해야 할까요?
-                    </h3>
-                    <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(2, true, '겸직 허가를 신청하는 업무는 반드시 계속성이 있어야 합니다. 어쩌다 한 번 발생하는 단발성 활동은 겸직이 아닌 [A. 외부강의 신고] 대상입니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">겸직 대상이다 (O)</button>
-                        <button onclick="nextStepE(2, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">외부강의 대상이다 (X)</button>
-                    </div>
-                </div>
-
-                <div id="step-e-3" class="text-center fade-in hidden">
-                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q3. 직무 범위 및 능률 검토</span>
-                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
-                        현재 학교에서 <strong class="text-amber-600">본인이 담당하는 공무와 직접 연관</strong>된 내용으로 사설 업체에 유료 콘텐츠를 제작 납품하거나, <strong class="text-amber-600">심야/과다 근무</strong>로 수업 지장이 예상됩니다. 승인이 될까요?
-                    </h3>
-                    <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(3, true, '겸직 허가는 담당 공무 범위 밖의 사적인 일이어야 하며, 직무 공정성을 해치거나 능률을 저해할 우려(심야 근무 등)가 있는 영리 활동은 승인 불가능합니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">승인 가능하다 (O)</button>
-                        <button onclick="nextStepE(3, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">승인 불가능하다 (X)</button>
-                    </div>
-                </div>
-
-                <div id="step-e-4" class="text-center fade-in hidden">
-                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q4. 관련 법령 (사교육 카르텔) 검토</span>
-                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
-                        사교육 업체로부터 주기적으로 <strong class="text-rose-600 underline">모의고사 문제를 출제</strong>해 달라는 제안을 받았습니다. 계속성이 있으니 <strong class="text-teal-600 underline">겸직 신청 시 활동이 가능</strong>할까요?
-                    </h3>
-                    <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(4, true, '학원법 제3조 및 지침에 따라 사교육 업체 연계 활동은 일절 금지되며, 겸직 신청조차 불가한 [원칙적 절대 금지] 및 중징계 대상입니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">신청 가능 (O)</button>
-                        <button onclick="nextStepE(4, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">절대 금지 (X)</button>
-                    </div>
-                </div>
-
-                <div id="step-e-5" class="text-center fade-in hidden">
-                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q5. 인터넷 미디어 활동 최종 체크</span>
-                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-6 text-left text-sm md:text-base">
-                        <p class="font-bold text-slate-800 mb-2">※ 다음 중 귀하의 활동 내용에 <span class="text-rose-600">하나라도 해당하는 사항</span>이 있습니까?</p>
-                        <ul class="list-disc pl-5 space-y-1.5 text-slate-600">
-                            <li>학생 초상권 침해(미동의 노출) 등 법령 위반 우려가 있다.</li>
-                            <li>비속어, 허위사실, 선정성 등 교원의 품위 손상 우려가 있다.</li>
-                            <li>특정 정당·후보자 지지 등 정치적 중립성을 위반한다.</li>
-                            <li>근무 시간 중 유튜브 등 라이브 방송을 진행할 예정이다.</li>
-                        </ul>
-                    </div>
-                    <div class="flex gap-4 justify-center">
-                        <button onclick="nextStepE(5, true, '위 항목 중 하나라도 해당된다면 법령 위반(비밀누설, 품위손상, 정치적 중립 등)으로 겸직 허가가 절대 불가합니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">예 (해당함)</button>
-                        <button onclick="nextStepE(5, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">아니오 (해당 없음)</button>
-                    </div>
-                </div>
-
-                <div id="step-e-fail" class="hidden fade-in text-center py-4">
-                    <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-red-100 text-red-500 mb-4">
-                        <i class="fa-solid fa-xmark text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-red-700 mb-2">오답 / 신청 불가</h3>
-                    <p id="fail-reason-text" class="text-red-900 bg-red-50 border border-red-200 p-4 rounded-xl font-semibold mb-6 max-w-lg mx-auto leading-relaxed"></p>
-                    <button onclick="resetWizardE()" class="px-6 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">처음부터 다시 풀기</button>
-                </div>
-
-                <div id="step-e-success" class="hidden fade-in text-center py-4">
-                    <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-green-100 text-green-500 mb-4">
-                        <i class="fa-solid fa-check text-3xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-green-700 mb-2">모든 관문 통과 완료!</h3>
-                    <div class="text-green-900 bg-green-50 border border-green-200 p-4 rounded-xl font-semibold mb-6 max-w-lg mx-auto leading-relaxed text-sm md:text-base text-left">
-                        <p class="text-center mb-4">🎉 축하합니다! 선생님이 계획하신 활동은 규정상 겸직 허가를 받을 수 있는 기본 요건(계속성, 공무 무관, 능률 비저해, 법령 준수)을 모두 충족합니다.<br><br>
-                        수익 발생 또는 활동 개시 전에 <strong>[나이스 복무] - [겸직허가신청]</strong> 메뉴를 통해 관련 증빙 서류(계약서, 임대등록증 등)를 첨부하여 사전 결재를 진행해 주시기 바랍니다.</p>
-                        
-                        <div class="bg-white border border-dashed border-slate-300 p-3 rounded-lg text-xs md:text-sm text-slate-700 font-normal space-y-1.5 mt-4">
-                            <span class="inline-block bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded text-[11px] mb-1">💡 겸직 승인 후 필수 준수사항(가이드 반영)</span>
-                            <p>• <strong>비밀 엄수 의무 (국가공무원법 제60조):</strong> 직무 수행 중 알게 된 비밀이나 소속 기관의 미공개 정보를 외부 겸직 활동에 절대 이용하거나 누설해서는 안 됩니다.</p>
-                            <p>• <strong>품위 유지 의무 (국가공무원법 제63조):</strong> 타인의 명예훼손, 비속어 사용, 선정성 자극 등 교원으로서의 품위를 손상하는 행위가 확인될 경우 즉시 겸직 허가가 취소되거나 징계 처분을 받을 수 있습니다.</p>
+                <!-- 1. 직무 능률 -->
+                <fieldset class="border border-indigo-200 bg-indigo-50/40 rounded-xl p-4 md:p-5">
+                    <legend class="font-bold text-indigo-900 px-2 flex items-center gap-2"><span class="bg-indigo-600 text-white w-6 h-6 rounded flex items-center justify-center text-sm">1</span> 직무 능률을 떨어뜨릴 우려</legend>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+                        <div>
+                            <label for="reqWorkHours" class="block text-xs font-bold text-slate-600 mb-1">주당 근무시간</label>
+                            <input type="number" id="reqWorkHours" value="40" min="0" max="80" class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="reqSideHours" class="block text-xs font-bold text-slate-600 mb-1">주당 겸직 소요시간</label>
+                            <input type="number" id="reqSideHours" value="0" min="0" max="80" class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="reqDailyHours" class="block text-xs font-bold text-slate-600 mb-1">1일 최대 합산시간</label>
+                            <input type="number" id="reqDailyHours" value="8" min="0" max="24" class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500">
                         </div>
                     </div>
-                    <button onclick="goHome()" class="px-6 py-2 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition">메인 화면으로 돌아가기</button>
+                    <p class="text-xs text-indigo-700 mt-2 font-semibold"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> 심사 기준: 근무시간 + 겸직시간이 <strong>주 52시간</strong> 또는 <strong>1일 12시간</strong>을 초과하면 능률 저하 우려로 봅니다.</p>
+                    <div class="space-y-2 mt-3 pt-3 border-t border-indigo-100">
+                        <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm"><input type="checkbox" id="reqLateNight" class="w-4 h-4 mt-0.5 accent-indigo-600"> <span><strong>자정 이후</strong>에도 활동하는 심야업종이다</span></label>
+                        <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm"><input type="checkbox" id="reqDuringWork" class="w-4 h-4 mt-0.5 accent-indigo-600"> <span><strong>근무시간 중</strong>에도 겸직 활동을 할 예정이다</span></label>
+                        <div class="pt-1">
+                            <label for="reqIncome" class="block text-xs font-bold text-slate-600 mb-1">연간 예상 총수익 (원)</label>
+                            <input type="number" id="reqIncome" value="0" min="0" class="w-full md:w-1/2 px-3 py-2 border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-indigo-500">
+                            <p class="text-xs text-slate-500 mt-1">실수익이 예상액을 초과하면 실태조사 시 기관장 보고 및 재심사 검토 대상입니다.</p>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 2. 공무에 부당한 영향 -->
+                <fieldset class="border border-slate-200 rounded-xl p-4 md:p-5">
+                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="bg-slate-700 text-white w-6 h-6 rounded flex items-center justify-center text-sm">2</span> 공무에 부당한 영향을 끼칠 우려</legend>
+                    <div class="space-y-2 mt-3">
+                        <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req2_conflict" class="w-4 h-4 mt-1 accent-rose-600"> <span>공무와 <strong>이해충돌 가능성</strong>이 있다 <span class="text-slate-500">(보조금 등 재정보조 제공, 인·허가 관계, 법령에 근거한 지도·감독 등)</span></span></label>
+                        <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req2_secret" class="w-4 h-4 mt-1 accent-rose-600"> <span>직무 수행 중 알게 된 <strong>비밀 또는 미공개 정보</strong>를 이용한다 <span class="text-slate-500">(학교 기출문제 활용 등 포함)</span></span></label>
+                    </div>
+                </fieldset>
+
+                <!-- 3·4 -->
+                <fieldset class="border border-slate-200 rounded-xl p-4 md:p-5">
+                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="bg-slate-700 text-white w-6 h-6 rounded flex items-center justify-center text-sm">3·4</span> 국가 이익 상반 / 정부 불명예 우려</legend>
+                    <div class="space-y-2 mt-3">
+                        <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req3_against" class="w-4 h-4 mt-1 accent-rose-600"> <span>겸직 업무가 <strong>국가 및 공공의 이익에 반하거나 충돌</strong>할 우려가 있다</span></label>
+                        <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req4_disrepute" class="w-4 h-4 mt-1 accent-rose-600"> <span>사회 통념상 바람직하지 못해 <strong>정부의 명예나 신뢰를 저해</strong>할 우려가 있다 <span class="text-slate-500">(유흥·사행업 등 선량한 풍속을 해치거나 장애인·학생·노인 등 사회적 약자를 부당하게 이용하는 경우)</span></span></label>
+                        <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req_law" class="w-4 h-4 mt-1 accent-rose-600"> <span>해당 업무를 규율하는 <strong>다른 법령에서 교원의 겸직을 제한</strong>하고 있다 <span class="text-slate-500">(「학원법」 제3조 교원의 과외교습 제한 등)</span></span></label>
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3.5 rounded-lg hover:bg-indigo-700 shadow-xs transition text-lg">
+                    <i class="fa-solid fa-calculator mr-1" aria-hidden="true"></i> 4대 요건 판정하기
+                </button>
+            </form>
+
+            <div id="req-result" class="hidden mt-6 pt-6 border-t-2 border-dashed border-slate-200 fade-in"></div>
+        </div>
+
+        <!-- ===================== 셀프 모의고사 ===================== -->
+        <div id="section-quiz" class="hidden bg-white border-2 border-teal-400 rounded-xl p-5 md:p-8 shadow-lg mb-6 fade-in">
+            <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-100">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-teal-600" aria-hidden="true"></i> 겸직 허가 1분 셀프 모의고사</h2>
+                <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-2xl" aria-hidden="true"></i></button>
+            </div>
+
+            <div class="max-w-2xl mx-auto py-4">
+
+                <div id="quiz-1" class="text-center fade-in hidden">
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q1. 업무 성격 검토</span>
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
+                        퇴근 후 건강 관리를 위해 학원을 다니거나, 자기계발을 위해 야간 대학원에서 학업을 이어가고 있습니다. 사적인 활동이므로 <strong class="text-teal-600 underline">겸직 허가를 신청</strong>해야 할까요?
+                    </h3>
+                    <div class="flex gap-4 justify-center">
+                        <button onclick="quizNext(1, true, '단순 취미활동이나 학업 등은 애초에 법상 업무로 볼 수 없어 겸직 허가 신청 대상이 아닙니다. 다만 본인이 단순 취미·자기계발이라 판단하더라도 계속성이 있는 경우에는 복무담당부서의 판단을 받으시기 바랍니다.')" class="flex-1 max-w-[170px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">해야 한다 (O)</button>
+                        <button onclick="quizNext(1, false, '')" class="flex-1 max-w-[170px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">안 해도 된다 (X)</button>
+                    </div>
+                </div>
+
+                <div id="quiz-2" class="text-center fade-in hidden">
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q2. 계속성 여부 검토</span>
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
+                        외부 공공기관의 요청을 받아 <strong class="text-indigo-600">딱 한 번(1회성) 특강</strong>을 진행하고 강사료를 받기로 했습니다. 수익이 발생하니 <strong class="text-teal-600 underline">겸직 허가</strong>를 신청해야 할까요?
+                    </h3>
+                    <div class="flex gap-4 justify-center">
+                        <button onclick="quizNext(2, true, '겸직 허가 대상 업무는 계속성이 있어야 합니다. 어쩌다 한 번 발생하는 단발성 활동은 겸직이 아닌 [A. 외부강의 신고] 대상입니다. 다만 월 강의 횟수와 관계없이 1개월을 초과해 지속적으로 출강하면 겸직허가가 필요합니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">겸직 대상이다 (O)</button>
+                        <button onclick="quizNext(2, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">외부강의 대상이다 (X)</button>
+                    </div>
+                </div>
+
+                <div id="quiz-3" class="text-center fade-in hidden">
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q3. 직무 범위 및 능률 검토</span>
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
+                        근무시간과 겸직시간을 합하면 <strong class="text-amber-600">주 55시간</strong>이 되고, 일부 작업은 <strong class="text-amber-600">자정 이후</strong>에 이루어집니다. 본업에 지장이 없다고 스스로 판단하면 승인이 될까요?
+                    </h3>
+                    <div class="flex gap-4 justify-center">
+                        <button onclick="quizNext(3, true, '심사 체크리스트는 근무시간과 겸직 종사시간을 합한 시간이 주 52시간 또는 1일 12시간을 초과하는지, 자정 이후에도 근무하는 심야업종인지를 직무 능률 저하 요건으로 점검합니다. 본인의 판단이 아니라 이 기준으로 심사합니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">승인 가능하다 (O)</button>
+                        <button onclick="quizNext(3, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">승인 어렵다 (X)</button>
+                    </div>
+                </div>
+
+                <div id="quiz-4" class="text-center fade-in hidden">
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q4. 사교육업체 관련 검토</span>
+                    <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 leading-relaxed">
+                        입시학원으로부터 주기적으로 <strong class="text-rose-600 underline">모의고사 문항을 출제</strong>해 달라는 제안을 받았습니다. 계속성이 있으니 <strong class="text-teal-600 underline">겸직 허가를 받으면 가능</strong>할까요?
+                    </h3>
+                    <div class="flex gap-4 justify-center">
+                        <button onclick="quizNext(4, true, '학교교과교습학원 관련 업무는 원칙적으로 금지됩니다. 다만 사교육업체와 일부 관련성이 있더라도 겸직 목적의 공익성과 결과물의 성격을 종합 고려해 허가 기준에 부합하면 예외적으로 허가가 가능합니다. 내 활동이 어느 쪽인지는 [F. 사교육업체 겸직 판별기]로 확인하세요.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">가능하다 (O)</button>
+                        <button onclick="quizNext(4, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">원칙적 금지 (X)</button>
+                    </div>
+                </div>
+
+                <div id="quiz-5" class="text-center fade-in hidden">
+                    <span class="inline-block bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded-full text-sm mb-4">Q5. 인터넷 미디어 활동 최종 체크</span>
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-6 text-left text-sm md:text-base">
+                        <p class="font-bold text-slate-800 mb-2">계획 중인 활동에 <span class="text-rose-600">하나라도 해당하는 사항</span>이 있습니까?</p>
+                        <ul class="list-disc pl-5 space-y-1.5 text-slate-600">
+                            <li>유아·학생이 등장하는데 초상권 동의를 받지 않았다.</li>
+                            <li>비속어, 허위사실, 선정적·폭력적 콘텐츠 등 품위 손상 우려가 있다.</li>
+                            <li>특정 정당·후보자 지지 등 정치적 중립성을 위반한다.</li>
+                            <li>협찬을 받아 특정 물품을 홍보하거나 후원 수익을 취득한다.</li>
+                            <li>겸직 신청 후 최종 허가를 받기 전에 새 콘텐츠를 올릴 예정이다.</li>
+                        </ul>
+                    </div>
+                    <div class="flex gap-4 justify-center">
+                        <button onclick="quizNext(5, true, '위 항목은 「교원 인터넷 개인 미디어 활동 지침」과 「국가공무원 복무·징계 관련 예규」에서 금지하는 사항입니다. 하나라도 해당하면 겸직 허가를 받을 수 없거나, 허가받은 뒤에도 취소·징계 사유가 됩니다.')" class="flex-1 max-w-[180px] bg-rose-50 text-rose-600 border border-rose-200 font-bold py-3 rounded-lg hover:bg-rose-100 transition shadow-sm">예 (해당함)</button>
+                        <button onclick="quizNext(5, false, '')" class="flex-1 max-w-[180px] bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition shadow-sm">아니오 (해당 없음)</button>
+                    </div>
+                </div>
+
+                <div id="quiz-fail" class="hidden fade-in text-center py-4">
+                    <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-red-100 text-red-500 mb-4" aria-hidden="true">
+                        <i class="fa-solid fa-xmark text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-red-700 mb-2">다시 확인해 보세요</h3>
+                    <p id="quiz-fail-text" class="text-red-900 bg-red-50 border border-red-200 p-4 rounded-xl font-semibold mb-6 max-w-lg mx-auto leading-relaxed text-left"></p>
+                    <button onclick="resetQuiz()" class="px-6 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">처음부터 다시 풀기</button>
+                </div>
+
+                <div id="quiz-success" class="hidden fade-in text-center py-4">
+                    <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-green-100 text-green-500 mb-4" aria-hidden="true">
+                        <i class="fa-solid fa-check text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-green-700 mb-2">기본 요건은 모두 통과했습니다</h3>
+                    <div class="text-green-900 bg-green-50 border border-green-200 p-4 rounded-xl mb-6 max-w-lg mx-auto leading-relaxed text-sm md:text-base text-left">
+                        <p class="mb-4">계획하신 활동은 겸직 허가의 기본 요건(계속성, 공무 범위 밖, 능률 비저해, 법령 준수)을 충족합니다. 다음 단계로 4대 금지요건을 정량 점검해 보세요.</p>
+                        <p class="mb-4">활동 개시 전에 <strong>겸직 허가 신청서</strong>와 <strong>서약서</strong>를 작성해 복무 담당 부서에 제출하고, 겸직기관의 요청서 등 <strong>증빙서류를 반드시 첨부</strong>해야 합니다.</p>
+                        <div class="bg-white border border-dashed border-slate-300 p-3 rounded-lg text-xs md:text-sm text-slate-700 space-y-1.5">
+                            <span class="inline-block bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded text-[11px] mb-1">허가 이후에도 지켜야 할 사항</span>
+                            <p>• <strong>비밀 엄수 (국가공무원법 제60조)</strong> · <strong>품위 유지 (제63조)</strong> · <strong>정치적 중립 (제65조)</strong></p>
+                            <p>• 근무시간 내에는 전적으로 직무 수행에 전념해야 합니다.</p>
+                            <p>• 제출 자료가 허위·부실하거나 실제 업무가 허가받은 업무와 <strong>실체적 동일성이 없으면</strong> 재심사 또는 허가 취소 대상입니다.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-3 justify-center">
+                        <button onclick="startRequirements()" class="px-6 py-2.5 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition">4대 요건 자가체크로 이동</button>
+                        <button onclick="goHome()" class="px-6 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">메인 화면으로</button>
+                    </div>
                 </div>
 
             </div>
         </div>
 
+        <!-- ===================== 외부강의 사전 점검 ===================== -->
         <div id="precheck-section" class="hidden bg-white border-2 border-indigo-200 rounded-xl p-5 md:p-6 shadow-md mb-6 fade-in">
-            <h2 class="text-xl font-bold text-indigo-900 mb-3 flex items-center gap-2"><i class="fa-solid fa-list-check text-indigo-600"></i> 잠깐! 아래 항목 중 하나라도 해당하시나요?</h2>
-            <p class="text-sm text-slate-600 mb-4">행동강령 지침에 따라 아래 활동은 외부강의 신고 대상에서 제외됩니다. (불필요한 행정 최소화)</p>
-            
-            <div class="space-y-2 text-sm md:text-base font-semibold text-slate-700 bg-slate-50 p-4 rounded-lg border border-slate-200 mb-5">
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 text-indigo-600"> 📚 <strong>책 집필</strong> (기고자 송부가 아닌 출판 목적)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 text-indigo-600"> 📝 <strong>시험출제위원</strong> (단순 문제 출제 참여)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 text-indigo-600"> ⚖️ <strong>법정 위원회 참석</strong> (시청 등 법령에 따른 위원 활동)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 text-indigo-600"> 🎓 <strong>사전 겸직허가를 받은 대학 출강</strong></label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 text-indigo-600"> 📄 <strong>단순 서면 심사·자문</strong> (다수 대상 및 회의 형태 아님)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition text-rose-600"><input type="radio" name="precheck" value="no" class="w-4 h-4 text-rose-600"> ❌ <strong>위 항목 중 해당하는 사항이 없습니다.</strong> (일반 강의/기고 등)</label>
-            </div>
-            
+            <h2 class="text-xl font-bold text-indigo-900 mb-3 flex items-center gap-2"><i class="fa-solid fa-list-check text-indigo-600" aria-hidden="true"></i> 잠깐! 아래 항목 중 하나라도 해당하시나요?</h2>
+            <p class="text-sm text-slate-600 mb-4">행동강령 지침에 따라 아래 활동은 외부강의등 신고 대상에서 제외됩니다.</p>
+
+            <fieldset class="space-y-2 text-sm md:text-base font-semibold text-slate-700 bg-slate-50 p-4 rounded-lg border border-slate-200 mb-5">
+                <legend class="sr-only">외부강의 신고 제외 항목</legend>
+                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 📚 <strong>책 집필</strong> (기고 송부가 아닌 출판 목적)</label>
+                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 📝 <strong>시험출제위원</strong> (단순 문제 출제 참여)</label>
+                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> ⚖️ <strong>법정 위원회 참석</strong> (법령에 따른 위원 활동)</label>
+                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 🎓 <strong>사전 겸직허가를 받은 대학 출강</strong></label>
+                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 📄 <strong>단순 서면 심사·자문</strong> (다수 대상 및 회의 형태가 아님)</label>
+                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition text-rose-600"><input type="radio" name="precheck" value="no" class="w-4 h-4 accent-rose-600"> ❌ <strong>해당하는 사항이 없습니다.</strong> (일반 강의·기고 등)</label>
+            </fieldset>
+
             <div class="flex gap-3">
                 <button onclick="processPrecheck()" class="flex-1 bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 shadow-xs transition">다음 단계로</button>
                 <button onclick="goHome()" class="px-5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">취소</button>
             </div>
         </div>
 
-        <div id="section-A" class="hidden bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-xs mb-6 fade-in">
+        <!-- ===================== 외부강의 입력 ===================== -->
+        <div id="section-lecture" class="hidden bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-xs mb-6 fade-in">
             <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-pen-nib text-indigo-600"></i> 외부강의 세부내역 정밀 입력</h2>
-                <button onclick="goHome()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-pen-nib text-indigo-600" aria-hidden="true"></i> 외부강의 세부내역 입력</h2>
+                <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl" aria-hidden="true"></i></button>
             </div>
 
             <form id="lectureForm" onsubmit="event.preventDefault(); analyzeLecture();" class="space-y-5">
-                
+
                 <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100">
-                    <label class="block text-sm font-bold text-slate-700 mb-1">1. 요청 기관명 (정확히 입력)</label>
-                    <p class="text-[11px] text-rose-500 font-bold mb-2"><i class="fa-solid fa-circle-exclamation"></i> 주의: 교육청 주관이라도 공문 주체가 '동아리'면 동아리명을 기재하세요.</p>
-                    
-                    <input type="text" id="agencyName" required placeholder="예: 송원초등학교, 한국도로공사, 광주광역시청 등" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500 mb-1 bg-white" oninput="toggleSchoolRadios()">
-                    
+                    <label for="agencyName" class="block text-sm font-bold text-slate-700 mb-1">1. 요청 기관명 (정확히 입력)</label>
+                    <p class="text-[11px] text-rose-500 font-bold mb-2"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> 교육청 주관이라도 공문 주체가 '동아리'면 동아리명을 기재하세요.</p>
+
+                    <input type="text" id="agencyName" required placeholder="예: 송원초등학교, 한국도로공사, 전남광주통합특별시청 등" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 mb-1 bg-white" oninput="toggleSchoolRadios()">
+
                     <div id="schoolTypeSection" class="hidden space-y-2 text-sm mt-3 pt-3 border-t border-indigo-200">
-                        <p class="text-xs font-bold text-indigo-600 mb-1"><i class="fa-solid fa-circle-info"></i> 학교명이 입력되었습니다. 설립 유형을 선택해주세요.</p>
+                        <p class="text-xs font-bold text-indigo-600 mb-1"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> 학교명이 입력되었습니다. 설립 유형을 선택해 주세요.</p>
                         <label class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:border-green-400 transition">
-                            <input type="radio" name="agencyType" value="public" class="w-4 h-4 text-indigo-600">
-                            <span class="font-bold text-slate-700"><span class="text-green-600">[신고 면제]</span> 국공립학교</span>
+                            <input type="radio" name="agencyType" value="public" class="w-4 h-4 accent-indigo-600">
+                            <span class="font-bold text-slate-700">국·공립학교</span>
                         </label>
                         <label class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:border-indigo-400 transition">
-                            <input type="radio" name="agencyType" value="private" class="w-4 h-4 text-indigo-600">
+                            <input type="radio" name="agencyType" value="private" class="w-4 h-4 accent-indigo-600">
                             <span class="font-bold text-slate-700"><span class="text-indigo-600">[신고 필수]</span> 사립학교</span>
                         </label>
                     </div>
@@ -342,8 +501,8 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">2. 강의 형태(유형) 선택</label>
-                        <select id="lectureType" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
+                        <label for="lectureType" class="block text-sm font-bold text-slate-700 mb-1">2. 강의 형태(유형)</label>
+                        <select id="lectureType" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                             <option value="강의·강연">강의·강연</option>
                             <option value="발표">발표</option>
                             <option value="토론">토론</option>
@@ -353,8 +512,8 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">3. 신고 방식</label>
-                        <select id="reportMethod" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
+                        <label for="reportMethod" class="block text-sm font-bold text-slate-700 mb-1">3. 신고 방식</label>
+                        <select id="reportMethod" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                             <option value="single">단건 신고 (1회성 강의)</option>
                             <option value="bundle">일괄 신고 (동일 교육과정 수회 출강)</option>
                         </select>
@@ -363,56 +522,64 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">4. 마친 날 (종료일)</label>
-                        <input type="date" id="endDate" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
+                        <label for="endDate" class="block text-sm font-bold text-slate-700 mb-1">4. 마친 날 (종료일)</label>
+                        <input type="date" id="endDate" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">5. 구체적 강의 주제 (교육과정명)</label>
-                        <input type="text" id="lectureSubject" required placeholder="강의 제목 또는 내용 기재" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
+                        <label for="lectureSubject" class="block text-sm font-bold text-slate-700 mb-1">5. 강의 주제 (교육과정명)</label>
+                        <input type="text" id="lectureSubject" required placeholder="강의 제목 또는 내용" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">6. 사례금 총액 (원)</label>
-                        <input type="number" id="payAmount" required placeholder="순수 강사료" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
+                        <label for="payAmount" class="block text-sm font-bold text-slate-700 mb-1">6. 사례금 총액 (원)</label>
+                        <input type="number" id="payAmount" required min="0" placeholder="순수 강사료" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">7. 월간 누적 횟수</label>
-                        <input type="number" id="monthlyCount" value="1" min="1" oninput="checkThreshold()" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
+                        <label for="monthlyCount" class="block text-sm font-bold text-slate-700 mb-1">7. 월간 누적 횟수</label>
+                        <input type="number" id="monthlyCount" value="1" min="1" oninput="checkThreshold()" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">8. 누적 시간(당월)</label>
-                        <input type="number" id="monthlyHours" value="1" min="1" oninput="checkThreshold()" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
+                        <label for="monthlyHours" class="block text-sm font-bold text-slate-700 mb-1">8. 월간 누적 시간</label>
+                        <input type="number" id="monthlyHours" value="1" min="1" oninput="checkThreshold()" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     </div>
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900">
+                    <p class="font-bold mb-1"><i class="fa-solid fa-repeat" aria-hidden="true"></i> 1개월을 넘겨 계속 출강하시나요?</p>
+                    <p>월 강의 횟수와 관계없이 <strong>1개월을 초과해 지속적으로 출강</strong>하는 경우에는 외부강의 신고가 아니라 <strong>겸직허가</strong>가 필요합니다.</p>
                 </div>
 
                 <div id="overLimitReasonSection" class="hidden bg-rose-50 border border-rose-200 rounded-xl p-4 space-y-2 fade-in">
-                    <label class="block text-sm font-bold text-rose-900">
-                        <i class="fa-solid fa-pen-to-square"></i> 9. 월 한도(3회/6시간) 초과 사유 기재
+                    <label for="overLimitReason" class="block text-sm font-bold text-rose-900">
+                        <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> 9. 월 한도(3회/6시간) 초과 사유
                     </label>
-                    <input type="text" id="overLimitReason" placeholder="구체적인 사유를 입력해야 사전 승인됩니다." class="w-full px-3 py-2 border border-rose-300 rounded-lg bg-white focus:outline-hidden focus:ring-2 focus:ring-rose-500 text-sm">
+                    <input type="text" id="overLimitReason" placeholder="구체적인 사유를 입력해야 사전 승인됩니다." class="w-full px-3 py-2 border border-rose-300 rounded-lg bg-white focus:ring-2 focus:ring-rose-500 text-sm">
                 </div>
 
                 <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3.5 rounded-lg hover:bg-indigo-700 shadow-xs transition text-lg">
-                    <i class="fa-solid fa-magnifying-glass mr-1"></i> 복무 규정 검증 및 결과 확인
+                    <i class="fa-solid fa-magnifying-glass mr-1" aria-hidden="true"></i> 복무 규정 검증 및 결과 확인
                 </button>
             </form>
         </div>
 
-        <div id="result-card" class="hidden bg-white border-2 border-indigo-600 rounded-xl p-5 md:p-6 shadow-md mb-6 fade-in">
+        <!-- ===================== 공통 결과 카드 ===================== -->
+        <div id="result-card" class="hidden bg-white border-2 border-indigo-600 rounded-xl p-5 md:p-6 shadow-md mb-6 fade-in" tabindex="-1">
             <div id="resultHeader" class="mb-4"></div>
             <div id="resultContent" class="space-y-4 text-slate-700 text-sm md:text-base"></div>
-            
+
             <div id="neisCopier" class="hidden mt-6 pt-5 border-t border-slate-200">
-                <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-1"><i class="fa-solid fa-copy text-emerald-600"></i> 나이스(NEIS) '요청 비고' 입력 자동 완성</h4>
+                <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-1"><i class="fa-solid fa-copy text-emerald-600" aria-hidden="true"></i> 나이스(NEIS) '요청 비고' 입력 자동 완성</h4>
                 <div class="space-y-3">
-                    <textarea id="neisText" rows="4" readonly class="w-full bg-slate-100 border border-slate-200 px-3 py-2 rounded-lg text-sm text-slate-700 font-mono resize-none focus:outline-hidden"></textarea>
+                    <label for="neisText" class="sr-only">나이스 입력용 텍스트</label>
+                    <textarea id="neisText" rows="5" readonly class="w-full bg-slate-100 border border-slate-200 px-3 py-2 rounded-lg text-sm text-slate-700 font-mono resize-none"></textarea>
                     <div class="flex justify-end">
                         <button onclick="copyNeisText()" class="bg-emerald-600 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-emerald-700 transition flex items-center gap-1.5 shadow-xs">
-                            <i class="fa-regular fa-copy"></i> 복사하기
+                            <i class="fa-regular fa-copy" aria-hidden="true"></i> 복사하기
                         </button>
                     </div>
+                    <p id="copyStatus" role="status" class="text-right text-xs font-bold h-4"></p>
                 </div>
             </div>
 
@@ -423,435 +590,919 @@
 
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 py-4 px-4 text-center text-sm mt-8 relative">
+    <footer class="bg-slate-900 text-slate-400 py-5 px-4 text-center text-sm mt-8">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-center items-center gap-2 text-rose-400 font-semibold">
-            <span><i class="fa-solid fa-triangle-exclamation"></i> 주의: 외부강의 미신고·지연신고 및 무허가 겸직 적발 시 처분 대상이 됩니다.</span>
+            <span><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 외부강의 미신고·지연신고 및 무허가 겸직은 처분 대상입니다.</span>
         </div>
-        <p class="mt-2 text-slate-500">본 자가진단은 공식 가이드북 데이터를 기반으로 하며, 최종 판단은 소속 기관 행동강령책임관실로 문의하시기 바랍니다.</p>
-        <p class="mt-4 text-[10px] text-slate-700">2026 최창훈</p>
+        <p class="mt-3 text-slate-500 max-w-2xl mx-auto leading-relaxed">
+            기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
+            본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
+        </p>
+        <p class="mt-4 text-[10px] text-slate-700">v6.0 · 2026 최창훈</p>
     </footer>
 
     <script>
-        const EXCEPTIONAL_PUBLIC_ORGS = [
-            "서울대학교", "서울대", "인천대학교", "인천대", "한국과학기술원", "KAIST", "카이스트",
-            "한국교육과정평가원", "한국교육개발원", "EBS", "한국방송공사", "국가교육위원회"
-        ];
-        const REQUIRE_REPORT_SUFFIX = ["공사", "공단", "재단", "진흥원", "평가원", "개발원", "연구원", "센터", "협회", "조합", "법인"];
+    "use strict";
 
-        // 학교 입력 시에만 라디오 버튼 토글
-        function toggleSchoolRadios() {
-            const agency = document.getElementById('agencyName').value.trim();
-            const section = document.getElementById('schoolTypeSection');
-            const radios = document.getElementsByName('agencyType');
-            
-            if (agency.includes('학교')) {
-                section.classList.remove('hidden');
-                radios.forEach(r => r.required = true);
-            } else {
-                section.classList.add('hidden');
-                radios.forEach(r => {
-                    r.required = false;
-                    r.checked = false;
-                });
-            }
+    /* =========================================================
+       공통 유틸
+       ========================================================= */
+    const PANELS = [
+        'precheck-section', 'section-lecture', 'result-card',
+        'qaSection', 'section-quiz', 'section-screener', 'section-requirements'
+    ];
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function scrollTo_(el) {
+        if (!el) return;
+        el.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+    }
+
+    function show(id) { document.getElementById(id).classList.remove('hidden'); }
+    function hide(id) { document.getElementById(id).classList.add('hidden'); }
+
+    function hideAll() {
+        PANELS.forEach(hide);
+        hide('neisCopier');
+    }
+
+    function goHome() {
+        hideAll();
+        show('qaSection');
+        scrollTo_(document.getElementById('menu-section'));
+    }
+
+    function won(n) { return Number(n || 0).toLocaleString('ko-KR') + '원'; }
+
+    /* =========================================================
+       겸직 유형 (실태조사표 각주1 분류 15종)
+       committee: 겸직심사위원회 필수 심사 대상
+       maxYears: 허가 기간 상한 (원칙 2년, 인터넷 개인방송·사교육 관련 1년)
+       ========================================================= */
+    const GYEOMJIK_TYPES = [
+        { id: 1,  label: '공동주택입주자 대표',            committee: false, maxYears: 2, note: '봉사 성격이라도 계속적인 의결권과 책임이 따르므로 허가 대상입니다.' },
+        { id: 2,  label: '공연·영화·음악·사진 등 예술활동', committee: false, maxYears: 2, note: '' },
+        { id: 3,  label: '인터넷 개인미디어 활동',          committee: true,  maxYears: 1, note: '겸직심사위원회 필수 심사 대상이며 허가 기간은 최대 1년입니다. 신청 후 최종 허가 전까지 새 콘텐츠 방송·업로드는 금지됩니다.' },
+        { id: 4,  label: '기관 또는 단체 임원',             committee: false, maxYears: 2, note: '사례금이 없는 비영리라도 계속성이 있으면 허가 대상입니다.' },
+        { id: 5,  label: '기자 또는 방송 관련 활동',        committee: false, maxYears: 2, note: '정치적 중립성 확보에 주의가 필요하면 위원회 심사 대상이 됩니다.' },
+        { id: 6,  label: '부동산임대업',                    committee: true,  maxYears: 2, note: '임대사업자 등록 여부와 관계없이, 임대계약 대상 부동산이 둘 이상이면 허가 대상입니다(건물 단위 1채·2채로 세지 않음). 겸직심사위원회 필수 심사 대상입니다.' },
+        { id: 7,  label: '사회적협동조합',                  committee: false, maxYears: 2, note: '' },
+        { id: 8,  label: '상담 또는 컨설팅활동',            committee: false, maxYears: 2, note: '사교육업체 대상 (원격) 컨설팅은 원칙적 금지입니다. 판별기로 확인하세요.' },
+        { id: 9,  label: '연구활동',                        committee: false, maxYears: 2, note: '' },
+        { id: 10, label: '외부강의',                        committee: false, maxYears: 2, note: '1개월을 초과해 지속적으로 출강하면 신고가 아니라 겸직허가 대상입니다.' },
+        { id: 11, label: '자료개발 및 출제',                committee: false, maxYears: 2, note: '직무 관련 지식·정보(학교 기출문제 활용 등)를 이용하면 겸직심사위원회 심사 대상입니다. 고유 업무와 구분이 모호하므로 근무시간 내 활동이 없도록 유의하세요.' },
+        { id: 12, label: '저술활동',                        committee: false, maxYears: 2, note: '' },
+        { id: 13, label: '종교활동',                        committee: false, maxYears: 2, note: '' },
+        { id: 14, label: '태양광사업',                      committee: false, maxYears: 2, note: '' },
+        { id: 15, label: '기타',                            committee: false, maxYears: 2, note: '' }
+    ];
+
+    /* =========================================================
+       FAQ
+       ========================================================= */
+    const FAQ = [
+        {
+            q: '대학 출강이나 정기적인 외부 원격 강연은 외부강의 신고만 하면 되나요?',
+            a: '<strong>아닙니다.</strong> 대학 정기 출강처럼 주기적이거나 1개월을 초과해 계속되는 활동은 외부강의 신고가 아니라 <span class="text-amber-600 font-bold">사전 겸직허가</span> 대상입니다.' +
+               '<div class="mt-3 bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm"><strong class="text-amber-900">주의:</strong> 겸직허가를 받았다고 해서 사례금을 받은 외부강의등의 신고 의무까지 자동으로 사라지는 것은 아닙니다. 겸직허가와 외부강의 신고를 모두 누락해 지적된 사례가 있으므로, 두 절차를 각각 복무 담당 부서에 확인하세요.</div>'
+        },
+        {
+            q: '사설 학원에 교재를 만들어 주거나 문항 검토 자문료를 받아도 되나요?',
+            a: '<strong class="text-rose-600">원칙적으로 금지됩니다.</strong> 학교교과교습학원 및 관련 업체에서의 강의·문항 출제·출판·컨설팅 등 일체의 행위는 「국가공무원 복무규정」 제25조 및 겸직 허가 요건에 따라 원칙적으로 금지됩니다. 계속성이 없는 특강도 마찬가지입니다.' +
+               '<div class="mt-3 bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm"><strong class="text-emerald-900">다만 예외가 있습니다.</strong> 사교육업체와 일부 관련성이 있더라도 <strong>겸직 목적의 공익성</strong>(정부사업 컨설팅, 디지털교과서·교원연수자료 개발, 자문 등)과 <strong>결과물의 성격</strong>(특정인이 아닌 대중 대상)을 종합 고려해 허가 기준에 부합하면 겸직 허가가 가능합니다. 검인정 교과서 출판사의 참고서·문제집 제작 참여가 대표적인 예입니다.<br><button onclick="startScreener()" class="mt-2 font-bold text-emerald-700 underline">→ 사교육업체 겸직 판별기로 확인하기</button></div>'
+        },
+        {
+            q: '사교육업체가 아닌 곳이면 겸직이 허용되나요?',
+            a: '평생직업교육학원, 공공기관(교육과정평가원 등), EBS, 대학, 일반 교과학습용 도서 출판사 등 <strong>학원과 무관한 기관·업체</strong>는 겸직 허가 심사 기준에 따라 금지 요건에 해당하지 않으면 소속기관장의 허가를 받아 겸직할 수 있습니다.' +
+               '<ul class="list-disc pl-5 mt-2 space-y-1 text-sm"><li>단, 대학 입시 관련 <strong>실기학원·편입학원</strong> 등 사교육 유발 요인이 있으면 엄격히 심사해 제한됩니다. 성인 대상 실기·편입학원은 평생직업교육학원으로 분류되더라도 금지되는 영리행위에 해당합니다.</li><li>학원과 무관한 기관이라도 <strong>특정 학교교과교습학원을 대상으로</strong> 문항·특강 등 콘텐츠를 제공하는 경우는 제한됩니다.</li></ul>'
+        },
+        {
+            q: '유튜브 채널을 만들어 영상을 올리기만 해도 겸직 신청을 해야 하나요?',
+            a: '플랫폼 유형에 따라 신청 시점이 다릅니다.' +
+               '<ul class="list-disc pl-5 mt-2 space-y-1.5"><li><strong>수익창출 요건이 있는 플랫폼(유튜브 등)</strong>: 플랫폼이 정한 수익창출 요건(유튜브는 구독자 1,000명 &amp; 연간 누적재생시간 4,000시간)을 <strong class="text-rose-600">충족하고</strong>, 이후에도 계속 활동하려는 경우 신청합니다. 실제 수익이 아직 0원이어도 요건을 채웠다면 대상입니다.</li><li><strong>수익창출 요건이 없는 플랫폼(SOOP 구독료 등)</strong>: <strong class="text-rose-600">수익이 최초 발생</strong>하고 이후에도 계속 활동하려는 경우 신청합니다.</li><li><strong>블로그·브런치 등</strong>: 플랫폼을 통해 수익이 최초 발생하고 계속 활동하려는 경우 신청합니다.</li></ul>' +
+               '<div class="mt-3 bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm"><strong class="text-rose-900">가장 많이 놓치는 부분:</strong> 신청 후 <strong>최종 허가를 받기 전까지는 새로운 콘텐츠 방송·업로드가 금지</strong>됩니다.</div>' +
+               '<p class="mt-2 text-sm text-slate-500">직무와 관련된 개인방송 활동은 수익창출 요건과 관계없이 소속 기관의 장에게 사전 보고를 거쳐 가능합니다.</p>'
+        },
+        {
+            q: '영리업무와 비영리업무의 기준이 무엇인가요?',
+            a: '<strong>영리업무</strong>는 계속적으로 재산상 이득을 취하는 업무입니다. 상업·공업·금융업 등을 스스로 경영하여 영리 추구가 뚜렷한 업무, 사기업체의 이사·감사 업무를 집행하는 무한책임사원·지배인·발기인 또는 그 밖의 임원이 되는 것, 본인의 직무와 관련 있는 타인의 기업에 대한 투자 등이 해당합니다.' +
+               '<p class="mt-2"><strong>비영리업무</strong>는 영리 목적이 아닌 계속성 있는 업무입니다. <strong class="text-amber-600">영리·비영리 모두 겸직 허가 신청 대상</strong>입니다.</p>' +
+               '<p class="mt-2 text-sm text-slate-500">다만 누가 보더라도 명백하게 계속성이 없는 일시적 행위이거나, 직업·사회적 지위와 무관한 단순 취미·자기계발 활동은 제외됩니다. 본인이 단순 취미라고 판단해도 계속성이 있다면 복무담당부서의 판단을 받으세요.</p>'
+        },
+        {
+            q: '휴직 중이면 허가 없이 겸직할 수 있나요?',
+            a: '<strong class="text-rose-600">아닙니다.</strong> 겸직금지 의무는 \'공무원 신분\'에 부여되는 의무이므로 휴직 여부와 관계없이 준수해야 합니다. 휴직 중이라도 겸직을 하려면 반드시 겸직 허가를 신청해야 합니다.' +
+               '<p class="mt-2 text-sm text-slate-500">특히 육아휴직 중 겸직 허가는 휴직의 목적 외 사용 우려가 있어 부적정 사례로 지적된 바 있습니다.</p>'
+        },
+        {
+            q: '겸직 허가를 받으면 기간이 얼마나 유지되나요?',
+            a: '허가 기간은 <strong>2년 이내가 원칙</strong>입니다. 다만 <span class="text-rose-600 font-bold">사교육업체 관련 및 인터넷 개인방송 활동은 최대 1년</span>입니다.' +
+               '<p class="mt-2">시간강사·자문위원처럼 임명·위촉기간이 정해진 업무는 그 기간의 종료일까지 허가할 수 있습니다.</p>' +
+               '<p class="mt-2 text-sm text-slate-500">허가 기간을 \'퇴직 시까지\'로 정하는 것은 부적정 사례입니다. 만료 전에 갱신 신청을 완료하세요.</p>'
+        },
+        {
+            q: '신청 절차와 심사는 어떻게 진행되나요?',
+            a: '<ol class="list-decimal pl-5 space-y-1.5"><li><strong>신청</strong> — 겸직 내용·수익·기간 등을 적은 \'겸직 허가 신청서\'와 서약서를 복무 담당 부서에 제출합니다. 겸직기관의 요청서, 학원설립운영등록증명서 등 증빙서류는 필수 첨부입니다.</li><li><strong>심사</strong> — 업무 내용과 성격, 수익, 담당 직무와의 관련성, 증빙을 검토합니다. 면밀한 심사가 필요한 사항은 <strong>겸직심사위원회</strong>를 별도 구성해 심사합니다.</li><li><strong>허가 여부 결정</strong> — 소속 기관의 장이 개별적·구체적으로 판단·결정합니다.</li><li><strong>결과 통보</strong> — 심사결과를 공문 통보하고 허가 기간 및 준수사항을 사전 안내합니다. 반려 시 구체적 이유가 명시되며, 이의가 있으면 보완해 재신청할 수 있습니다.</li></ol>' +
+               '<div class="mt-3 bg-slate-100 rounded-lg p-3 text-sm"><strong>기한이 있는 경우</strong><br>• 신규임용자가 기존 영리·비영리업무를 계속하려면 <strong>임용일부터 1개월 이내</strong> 신청<br>• 담당직무가 변경되면 <strong>변경일부터 1개월 이내</strong> 재심사 신청</div>'
+        },
+        {
+            q: '겸직심사위원회는 어떤 경우에 열리나요?',
+            a: '다음은 면밀한 심사가 필요해 위원회를 별도 구성하는 사항입니다.' +
+               '<ul class="list-disc pl-5 mt-2 space-y-1"><li>인터넷 개인방송 활동</li><li>부동산 임대업</li><li>과도한 겸직수익 발생</li><li>직무 관련 지식·정보를 이용한 겸직 활동 (학교 기출문제 활용 등 포함)</li><li>정치적 중립성 확보에 주의가 필요한 행동</li><li>그 밖에 면밀한 검토가 필요한 사항 (사교육업체 관련 여부 등 포함)</li></ul>' +
+               '<p class="mt-2 text-sm text-slate-500">위원회 개최 없이 겸직을 허가하거나, 다수의 겸직 건을 일괄 허가하는 것은 부적정 사례입니다. 처리에 시간이 걸릴 수 있으니 여유를 두고 신청하세요.</p>'
+        },
+        {
+            q: '겸직 활동 중 지켜야 할 의무와, 허가가 취소되는 경우는?',
+            a: '허가받은 범위 내에서만 활동해야 하며, 「국가공무원법」상 의무를 준수해야 합니다.' +
+               '<ul class="list-disc pl-5 mt-2 space-y-1.5"><li><strong>비밀 엄수 (제60조)</strong> — 직무상 알게 된 비밀이나 소속 기관의 미공개 정보를 공개하지 않습니다.</li><li><strong>품위 유지 (제63조)</strong> — 직무 내외를 불문하고 품위를 유지합니다. 타인의 명예·권리 침해, 비속어, 허위사실 유포, 폭력적·선정적 콘텐츠 제작·공유가 금지됩니다.</li><li><strong>정치적 중립 (제65조)</strong> — 특정 정당·후보자를 지지·반대하는 활동을 하지 않습니다.</li><li><strong>직무 전념</strong> — 근무시간 내에는 전적으로 직무 수행에 전념하고, 겸직에 과도한 노력·시간을 투입하지 않습니다.</li><li><strong>협찬·후원 금지</strong> — 업체로부터 협찬을 받아 특정 물품을 홍보하거나(직·간접 광고) 인터넷 개인 미디어를 통해 후원 수익을 취득하는 행위는 금지됩니다.</li></ul>' +
+               '<div class="mt-3 bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm"><strong class="text-rose-900">허가 취소·재심사 사유</strong><br>신청 시 제출한 자료가 허위 또는 부실한 경우, 실제 종사하는 업무가 허가받은 업무와 <strong>실체적 동일성이 없는</strong> 경우 소속 기관의 장의 판단에 따라 재심사하거나 허가를 취소할 수 있습니다.</div>'
+        },
+        {
+            q: '허가를 받은 뒤에도 점검을 받나요?',
+            a: '네. <strong>연 2회 겸직 허가 실태조사</strong>가 실시됩니다. 1월 조사는 전년도 말일(12.31.), 7월 조사는 전반기 말일(6.30.) 기준으로 겸직기간 내에 있는 교원이 대상입니다.' +
+               '<p class="mt-2">실제 겸직 수행 여부, 허가 내용 일치 여부, 겸직 요건 위반 여부, 기타 의무 위반 여부를 확인하며, 결과에 따라 허가기간 수정·위원회 개최·허가 취소 등의 조치가 이루어집니다.</p>' +
+               '<p class="mt-2 text-sm text-slate-500">연간 실수익이 신청 시 적은 예상액을 초과하면 반드시 기관장에게 보고하고 재심사 여부를 검토해야 합니다.</p>'
+        },
+        {
+            q: '가족 명의로 된 사업이나 채널이면 괜찮은가요?',
+            a: '겸직 허가를 받아야 하는지는 <strong>사업자 명의와 관계없이 공무원이 실질적으로 업무에 종사하는지</strong>를 기준으로 판단합니다. 가족의 사업장에서 돕는 행위가 실질적인 영리업무 종사에 해당하는지는 실제 개입 정도, 업종, 사안별 특수성을 고려해 구체적으로 판단합니다.' +
+               '<p class="mt-2"><strong class="text-rose-600">가족 명의</strong>의 인터넷 개인방송 채널·블로그를 개설해 협찬을 받아 특정 물품을 홍보하고 금전·물품을 얻는 행위(직·간접 광고)는 금지사항입니다.</p>'
+        }
+    ];
+
+    function renderFAQ() {
+        const list = document.getElementById('faqList');
+        list.innerHTML = FAQ.map((item, i) => {
+            const n = i + 1;
+            return `<div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                <h3>
+                  <button type="button" id="faqBtn${n}" aria-expanded="false" aria-controls="faqAns${n}" onclick="toggleFAQ(${n})"
+                    class="w-full text-left px-5 py-4 font-semibold text-base flex justify-between items-center gap-3 bg-slate-50 hover:bg-slate-100 transition">
+                    <span>Q${n}. ${item.q}</span>
+                    <i id="faqIcon${n}" class="fa-solid fa-chevron-down text-slate-400 transition-transform shrink-0" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div id="faqAns${n}" role="region" aria-labelledby="faqBtn${n}" class="hidden p-5 border-t border-slate-100 text-base text-slate-600 leading-relaxed bg-white">${item.a}</div>
+            </div>`;
+        }).join('');
+    }
+
+    function toggleFAQ(idx) {
+        const ans = document.getElementById('faqAns' + idx);
+        const btn = document.getElementById('faqBtn' + idx);
+        const icon = document.getElementById('faqIcon' + idx);
+        const opening = ans.classList.contains('hidden');
+        ans.classList.toggle('hidden', !opening);
+        icon.classList.toggle('rotate-180', opening);
+        btn.setAttribute('aria-expanded', String(opening));
+    }
+
+    /* 결과 카드 안에서 쓰는 아코디언 */
+    function toggleBlock(btn) {
+        const panel = btn.nextElementSibling;
+        const opening = panel.classList.contains('hidden');
+        panel.classList.toggle('hidden', !opening);
+        btn.setAttribute('aria-expanded', String(opening));
+        const icon = btn.querySelector('.fa-chevron-down');
+        if (icon) icon.classList.toggle('rotate-180', opening);
+    }
+
+    function accordion(title, iconHtml, bodyHtml, open) {
+        return `<div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+            <button type="button" aria-expanded="${open ? 'true' : 'false'}" onclick="toggleBlock(this)"
+              class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center gap-3 bg-slate-50 hover:bg-slate-100 transition">
+                <span class="text-slate-800">${iconHtml} ${title}</span>
+                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform shrink-0 ${open ? 'rotate-180' : ''}" aria-hidden="true"></i>
+            </button>
+            <div class="${open ? '' : 'hidden'} p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">${bodyHtml}</div>
+        </div>`;
+    }
+
+    function openResult(headerHtml, contentHtml, showNeis) {
+        document.getElementById('resultHeader').innerHTML = headerHtml;
+        document.getElementById('resultContent').innerHTML = contentHtml;
+        document.getElementById('neisCopier').classList.toggle('hidden', !showNeis);
+        const card = document.getElementById('result-card');
+        card.classList.remove('hidden');
+        scrollTo_(card);
+        card.focus({ preventScroll: true });
+    }
+
+    /* =========================================================
+       사교육업체 겸직 판별기
+       ========================================================= */
+    function renderScreenerProgress(step) {
+        const bar = document.getElementById('screener-progress');
+        bar.innerHTML = [1, 2, 3].map(i =>
+            `<div class="h-1.5 flex-1 rounded-full ${i <= step ? 'bg-rose-500' : 'bg-slate-200'}"></div>`
+        ).join('');
+    }
+
+    function startScreener() {
+        hideAll();
+        show('section-screener');
+        resetScreener();
+        scrollTo_(document.getElementById('section-screener'));
+    }
+
+    function resetScreener() {
+        ['scr-step-1', 'scr-step-2', 'scr-step-3', 'scr-result'].forEach(hide);
+        document.querySelectorAll('.scr-ban, .scr-exc, .scr-kill').forEach(c => { c.checked = false; });
+        show('scr-step-1');
+        renderScreenerProgress(1);
+    }
+
+    function anyChecked(cls) {
+        return Array.from(document.querySelectorAll('.' + cls)).some(c => c.checked);
+    }
+
+    function screenerStep1() {
+        if (anyChecked('scr-ban')) {
+            hide('scr-step-1'); show('scr-step-2'); renderScreenerProgress(2);
+        } else {
+            showScreenerResult('NOT_PRIVATE_ED');
+        }
+    }
+
+    function screenerStep2() {
+        if (anyChecked('scr-exc')) {
+            hide('scr-step-2'); show('scr-step-3'); renderScreenerProgress(3);
+        } else {
+            showScreenerResult('BANNED');
+        }
+    }
+
+    function screenerStep3() {
+        showScreenerResult(anyChecked('scr-kill') ? 'BANNED_BY_OUTPUT' : 'REVIEWABLE');
+    }
+
+    const SCREENER_COMMON_NOTE = `<div class="bg-slate-100 rounded-lg p-3 text-xs md:text-sm text-slate-600 mt-4">
+        <strong class="text-slate-800">계속성이 없어도 안심할 수 없습니다.</strong> 계속성이 없는 활동은 겸직 신청·허가 대상이 아니지만, 학원 등에서의 특강처럼 계속성과 관계없이 금지되는 활동이 있습니다. 「학원법」 제3조(교원의 과외교습 제한)와 공무원의 청렴·품위유지 의무에 따라 원칙적으로 금지됩니다.
+    </div>`;
+
+    function showScreenerResult(kind) {
+        ['scr-step-1', 'scr-step-2', 'scr-step-3'].forEach(hide);
+        renderScreenerProgress(3);
+        const box = document.getElementById('scr-result');
+        let html = '';
+
+        if (kind === 'BANNED' || kind === 'BANNED_BY_OUTPUT') {
+            const extra = kind === 'BANNED_BY_OUTPUT'
+                ? `<p class="mt-2">공익성이 인정되더라도 <strong>결과물이 유상으로 제공되거나 특정 학원 수강생만을 위한 것</strong>이면 금지되는 영리업무로 봅니다. 유상 강의영상은 원격교습학원 인터넷강의와 다르지 않다고 판단합니다.</p>`
+                : `<p class="mt-2">공익성이나 대중 대상 활용 등 예외 사유가 확인되지 않았습니다.</p>`;
+            html = `
+              <div class="rounded-xl border-2 border-rose-300 bg-rose-50 p-5 mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <i class="fa-solid fa-circle-xmark text-rose-600 text-2xl" aria-hidden="true"></i>
+                  <h3 class="text-xl md:text-2xl font-bold text-rose-800">원칙적으로 금지되는 영리업무</h3>
+                </div>
+                <p class="text-rose-900 font-semibold">사교육업체 관련 일체의 행위는 「국가공무원 복무규정」 제25조 및 겸직 허가 요건에 따라 원칙적으로 금지됩니다.</p>
+                <div class="text-rose-900 text-sm mt-2">${extra}</div>
+              </div>
+              ${accordion('사교육업체의 범위', '<i class="fa-solid fa-building-columns text-rose-500 mr-2" aria-hidden="true"></i>',
+                `<p>\'사교육업체\'란 「학원법」 제2조의2에 따른 <strong>학교교과교습학원</strong>을 말합니다. (학원 설립·운영 등록 증명서로 확인 가능)</p>
+                 <p>겸직이 문제될 수 있는 업무는 <strong>강의, 문항 출제, 출판, 컨설팅 등 사교육업체와 관련된 일체의 행위</strong>이며, 학원으로 등록하지 않은 출판사·정보통신판매업 등에서 이루어지는 (원격) 컨설팅, 유상 강의영상 제작 등 교습행위도 포함됩니다.</p>
+                 <p class="text-xs text-slate-500">문항 출제는 학원·강사·출판사 등 계약 상대방과 관계없이, 학원 교재 등을 제작하기 위한 활동이면 해당합니다.</p>`, true)}
+              <div class="mt-3">
+              ${accordion('부적정 사례로 지적된 유형', '<i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2" aria-hidden="true"></i>',
+                `<ul class="list-disc pl-5 space-y-1.5">
+                    <li>학원·강사·관련 출판업체 등 계약 상대방과 관계없이 <strong>학원 수강생 등 특정인만을 위한 문항</strong>을 제작·판매</li>
+                    <li>학원으로 등록하지 않은 정보통신판매업 등 업체에 <strong>유료 강의를 제공</strong>하거나 (원격) 컨설팅 등 사교육 유발 교습행위 실시</li>
+                 </ul>`, false)}
+              </div>
+              ${SCREENER_COMMON_NOTE}
+              <div class="mt-5 flex flex-col md:flex-row gap-3">
+                <button onclick="resetScreener()" class="flex-1 bg-slate-200 text-slate-700 font-bold py-2.5 rounded-lg hover:bg-slate-300 transition">다시 판별하기</button>
+                <button onclick="goHome()" class="px-5 py-2.5 bg-slate-100 text-slate-600 font-bold rounded-lg hover:bg-slate-200 transition">메인으로</button>
+              </div>`;
         }
 
-        // FAQ 토글 기능 (동적 인덱싱 유지)
-        function toggleFAQ(idx) {
-            const ans = document.getElementById('faqAns' + idx);
-            const icon = document.getElementById('faqIcon' + idx);
-            if(ans.classList.contains('hidden')) {
-                ans.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                ans.classList.add('hidden');
-                icon.classList.remove('rotate-180');
-            }
+        else if (kind === 'REVIEWABLE') {
+            html = `
+              <div class="rounded-xl border-2 border-amber-400 bg-amber-50 p-5 mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <i class="fa-solid fa-scale-balanced text-amber-600 text-2xl" aria-hidden="true"></i>
+                  <h3 class="text-xl md:text-2xl font-bold text-amber-800">예외적 허용 심사 대상</h3>
+                </div>
+                <p class="text-amber-900 font-semibold">원칙적으로는 금지되는 영역이지만, 겸직 목적의 공익성과 결과물의 성격을 종합 고려해 <strong>허가 기준에 부합하면 겸직 허가가 가능</strong>한 경우로 보입니다.</p>
+                <p class="text-amber-900 text-sm mt-2">스스로 판단하지 마시고, 아래 사항을 갖춰 복무 담당 부서에 정식으로 신청·심사받으세요.</p>
+              </div>
+              <div class="bg-rose-100 border border-rose-300 rounded-lg p-3 text-sm text-rose-900 font-bold mb-4">
+                <i class="fa-solid fa-users-gear" aria-hidden="true"></i> 사교육업체 관련 여부는 <strong>겸직심사위원회</strong>의 면밀한 심사 대상입니다. 처리 기간에 여유를 두고 신청하세요. 허가 기간은 <strong>최대 1년</strong>입니다.
+              </div>
+              ${accordion('신청 전 반드시 확인할 사항', '<i class="fa-solid fa-clipboard-check text-emerald-600 mr-2" aria-hidden="true"></i>',
+                `<ul class="list-disc pl-5 space-y-1.5">
+                    <li>겸직 활동이 해당 업체의 <strong>사교육 등 영리활동이 아니라 공익 목적 또는 정부사업 관련 활동</strong>임을 <strong class="text-rose-600">사전에 확인</strong>해야 합니다.</li>
+                    <li>결과물이 학원 수강생 등 특정인이 아니라 <strong>대중에 판매·활용</strong>되는지 확인하세요.</li>
+                    <li>학원인 경우 신청 시 <strong>학원 설립·운영 등록 증명서</strong>를 첨부해야 합니다.</li>
+                    <li>겸직기관의 <strong>요청서</strong> 등 증빙서류는 필수 첨부입니다.</li>
+                 </ul>`, true)}
+              <div class="mt-3">
+              ${accordion('허가 가능 대상으로 본 사례', '<i class="fa-solid fa-circle-check text-emerald-500 mr-2" aria-hidden="true"></i>',
+                `<ul class="list-disc pl-5 space-y-1.5">
+                    <li><strong>에듀테크 업체</strong>에서 에듀테크 소프트랩 등 정부사업으로 이루어지는 컨설팅, 디지털교과서 개발, 교원연수자료 개발, 자문 등에 참여 → 공익성이 있어 금지되는 영리업무에 해당하지 않음</li>
+                    <li><strong>검인정 교과서 출판사</strong>에서 참고서·문제집 제작에 참여 → 교과서 출판 업무의 연장선에서 학생의 자율 학습을 지원하는 공익성이 있어 금지되는 영리업무에 해당하지 않음</li>
+                 </ul>
+                 <p class="text-xs text-slate-500 mt-2">단, 직무 능률 저하 우려 등 금지요건에 해당하지 않는 경우에 한합니다.</p>`, false)}
+              </div>
+              ${SCREENER_COMMON_NOTE}
+              <div class="mt-5 flex flex-col md:flex-row gap-3">
+                <button onclick="startRequirements()" class="flex-1 bg-indigo-600 text-white font-bold py-2.5 rounded-lg hover:bg-indigo-700 transition">이어서 4대 요건 체크하기</button>
+                <button onclick="resetScreener()" class="px-5 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">다시 판별</button>
+              </div>`;
         }
 
-        // 화면 전환 유틸리티
-        function hideAll() {
-            document.getElementById('precheck-section').classList.add('hidden');
-            document.getElementById('section-A').classList.add('hidden');
-            document.getElementById('result-card').classList.add('hidden');
-            document.getElementById('neisCopier').classList.add('hidden');
-            document.getElementById('qaSection').classList.add('hidden');
-            document.getElementById('section-E').classList.add('hidden');
+        else {
+            html = `
+              <div class="rounded-xl border-2 border-emerald-400 bg-emerald-50 p-5 mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <i class="fa-solid fa-circle-check text-emerald-600 text-2xl" aria-hidden="true"></i>
+                  <h3 class="text-xl md:text-2xl font-bold text-emerald-800">사교육업체 관련 없음 — 일반 겸직 심사 대상</h3>
+                </div>
+                <p class="text-emerald-900 font-semibold">사교육업체가 아닌 경우에는 겸직 허가 심사 기준에 따라 직무 능률 저하 등 금지 요건에 해당하지 않으면 소속기관장의 허가를 받아 겸직할 수 있습니다.</p>
+              </div>
+              ${accordion('사교육업체가 아닌 기관·업체의 예', '<i class="fa-solid fa-building text-emerald-600 mr-2" aria-hidden="true"></i>',
+                `<p>「학원법」 제2조의2에 따른 <strong>평생직업교육학원</strong>, 공공기관(교육과정평가원 등), <strong>EBS</strong>, 대학, 일반 교과학습용 도서 출판사, 일반 출판사 등 학원과 무관한 기관 및 업체.</p>
+                 <p>평생직업교육학원에서의 교재 제작 등은 겸직활동의 목적, 계속성, 근무시간 내 활동 여부, 사교육 유발 영향을 종합 고려해 소속기관의 장 또는 겸직심사위원회가 심사해 허가할 수 있습니다.</p>`, true)}
+              <div class="mt-3">
+              ${accordion('그래도 제한되는 경우', '<i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2" aria-hidden="true"></i>',
+                `<ul class="list-disc pl-5 space-y-1.5">
+                    <li>대학 입시 관련 <strong>실기학원, 편입 학원</strong> 등 사교육 유발 요인이 있는 경우 엄격히 심사해 제한됩니다.</li>
+                    <li>성인 대상 실기·편입학원은 평생직업교육학원으로 분류되더라도, 사교육 유발 요인과 공무에 부당한 영향을 끼칠 우려가 커 <strong>금지되는 영리행위</strong>에 해당합니다.</li>
+                    <li>학원과 무관한 기관·업체라도 <strong>특정 학교교과교습학원을 대상으로</strong> 콘텐츠(문항, 특강 등)를 제공하면 제한됩니다.</li>
+                 </ul>`, false)}
+              </div>
+              ${SCREENER_COMMON_NOTE}
+              <div class="mt-5 flex flex-col md:flex-row gap-3">
+                <button onclick="startRequirements()" class="flex-1 bg-indigo-600 text-white font-bold py-2.5 rounded-lg hover:bg-indigo-700 transition">이어서 4대 요건 체크하기</button>
+                <button onclick="resetScreener()" class="px-5 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">다시 판별</button>
+              </div>`;
         }
 
-        function goHome() {
-            hideAll();
-            document.getElementById('menu-section').scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('qaSection').classList.remove('hidden');
+        box.innerHTML = html;
+        show('scr-result');
+        scrollTo_(box);
+    }
+
+    /* =========================================================
+       4대 요건 자가체크
+       ========================================================= */
+    function startRequirements() {
+        hideAll();
+        show('section-requirements');
+        hide('req-result');
+        scrollTo_(document.getElementById('section-requirements'));
+    }
+
+    function renderTypeOptions() {
+        const sel = document.getElementById('reqType');
+        sel.innerHTML = '<option value="">— 선택하세요 —</option>' +
+            GYEOMJIK_TYPES.map(t => `<option value="${t.id}">${t.id}. ${t.label}</option>`).join('');
+        sel.addEventListener('change', () => {
+            const t = GYEOMJIK_TYPES.find(x => String(x.id) === sel.value);
+            const note = document.getElementById('reqTypeNote');
+            if (!t) { note.textContent = ''; return; }
+            const bits = [`허가 기간 상한: 최대 ${t.maxYears}년`];
+            if (t.committee) bits.push('겸직심사위원회 필수 심사 대상');
+            note.innerHTML = `<strong class="text-indigo-700">${bits.join(' · ')}</strong>${t.note ? '<br>' + t.note : ''}`;
+        });
+    }
+
+    function reqCard(no, title, passed, lines) {
+        const box = passed ? 'border-emerald-300 bg-emerald-50' : 'border-rose-300 bg-rose-50';
+        const icon = passed ? 'fa-circle-check text-emerald-600' : 'fa-circle-xmark text-rose-600';
+        const titleColor = passed ? 'text-emerald-900' : 'text-rose-900';
+        const subColor = passed ? 'text-emerald-700' : 'text-rose-700';
+        const verdict = passed ? '해당 없음 (요건 충족)' : '해당함 (허가 제한)';
+        return `<div class="border-2 ${box} rounded-xl p-4">
+            <div class="flex items-start gap-2 mb-1.5">
+                <i class="fa-solid ${icon} text-lg mt-0.5" aria-hidden="true"></i>
+                <div>
+                    <p class="font-bold ${titleColor} text-sm md:text-base">${no}. ${title}</p>
+                    <p class="${subColor} text-xs font-bold">${verdict}</p>
+                </div>
+            </div>
+            ${lines.length ? `<ul class="list-disc pl-5 text-xs md:text-sm text-slate-700 space-y-1 mt-2">${lines.map(l => `<li>${l}</li>`).join('')}</ul>` : ''}
+        </div>`;
+    }
+
+    function analyzeRequirements() {
+        const typeId = document.getElementById('reqType').value;
+        const type = GYEOMJIK_TYPES.find(t => String(t.id) === typeId);
+
+        const isWork = document.getElementById('req0_work').checked;
+        const isCont = document.getElementById('req0_cont').checked;
+        const isOutside = document.getElementById('req0_out').checked;
+
+        const workH = Number(document.getElementById('reqWorkHours').value) || 0;
+        const sideH = Number(document.getElementById('reqSideHours').value) || 0;
+        const dailyH = Number(document.getElementById('reqDailyHours').value) || 0;
+        const lateNight = document.getElementById('reqLateNight').checked;
+        const duringWork = document.getElementById('reqDuringWork').checked;
+        const income = Number(document.getElementById('reqIncome').value) || 0;
+
+        const conflict = document.getElementById('req2_conflict').checked;
+        const secret = document.getElementById('req2_secret').checked;
+        const against = document.getElementById('req3_against').checked;
+        const disrepute = document.getElementById('req4_disrepute').checked;
+        const lawLimit = document.getElementById('req_law').checked;
+
+        const box = document.getElementById('req-result');
+
+        /* 0단계 — 대상 여부 */
+        if (!isWork || !isCont) {
+            box.innerHTML = `
+              <div class="rounded-xl border-2 border-slate-300 bg-slate-50 p-5">
+                <h3 class="text-xl font-bold text-slate-800 mb-2"><i class="fa-solid fa-circle-info text-slate-500 mr-1" aria-hidden="true"></i> 겸직 허가 신청 대상이 아닐 수 있습니다</h3>
+                <p class="text-slate-700 text-sm md:text-base">겸직 허가 대상은 <strong>공무가 아닌, 계속성 있는 영리·비영리업무</strong>입니다. 누가 보더라도 명백하게 계속성이 없는 일시적 행위이거나, 직업·사회적 지위와 무관한 단순 취미·자기계발 활동은 신청 대상에서 제외됩니다.</p>
+                <p class="text-slate-600 text-sm mt-3">다만 본인이 단순 취미·자기계발이라 판단하는 경우에도 <strong>계속성이 있다면</strong> 신청 대상 여부에 대해 복무담당부서의 판단을 받으시기 바랍니다.</p>
+              </div>`;
+            show('req-result'); scrollTo_(box); return;
         }
 
-        // E(실제 D메뉴)섹션 셀프 모의고사 로직
-        function startTypeE() {
-            hideAll();
-            document.getElementById('section-E').classList.remove('hidden');
-            document.getElementById('section-E').scrollIntoView({ behavior: 'smooth' });
-            resetWizardE();
+        /* 1 — 직무 능률 */
+        const total = workH + sideH;
+        const l1 = [];
+        let pass1 = true;
+        if (total > 52) { pass1 = false; l1.push(`주간 합산 <strong>${total}시간</strong> — 기준 52시간을 <strong class="text-rose-600">${total - 52}시간 초과</strong>합니다.`); }
+        else { l1.push(`주간 합산 <strong>${total}시간</strong> — 기준 52시간 이내입니다. (여유 ${52 - total}시간)`); }
+        if (dailyH > 12) { pass1 = false; l1.push(`1일 합산 <strong>${dailyH}시간</strong> — 기준 12시간을 초과합니다.`); }
+        if (lateNight) { pass1 = false; l1.push('자정 이후에도 활동하는 <strong>심야업종</strong>에 해당합니다.'); }
+        if (duringWork) { pass1 = false; l1.push('<strong>근무시간 내 겸직은 원칙적으로 금지</strong>됩니다. 담당직무와 관련이 있거나, 소속 기관의 기능 및 국가정책 수행 목적상 필요한 경우 등에만 예외적으로 허용됩니다.'); }
+        if (income > 0) l1.push(`연간 예상 총수익 <strong>${won(income)}</strong> — 겸직수익이 높은 수준이면 과도한 노력·시간 투입의 결과일 가능성이 있어 능률 저하 소지를 철저히 점검합니다.`);
+
+        /* 2 */
+        const l2 = [];
+        let pass2 = true;
+        if (conflict) { pass2 = false; l2.push('공무와 <strong>이해충돌 가능성</strong>이 있습니다. 보조금 등 재정보조 제공, 인·허가 관계, 법령에 근거한 지도·감독 등에 직·간접적으로 관여하거나 영향력을 행사할 수 있는지로 판단합니다.'); }
+        if (secret) { pass2 = false; l2.push('직무 수행 중 알게 된 <strong>비밀 또는 미공개 정보</strong>를 이용하는 것은 금지됩니다. 직무 관련 지식·정보를 이용한 겸직은 겸직심사위원회 심사 대상입니다.'); }
+        if (pass2) l2.push('이해충돌 및 미공개 정보 이용 사항이 확인되지 않았습니다.');
+
+        /* 3·4 */
+        const l3 = [];
+        let pass3 = true;
+        if (against) { pass3 = false; l3.push('국가 및 공공의 이익에 반하거나 충돌할 우려가 있습니다.'); }
+        if (disrepute) { pass3 = false; l3.push('정부의 명예나 신뢰를 저해할 우려가 있습니다.'); }
+        if (lawLimit) { pass3 = false; l3.push('다른 법령에서 교원의 겸직을 제한하고 있습니다. 「학원법」 제3조에 따라 교원은 과외교습을 할 수 없습니다.'); }
+        if (pass3) l3.push('국가 이익 상반·정부 불명예·법령 제한 사항이 확인되지 않았습니다.');
+
+        const allPass = pass1 && pass2 && pass3;
+
+        /* 위원회 회부 판정 */
+        const committee = [];
+        if (type && type.committee) committee.push(`${type.label} (유형상 필수 심사 대상)`);
+        if (secret) committee.push('직무 관련 지식·정보를 이용한 겸직 활동');
+        if (income > 0) committee.push('겸직수익 규모 (과도한 수익 여부 확인)');
+        if (type && (type.id === 5)) committee.push('정치적 중립성 확보에 주의가 필요한 활동 여부');
+
+        const maxYears = type ? type.maxYears : 2;
+
+        let header;
+        if (allPass) {
+            header = `<div class="rounded-xl border-2 border-emerald-400 bg-emerald-50 p-5 mb-4">
+                <h3 class="text-xl md:text-2xl font-bold text-emerald-800 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 4가지 금지요건에 모두 해당하지 않습니다</h3>
+                <p class="text-emerald-900 text-sm md:text-base mt-2">허가가 가능한 요건은 충족합니다. 다만 최종 허가 여부는 소속 기관의 장이 겸직 내용과 성격, 제도의 취지를 종합적으로 고려해 <strong>개별적·구체적으로 판단·결정</strong>합니다.</p>
+            </div>`;
+        } else {
+            header = `<div class="rounded-xl border-2 border-rose-400 bg-rose-50 p-5 mb-4">
+                <h3 class="text-xl md:text-2xl font-bold text-rose-800 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> 금지요건에 해당하는 항목이 있습니다</h3>
+                <p class="text-rose-900 text-sm md:text-base mt-2">겸직 허가는 4가지 금지요건에 <strong>모두 해당하지 않는 경우에만</strong> 가능합니다. 아래 항목을 조정하거나, 복무 담당 부서와 사전에 상의하세요.</p>
+            </div>`;
         }
 
-        function resetWizardE() {
-            for(let i=1; i<=5; i++) {
-                document.getElementById('step-e-' + i).classList.add('hidden');
-            }
-            document.getElementById('step-e-fail').classList.add('hidden');
-            document.getElementById('step-e-success').classList.remove('hidden'); // 성공창 리셋
-            document.getElementById('step-e-success').classList.add('hidden');
-            document.getElementById('step-e-1').classList.remove('hidden');
+        if (!isOutside) {
+            header += `<div class="bg-amber-50 border border-amber-300 rounded-lg p-3 text-sm text-amber-900 mb-4 font-semibold">
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 담당 공무 범위 <strong>안쪽</strong>의 사항으로 표시하셨습니다. 겸직 허가 대상은 담당 공무 범위 <strong>밖</strong>의 사항이어야 합니다. 공무에 해당한다면 겸직이 아니라 통상적인 업무 처리로 진행해야 합니다.
+            </div>`;
         }
 
-        function nextStepE(currentStep, isFail, failReason) {
-            document.getElementById('step-e-' + currentStep).classList.add('hidden');
-            
-            if(isFail) {
-                document.getElementById('fail-reason-text').innerText = failReason;
-                document.getElementById('step-e-fail').classList.remove('hidden');
-            } else {
-                if(currentStep === 5) {
-                    document.getElementById('step-e-success').classList.remove('hidden');
-                } else {
-                    document.getElementById('step-e-' + (currentStep + 1)).classList.remove('hidden');
-                }
-            }
-        }
-
-        // A유형 로직 (클릭 시 하단 스크롤 유지)
-        function startTypeA() {
-            hideAll();
-            const precheck = document.getElementById('precheck-section');
-            precheck.classList.remove('hidden');
-            precheck.scrollIntoView({ behavior: 'smooth' });
-            
-            const radios = document.getElementsByName('precheck');
-            radios.forEach(r => r.checked = false);
-        }
-
-        function processPrecheck() {
-            const checked = document.querySelector('input[name="precheck"]:checked');
-            if (!checked) return alert("해당하는 항목을 하나 선택해 주세요.");
-
-            if (checked.value === 'yes') {
-                document.getElementById('precheck-section').classList.add('hidden');
-                const resultCard = document.getElementById('result-card');
-                document.getElementById('resultHeader').innerHTML = `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2">🟢 외부강의등 신고 제외 대상입니다.</h3>`;
-                document.getElementById('resultContent').innerHTML = `<p class="font-semibold text-green-900">별도의 신고 의무가 없습니다.</p>`;
-                resultCard.classList.remove('hidden');
-                resultCard.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                document.getElementById('precheck-section').classList.add('hidden');
-                const secA = document.getElementById('section-A');
-                secA.classList.remove('hidden');
-                secA.scrollIntoView({ behavior: 'smooth' });
-                checkThreshold(); 
-            }
-        }
-
-        function checkThreshold() {
-            const count = parseInt(document.getElementById('monthlyCount').value) || 0;
-            const hours = parseInt(document.getElementById('monthlyHours').value) || 0;
-            if (count >= 3 || hours >= 6) document.getElementById('overLimitReasonSection').classList.remove('hidden');
-            else document.getElementById('overLimitReasonSection').classList.add('hidden');
-        }
-
-        function calculateDeadline(dateStr) {
-            let curr = new Date(dateStr);
-            curr.setDate(curr.getDate() + 10);
-            if (curr.getDay() === 6) curr.setDate(curr.getDate() + 2);
-            else if (curr.getDay() === 0) curr.setDate(curr.getDate() + 1);
-            return curr.toISOString().split('T')[0];
-        }
-
-        function analyzeLecture() {
-            const agency = document.getElementById('agencyName').value.trim();
-            const type = document.getElementById('lectureType').value;
-            const method = document.getElementById('reportMethod').value;
-            const endDate = document.getElementById('endDate').value;
-            const subject = document.getElementById('lectureSubject').value.trim();
-            const pay = parseInt(document.getElementById('payAmount').value);
-            const count = parseInt(document.getElementById('monthlyCount').value);
-            const hours = parseInt(document.getElementById('monthlyHours').value);
-
-            let isExempt = false;
-            let agencyCategory = "";
-
-            if (agency.includes('학교')) {
-                const agencyRadio = document.querySelector('input[name="agencyType"]:checked');
-                if (!agencyRadio) return alert("학교의 설립 유형(국공립/사립)을 선택해주세요.");
-                
-                isExempt = (agencyRadio.value === 'public');
-                agencyCategory = isExempt ? "국공립학교 (신고 면제)" : "사립학교 (신고 필수)";
-            } else {
-                const GOV_KEYWORDS = ["부", "처", "청", "위원회", "의회", "시청", "도청", "군청", "구청", "주민센터", "복지센터", "교육원", "연수원", "특별시", "광역시", "도", "시", "군", "구"];
-                const isGov = GOV_KEYWORDS.some(kw => agency.endsWith(kw));
-                
-                if (isGov) {
-                    isExempt = true;
-                    agencyCategory = "국가기관·지방자치단체 (신고 면제)";
-                } else {
-                    isExempt = false;
-                    agencyCategory = "공공기관/민간기관 (신고 필수)";
-                }
-            }
-
-            let warningMsg = "";
-            let isSpecialPublicOrg = false;
-
-            for (let org of EXCEPTIONAL_PUBLIC_ORGS) {
-                if (agency.includes(org)) {
-                    isExempt = false;
-                    agencyCategory = `공직유관단체 [${org}] (신고 필수)`;
-                    isSpecialPublicOrg = true;
-                    break;
-                }
-            }
-
-            if (!isSpecialPublicOrg && isExempt) {
-                const endsWithMandatory = REQUIRE_REPORT_SUFFIX.some(suffix => agency.endsWith(suffix));
-                if (endsWithMandatory) {
-                    isExempt = false;
-                    agencyCategory = `공직유관단체 의심 기관 (신고 필수)`;
-                    warningMsg = `이름이 공사·공단·재단·센터 등으로 끝나는 기관은 통상적으로 공직유관단체(신고 대상)입니다. 시스템이 자동 판별했습니다.`;
-                } else if (agency.includes("동아리") || agency.includes("연구회") || agency.includes("사립")) {
-                    isExempt = false;
-                    agencyCategory = `개별 모임 또는 타기관 (신고 필수)`;
-                    warningMsg = `교육청 주관이더라도 공문 주체가 '동아리/연구회/사립'이면 신고 필수 대상입니다.`;
-                }
-            }
-
-            const deadline = calculateDeadline(endDate);
-            const resultCard = document.getElementById('result-card');
-            const resHeader = document.getElementById('resultHeader');
-            const resContent = document.getElementById('resultContent');
-            const neisCopier = document.getElementById('neisCopier');
-
-            let contentHtml = `<div class="bg-slate-100 p-4 rounded-lg space-y-1 text-sm font-mono border border-slate-200 shadow-inner mb-4">
-                <div>• 입력된 기관: <strong>${agency}</strong></div>
-                <div>• 최종 판별 범주: <span class="${isExempt ? 'text-green-600' : 'text-indigo-600'} font-bold">${agencyCategory}</span></div>
+        box.innerHTML = header + `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                ${reqCard(1, '직무 능률 저하 우려', pass1, l1)}
+                ${reqCard(2, '공무에 부당한 영향 우려', pass2, l2)}
+                ${reqCard(3, '국가 이익 상반 · 정부 불명예 우려', pass3, l3)}
+                <div class="border-2 border-indigo-300 bg-indigo-50 rounded-xl p-4">
+                    <p class="font-bold text-indigo-900 text-sm md:text-base mb-1.5"><i class="fa-solid fa-calendar-check mr-1" aria-hidden="true"></i> 허가 기간 및 절차</p>
+                    <ul class="list-disc pl-5 text-xs md:text-sm text-slate-700 space-y-1">
+                        <li>허가 기간 상한: <strong>최대 ${maxYears}년</strong>${maxYears === 1 ? ' (사교육업체 관련·인터넷 개인방송)' : ' (원칙)'}</li>
+                        <li>임명·위촉기간이 정해진 업무는 그 기간 종료일까지 허가 가능</li>
+                        <li>만료 전 갱신 신청 필요 · 연 2회(1월·7월) 실태조사 대상</li>
+                    </ul>
+                </div>
+            </div>
+            ${committee.length ? `<div class="bg-rose-100 border border-rose-300 rounded-lg p-4 text-sm text-rose-900 mb-4">
+                <p class="font-bold mb-1.5"><i class="fa-solid fa-users-gear" aria-hidden="true"></i> 겸직심사위원회 심사가 필요할 수 있습니다</p>
+                <ul class="list-disc pl-5 space-y-1">${committee.map(c => `<li>${c}</li>`).join('')}</ul>
+                <p class="text-xs mt-2">면밀한 심사가 필요한 겸직사항은 위원회를 별도 구성해 심사합니다. 처리 기간에 여유를 두고 신청하세요.</p>
+            </div>` : ''}
+            ${accordion('신청 시 준비할 것', '<i class="fa-solid fa-folder-open text-indigo-500 mr-2" aria-hidden="true"></i>',
+                `<ul class="list-disc pl-5 space-y-1.5">
+                    <li><strong>겸직 허가 신청서</strong> — 겸직 내용, 수익(수익 발생 형태 및 연간 총 수익예상액), 기간, 담당직무와의 관련성, 근무시간 내 활동 여부, 최근 3년 겸직허가 내역, 사교육업체 관련 여부 체크</li>
+                    <li><strong>서약서</strong> — 품위 유지, 청탁·유착 금지, 복귀 명령 이행, 법령 준수 서약</li>
+                    <li><strong>증빙서류 (필수 첨부)</strong> — 겸직기관의 요청서, 학원인 경우 학원 설립·운영 등록 증명서 등</li>
+                    <li>유아·학생이 등장하는 콘텐츠라면 <strong>촬영 및 초상권 활용 동의서</strong>를 첨부합니다.</li>
+                 </ul>
+                 <p class="text-xs text-slate-500 mt-2">신규임용자는 임용일부터 1개월 이내, 담당직무가 변경된 경우 변경일부터 1개월 이내에 신청·재심사해야 합니다.</p>`, false)}
+            <div class="mt-5 flex flex-col md:flex-row gap-3">
+                <button onclick="startScreener()" class="flex-1 bg-rose-600 text-white font-bold py-2.5 rounded-lg hover:bg-rose-700 transition">사교육 관련 여부도 판별하기</button>
+                <button onclick="goHome()" class="px-5 py-2.5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">메인으로</button>
             </div>`;
 
-            if (warningMsg) {
-                contentHtml += `<div class="bg-rose-100 text-rose-900 p-3 rounded-lg border border-rose-300 font-bold mb-4 text-sm flex gap-2">
-                    <i class="fa-solid fa-wand-magic-sparkles text-rose-600 mt-0.5"></i> <div>${warningMsg}</div>
+        show('req-result');
+        scrollTo_(box);
+    }
+
+    /* =========================================================
+       셀프 모의고사
+       ========================================================= */
+    function startQuiz() {
+        hideAll();
+        show('section-quiz');
+        resetQuiz();
+        scrollTo_(document.getElementById('section-quiz'));
+    }
+
+    function resetQuiz() {
+        for (let i = 1; i <= 5; i++) hide('quiz-' + i);
+        hide('quiz-fail');
+        hide('quiz-success');
+        show('quiz-1');
+    }
+
+    function quizNext(step, isFail, reason) {
+        hide('quiz-' + step);
+        if (isFail) {
+            document.getElementById('quiz-fail-text').innerText = reason;
+            show('quiz-fail');
+        } else if (step === 5) {
+            show('quiz-success');
+        } else {
+            show('quiz-' + (step + 1));
+        }
+    }
+
+    /* =========================================================
+       외부강의 (A유형)
+       ========================================================= */
+    function startLecture() {
+        hideAll();
+        show('precheck-section');
+        document.getElementsByName('precheck').forEach(r => { r.checked = false; });
+        scrollTo_(document.getElementById('precheck-section'));
+    }
+
+    function processPrecheck() {
+        const checked = document.querySelector('input[name="precheck"]:checked');
+        if (!checked) { alert('해당하는 항목을 하나 선택해 주세요.'); return; }
+
+        hide('precheck-section');
+        if (checked.value === 'yes') {
+            openResult(
+                `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 외부강의등 신고 제외 대상입니다</h3>`,
+                `<p class="font-semibold text-green-900">별도의 외부강의등 신고 의무가 없습니다.</p>
+                 <p class="text-sm text-slate-600">다만 활동을 위해 근무지를 벗어난다면 출장·연가 등 복무 처리는 별도로 해야 합니다. 복무 처리 없이 활동한 것은 부적정 사례로 지적됩니다.</p>`,
+                false
+            );
+        } else {
+            show('section-lecture');
+            checkThreshold();
+            scrollTo_(document.getElementById('section-lecture'));
+        }
+    }
+
+    function toggleSchoolRadios() {
+        const agency = document.getElementById('agencyName').value.trim();
+        const section = document.getElementById('schoolTypeSection');
+        const radios = document.getElementsByName('agencyType');
+        const looksLikeSchool = /(초등학교|중학교|고등학교|학교)$/.test(agency) || agency.includes('학교');
+
+        if (looksLikeSchool) {
+            section.classList.remove('hidden');
+            radios.forEach(r => { r.required = true; });
+        } else {
+            section.classList.add('hidden');
+            radios.forEach(r => { r.required = false; r.checked = false; });
+        }
+    }
+
+    function checkThreshold() {
+        const count = parseInt(document.getElementById('monthlyCount').value, 10) || 0;
+        const hours = parseInt(document.getElementById('monthlyHours').value, 10) || 0;
+        document.getElementById('overLimitReasonSection').classList.toggle('hidden', !(count >= 3 || hours >= 6));
+    }
+
+    function toLocalISO(d) {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+    }
+
+    /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
+    function calculateDeadline(dateStr) {
+        const parts = dateStr.split('-').map(Number);
+        const d = new Date(parts[0], parts[1] - 1, parts[2]);
+        d.setDate(d.getDate() + 10);
+        if (d.getDay() === 6) d.setDate(d.getDate() + 2);
+        else if (d.getDay() === 0) d.setDate(d.getDate() + 1);
+        return toLocalISO(d);
+    }
+
+    /* 신고 예외 판단용 키워드 — 2글자 이상으로 좁혀 오탐을 줄임 */
+    const GOV_SUFFIX = [
+        '광역시', '특별시', '특별자치시', '특별자치도', '통합특별시',
+        '시청', '도청', '군청', '구청', '교육청', '교육지원청',
+        '주민센터', '행정복지센터', '위원회', '의회', '교육원', '연수원'
+    ];
+    const MINISTRY_SUFFIX = ['부', '처', '청'];          // 3~6자 기관명에 한해 적용
+    const PUBLIC_ORG_SUFFIX = ['공사', '공단', '재단', '진흥원', '평가원', '개발원', '연구원', '센터', '협회', '조합', '법인'];
+    const KNOWN_PUBLIC_ORGS = [
+        '서울대학교', '서울대', '인천대학교', '인천대', '한국과학기술원', 'KAIST', '카이스트',
+        '한국교육과정평가원', '한국교육개발원', 'EBS', '한국방송공사', '국가교육위원회'
+    ];
+
+    function classifyAgency(agency) {
+        for (const org of KNOWN_PUBLIC_ORGS) {
+            if (agency.includes(org)) {
+                return { exempt: false, label: `공직유관단체 추정 [${org}]`, warn: '' };
+            }
+        }
+        if (agency.includes('동아리') || agency.includes('연구회')) {
+            return {
+                exempt: false,
+                label: '개별 모임 (동아리·연구회)',
+                warn: '교육청 주관이더라도 공문 주체가 동아리·연구회이면 별도 기관으로 봅니다.'
+            };
+        }
+        /* 국가기관·지자체 접미사를 먼저 확인해야 \'주민센터\'가 일반 \'센터\'로 잘못 잡히지 않습니다. */
+        const isMinistry = agency.length <= 6 && MINISTRY_SUFFIX.some(s => agency.endsWith(s));
+        if (GOV_SUFFIX.some(s => agency.endsWith(s)) || isMinistry) {
+            return { exempt: true, label: '국가기관·지방자치단체 추정', warn: '' };
+        }
+        if (PUBLIC_ORG_SUFFIX.some(s => agency.endsWith(s))) {
+            return {
+                exempt: false,
+                label: '공직유관단체 추정',
+                warn: '공사·공단·재단·센터 등으로 끝나는 기관은 통상 공직유관단체로 보아 신고 대상입니다.'
+            };
+        }
+        return { exempt: false, label: '공공기관 또는 민간기관 추정', warn: '' };
+    }
+
+    function analyzeLecture() {
+        const agency = document.getElementById('agencyName').value.trim();
+        const type = document.getElementById('lectureType').value;
+        const method = document.getElementById('reportMethod').value;
+        const endDate = document.getElementById('endDate').value;
+        const subject = document.getElementById('lectureSubject').value.trim();
+        const pay = parseInt(document.getElementById('payAmount').value, 10) || 0;
+        const count = parseInt(document.getElementById('monthlyCount').value, 10) || 1;
+        const hours = parseInt(document.getElementById('monthlyHours').value, 10) || 1;
+
+        let result;
+        if (agency.includes('학교')) {
+            const picked = document.querySelector('input[name="agencyType"]:checked');
+            if (!picked) { alert('학교의 설립 유형(국·공립 / 사립)을 선택해 주세요.'); return; }
+            result = picked.value === 'public'
+                ? { exempt: true, label: '국·공립학교', warn: '국·공립학교는 국가기관·지방자치단체와는 별개의 공공기관으로 보아 신고 대상으로 처리하는 경우가 있습니다. 최종 처리 전 복무 담당 부서에 확인하세요.' }
+                : { exempt: false, label: '사립학교', warn: '' };
+        } else {
+            result = classifyAgency(agency);
+        }
+
+        const deadline = calculateDeadline(endDate);
+        const overLimit = (count >= 3 || hours >= 6);
+
+        let html = `<div class="bg-slate-100 p-4 rounded-lg space-y-1 text-sm border border-slate-200 mb-4">
+            <div>• 입력한 기관: <strong>${agency}</strong></div>
+            <div>• 판별 범주: <span class="${result.exempt ? 'text-green-700' : 'text-indigo-700'} font-bold">${result.label}</span></div>
+        </div>`;
+
+        if (result.warn) {
+            html += `<div class="bg-amber-50 text-amber-900 p-3 rounded-lg border border-amber-300 font-semibold mb-4 text-sm flex gap-2">
+                <i class="fa-solid fa-circle-exclamation text-amber-600 mt-0.5" aria-hidden="true"></i><div>${result.warn}</div>
+            </div>`;
+        }
+
+        let header;
+        if (result.exempt) {
+            header = `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 신고 제외 대상으로 추정됩니다</h3>`;
+            html += `<p class="text-green-800 font-semibold">국가기관·지방자치단체가 요청한 외부강의등은 신고 대상에서 제외됩니다.</p>
+                     <p class="text-sm text-slate-600">복무는 <strong>출장(여비 부지급) 또는 연가·조퇴</strong>로 결재받으세요. 복무 처리 없이 활동하는 것은 부적정 사례입니다.</p>`;
+        } else {
+            header = `<h3 class="text-2xl font-bold text-indigo-700 flex items-center gap-2"><i class="fa-solid fa-file-signature" aria-hidden="true"></i> 신고 대상입니다</h3>`;
+            html += `<div class="border border-indigo-200 rounded-xl overflow-hidden">
+                <div class="bg-indigo-600 text-white px-4 py-2 font-bold text-sm">처리 순서</div>
+                <div class="divide-y divide-slate-100">
+                    <div class="p-4 flex gap-3">
+                        <span class="bg-indigo-100 text-indigo-700 font-bold w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-sm">1</span>
+                        <div><p class="font-bold text-slate-900">강의 전 — 사전 신고 및 복무 상신</p>
+                        <p class="text-sm text-slate-600">나이스에 외부강의등을 신고하고 출장·연가 등 복무를 함께 상신합니다.</p></div>
+                    </div>
+                    <div class="p-4 flex gap-3">
+                        <span class="bg-rose-100 text-rose-700 font-bold w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-sm">2</span>
+                        <div><p class="font-bold text-slate-900">마친 날부터 10일 이내 — 사례금 신고</p>
+                        <p class="text-sm text-slate-600">사례금을 받은 외부강의등은 마친 날부터 10일 이내에 서면 신고해야 합니다.<br>
+                        입력하신 종료일 기준 마감일: <strong class="text-rose-600">${deadline}</strong> ${method === 'bundle' ? '<span class="text-xs">(일괄신고는 최초 강의일 기준으로 처리하세요)</span>' : ''}</p>
+                        <p class="text-xs text-slate-500 mt-1">토·일요일만 보정한 값입니다. 공휴일이 겹치면 다음 근무일로 다시 확인하세요.</p></div>
+                    </div>
+                </div>
+            </div>`;
+
+            if (pay > 1000000) {
+                html += `<div class="bg-rose-100 text-rose-900 p-3 rounded-lg border border-rose-300 font-bold mt-3 text-sm">사례금 ${won(pay)} — 상한액(1시간 100만 원) 초과 여부를 확인하세요.</div>`;
+            }
+            if (overLimit) {
+                html += `<div class="bg-amber-50 text-amber-900 p-3 rounded-lg border border-amber-300 mt-3 text-sm">월 ${count}회 / ${hours}시간 — 횟수 상한을 초과하는 외부강의등은 <strong>사전 승인</strong>이 필요합니다. 검토·승인 없이 상한을 초과해 실시한 것은 부적정 사례입니다.</div>`;
+            }
+
+            const lines = [
+                `- 외부강의등 유형: ${type}`,
+                `- 외부강의등 주제: ${subject}`,
+                `- 요청 기관: ${agency}`
+            ];
+            if (method === 'bundle') {
+                const avg = Math.round((hours / count) * 10) / 10;
+                lines.push(`- (일괄신고) 월 횟수: ${count}회, 1회 평균 시간: ${avg}시간`);
+            }
+            if (overLimit) {
+                const reason = document.getElementById('overLimitReason').value.trim();
+                lines.push(`- 상한 초과 사유: ${reason || '(사유 기재 요망)'} (사전 승인 요청)`);
+            }
+            document.getElementById('neisText').value = lines.join('\n');
+        }
+
+        openResult(header, html, !result.exempt);
+    }
+
+    function copyNeisText() {
+        const el = document.getElementById('neisText');
+        const status = document.getElementById('copyStatus');
+        const done = ok => {
+            status.textContent = ok ? '복사했습니다.' : '복사하지 못했습니다. 직접 선택해 복사하세요.';
+            status.className = 'text-right text-xs font-bold h-4 ' + (ok ? 'text-emerald-600' : 'text-rose-600');
+        };
+        el.select();
+        el.setSelectionRange(0, 99999);
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(el.value).then(() => done(true)).catch(() => done(false));
+        } else {
+            try { done(document.execCommand('copy')); } catch (e) { done(false); }
+        }
+    }
+
+    /* =========================================================
+       정적 안내 (B: 인터넷 개인 미디어 / C: 기타 영리·비영리)
+       ========================================================= */
+    function showGuide(kind) {
+        hideAll();
+
+        if (kind === 'MEDIA') {
+            const header = `<h3 class="text-2xl font-bold text-amber-700 flex items-center gap-2"><i class="fa-solid fa-video" aria-hidden="true"></i> 인터넷 개인 미디어 활동</h3>`;
+            const body = `
+                <div class="bg-rose-50 text-rose-900 p-4 rounded-xl border-2 border-rose-300 font-bold mb-4 text-sm md:text-base">
+                    <i class="fa-solid fa-hand" aria-hidden="true"></i> 신청 후 <strong>최종 허가를 받기 전까지</strong> 새로운 콘텐츠 방송·업로드는 금지됩니다. 허가 기간은 <strong>최대 1년</strong>이며, 겸직심사위원회 필수 심사 대상입니다.
+                </div>
+                <div class="space-y-3">
+                ${accordion('언제 신청해야 하나요? — 플랫폼 유형별 기준', '<i class="fa-solid fa-circle-dollar-to-slot text-rose-500 mr-2" aria-hidden="true"></i>',
+                    `<div class="space-y-3">
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <strong class="text-slate-900 block mb-1">① 수익창출 요건이 있는 플랫폼</strong>
+                            <p>플랫폼이 정한 수익창출 요건을 <strong class="text-rose-600">충족하고</strong>, 이후에도 계속 활동하려는 경우 신청합니다.</p>
+                            <p class="text-xs text-slate-500 mt-1">예: 유튜브 — 구독자 1,000명 &amp; 연간 누적재생시간 4,000시간 이상. 실제 수익이 아직 없어도 요건을 채우면 대상입니다.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <strong class="text-slate-900 block mb-1">② 수익창출 요건이 없는 플랫폼</strong>
+                            <p>플랫폼을 통해 <strong class="text-rose-600">수익이 최초 발생</strong>하고, 이후에도 계속 활동하려는 경우 신청합니다.</p>
+                            <p class="text-xs text-slate-500 mt-1">예: SOOP(구 아프리카TV) 구독료 — 별도 수익창출 요건 없이 바로 수익이 발생합니다.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <strong class="text-slate-900 block mb-1">③ 개인방송이 아닌 인터넷 활동</strong>
+                            <p>네이버 블로그, 브런치 등에서 수익이 최초 발생하고 계속 활동하려는 경우도 신청 대상입니다.</p>
+                        </div>
+                        <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                            <strong class="text-emerald-900 block mb-1">④ 직무와 관련된 개인방송</strong>
+                            <p>수익창출 요건과 관계없이 <strong>소속 기관의 장에게 사전 보고</strong>를 거쳐 가능합니다.</p>
+                        </div>
+                    </div>`, true)}
+                ${accordion('절대 금지 — 협찬·후원·근무시간', '<i class="fa-solid fa-triangle-exclamation text-rose-500 mr-2" aria-hidden="true"></i>',
+                    `<ul class="list-disc pl-5 space-y-1.5">
+                        <li><strong class="text-slate-900">협찬 광고 금지</strong> — 업체 등으로부터 협찬을 받아 특정 물품을 홍보하는 행위(직·간접 광고)는 금지됩니다.</li>
+                        <li><strong class="text-slate-900">후원 수익 금지</strong> — 인터넷 개인 미디어를 통해 후원 수익을 취득하는 행위는 금지됩니다. 공무에 부당한 영향을 끼치거나 정부에 불명예스러운 영향을 끼칠 우려가 있는 행위로 봅니다.</li>
+                        <li><strong class="text-slate-900">가족 명의도 동일</strong> — 가족 명의의 채널·블로그를 개설해 협찬을 받아 물품을 홍보하고 금전·물품을 얻는 행위도 금지사항입니다.</li>
+                        <li><strong class="text-slate-900">근무시간 중 브이로그</strong> — 직무와 관련 없는 브이로그 촬영은 원칙적으로 금지됩니다. 다만 소속 기관, 교육부·교육청 등의 요청에 따라 업무의 일환으로 촬영하는 것은 가능하며, 기관장에게 사전 보고하는 것이 바람직합니다.</li>
+                    </ul>`, false)}
+                ${accordion('유아·학생이 등장한다면 — 초상권', '<i class="fa-solid fa-child text-indigo-500 mr-2" aria-hidden="true"></i>',
+                    `<ul class="list-disc pl-5 space-y-1.5">
+                        <li>유아·학생이 등장하는 영상·사진을 촬영할 때는 <strong>겸직 허가 여부와 무관하게</strong> 초상권 동의를 받아야 합니다.</li>
+                        <li>겸직 허가를 받기 전에는 동의서를 받아 <strong>보관</strong>해 두고, 신청 시 <strong>촬영 및 초상권 활용 동의서를 신청서에 첨부</strong>해 제출해야 합니다.</li>
+                        <li>세부 사항은 「교원 인터넷 개인 미디어 활동 지침」을 참조하세요.</li>
+                    </ul>`, false)}
+                ${accordion('심사에서 확인하는 콘텐츠 기준', '<i class="fa-solid fa-list-check text-slate-500 mr-2" aria-hidden="true"></i>',
+                    `<ul class="list-disc pl-5 space-y-1.5">
+                        <li><strong>비밀 엄수</strong> — 직무 수행 과정에서 알게 된 비밀적인 업무 내용을 콘텐츠로 제작·공유하는 것은 금지됩니다. 브이로그를 통해 비공개 직무정보가 노출되지 않도록 유의하세요.</li>
+                        <li><strong>품위 유지</strong> — 타인의 명예·권리 침해, 비속어 사용, 허위사실 유포, 폭력적·선정적 콘텐츠 제작·공유가 금지됩니다.</li>
+                        <li><strong>정치적 중립</strong> — 특정 정당·후보자 지지·반대 등 정치적 콘텐츠 제작·공유가 금지됩니다.</li>
+                        <li><strong>직무 능률</strong> — 근무시간과 콘텐츠 제작·채널 운영 시간을 합해 주 52시간, 1일 12시간을 초과하는지, 자정 이후에도 활동하는지 점검합니다.</li>
+                    </ul>`, false)}
+                </div>
+                <div class="mt-4 flex flex-col md:flex-row gap-3">
+                    <button onclick="startRequirements()" class="flex-1 bg-indigo-600 text-white font-bold py-2.5 rounded-lg hover:bg-indigo-700 transition">4대 요건 자가체크</button>
                 </div>`;
-            }
-
-            if (isExempt) {
-                resHeader.innerHTML = `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2">🟢 진단 결과: 나이스 사전신고 면제</h3>`;
-                contentHtml += `<p class="text-green-800 font-semibold">복무는 <strong class="underline">출장(여비부지급) 또는 연가/조퇴</strong>로 결재 받으시면 됩니다.</p>`;
-                neisCopier.classList.add('hidden');
-            } else {
-                resHeader.innerHTML = `<h3 class="text-2xl font-bold text-indigo-700 flex items-center gap-2">🔵 진단 결과: 나이스 사전신고 필수</h3>`;
-                contentHtml += `<p class="text-indigo-900 font-semibold">📅 법정 신고 마감일: <strong class="text-rose-600">${deadline}까지</strong> (일괄신고 시 최초 강의일 기준)</p>`;
-
-                if (pay > 1000000) {
-                    contentHtml += `<div class="bg-rose-100 text-rose-900 p-3 rounded-lg border border-rose-300 font-bold mt-3">청탁금지법 상한액(1시간 100만 원) 초과 우려! 확인 요망</div>`;
-                }
-
-                let neisLines = [];
-                neisLines.push(`- 외부강의등 유형: ${type}`);
-                neisLines.push(`- 외부강의등 주제: ${subject}`);
-                
-                if (method === 'bundle') {
-                    let avgHours = Math.round((hours / count) * 10) / 10;
-                    neisLines.push(`- (일괄신고) 월평균 횟수: ${count}회, 1회 평균 시간: ${avgHours}시간 기재`);
-                }
-
-                if (count >= 3 || hours >= 6) {
-                    const customReason = document.getElementById('overLimitReason').value.trim();
-                    neisLines.push(`- 초과 사유: ${customReason ? customReason : "(사유 기재 요망)"} (사전 승인 요청)`);
-                }
-
-                document.getElementById('neisText').value = neisLines.join('\n');
-                neisCopier.classList.remove('hidden');
-            }
-
-            resContent.innerHTML = contentHtml;
-            resultCard.classList.remove('hidden');
-            resultCard.scrollIntoView({ behavior: 'smooth' });
+            openResult(header, body, false);
         }
 
-        // B, C, D 아코디언 로직 유지 (아이디어 2: C(기존 D)메뉴 디테일 보강 반영)
-        function showStaticResult(category) {
-            hideAll();
-            const resultCard = document.getElementById('result-card');
-            const resHeader = document.getElementById('resultHeader');
-            const resContent = document.getElementById('resultContent');
-            const neisCopier = document.getElementById('neisCopier');
+        else if (kind === 'OTHER') {
+            const typeRows = GYEOMJIK_TYPES.map(t =>
+                `<tr class="border-b border-slate-100">
+                    <td class="py-2 pr-2 text-slate-400 text-xs align-top">${t.id}</td>
+                    <td class="py-2 pr-2 font-semibold text-slate-800 align-top">${t.label}</td>
+                    <td class="py-2 text-xs align-top">${t.committee ? '<span class="text-rose-600 font-bold">위원회 심사</span>' : '<span class="text-slate-400">—</span>'}</td>
+                    <td class="py-2 text-xs text-right align-top whitespace-nowrap">최대 ${t.maxYears}년</td>
+                </tr>`).join('');
 
-            if (category === 'B') {
-                resHeader.innerHTML = `<h3 class="text-2xl font-bold text-red-700 flex items-center gap-2"><i class="fa-solid fa-circle-xmark"></i> 진단 결과: 원칙적 절대 금지 및 중징계 대상</h3>`;
-                
-                resContent.innerHTML = `
-                    <div class="bg-red-50 text-red-900 p-4 rounded-xl border border-red-200 font-bold mb-4 text-sm md:text-base">
-                        ⚠️ 사교육 카르텔 근절 지침에 따라 영리 목적의 사교육 업체와 관련된 일체의 행위는 무상·재능기부라도 원칙적으로 절대 금지되며, 적발 시 엄중 문책 및 중징계 처분됩니다.
-                    </div>
-                    <div class="space-y-3">
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                                <span class="text-slate-800"><i class="fa-solid fa-ban text-red-500 mr-2"></i>주요 금지 행위 및 사각지대 주의사항</span>
-                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                            </button>
-                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
-                                <ul class="list-disc pl-5 space-y-1.5">
-                                    <li><strong class="text-slate-900">학원·모의고사 업체:</strong> 문항 출제, 문제 검토, 자문, 교재 집필, 동영상 출연 등 일체 금지</li>
-                                    <li><strong class="text-slate-900">사설 입시 컨설팅:</strong> 사설 업체 유료 회원 가입 후 입시 상담, 컨설팅 진행 금지</li>
-                                    <li><strong class="text-slate-900">가족 운영 학원 주의:</strong> 배우자나 직계가족이 운영하는 학원이라도 실질적인 강의·차량 운행·상담 등에 관여하는 것은 중대한 영리업무 종사 위반입니다.</li>
-                                    <li><strong class="text-slate-900">무상 제공 금지:</strong> 대가(사례금)를 전혀 받지 않는 재능기부 형태라도 사교육 업체에 참여하는 행위 자체를 금지합니다.</li>
-                                </ul>
-                            </div>
+            const header = `<h3 class="text-2xl font-bold text-emerald-700 flex items-center gap-2"><i class="fa-solid fa-building-shield" aria-hidden="true"></i> 기타 영리/비영리 업무 — 업무 개시 전 겸직허가</h3>`;
+            const body = `
+                <div class="bg-emerald-50 text-emerald-900 p-4 rounded-xl border border-emerald-200 font-semibold mb-4 text-sm md:text-base">
+                    공무에 해당하지 않는 <strong>영리업무와 비영리업무는 모두</strong> 겸직 허가 신청 대상입니다. 사전에 신청해 반드시 허가를 받은 뒤 시작하세요.
+                </div>
+                <div class="space-y-3">
+                ${accordion('겸직 유형 15종 · 허가 기간 · 위원회 심사 여부', '<i class="fa-solid fa-table-list text-emerald-600 mr-2" aria-hidden="true"></i>',
+                    `<div class="overflow-x-auto"><table class="w-full text-sm">
+                        <thead><tr class="border-b-2 border-slate-200 text-xs text-slate-500">
+                            <th class="text-left py-2 pr-2 font-semibold">#</th>
+                            <th class="text-left py-2 pr-2 font-semibold">유형</th>
+                            <th class="text-left py-2 font-semibold">심사</th>
+                            <th class="text-right py-2 font-semibold">기간</th>
+                        </tr></thead>
+                        <tbody>${typeRows}</tbody>
+                    </table></div>
+                    <p class="text-xs text-slate-500 mt-2">허가 기간은 2년 이내가 원칙이며, 사교육업체 관련 및 인터넷 개인방송 활동은 최대 1년입니다.</p>`, true)}
+                ${accordion('자주 신청하는 유형별 기준', '<i class="fa-solid fa-check-double text-emerald-600 mr-2" aria-hidden="true"></i>',
+                    `<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <strong class="text-indigo-900 block mb-1">부동산 임대업</strong>
+                            <p class="text-xs leading-relaxed"><strong class="text-rose-600">임대사업자 등록 여부와 관계없이</strong> 주택·상가 등을 다수 소유해 관리하거나 수시로 매매·임대 등 업무로 판단되면 허가를 받아야 합니다. 여기서 \'다수\'란 <strong>임대계약의 대상이 되는 부동산이 둘 이상</strong>인 경우로, 건물 단위(1채·2채)로 구분하지 않습니다.</p>
                         </div>
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                                <span class="text-slate-800"><i class="fa-solid fa-scale-balanced text-slate-600 mr-2"></i>관련 처분 수위 및 징계</span>
-                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                            </button>
-                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
-                                <p>고의뿐만 아니라 "지침을 몰랐다"는 과실 또한 인정되지 않으며, 적발 시 국가공무원법 및 공무원 행동강령 위반으로 최소 <strong class="text-red-600">정직·강등에서 최대 파면·해임</strong>에 처해질 수 있으며, 사안에 따라 수사기관에 고발 조치됩니다.</p>
-                                <p class="text-xs text-slate-500 mt-2">※ 본 유형은 나이스(NEIS)를 통한 복무 신고나 겸직 허가 신청 자체가 원칙적으로 불가능합니다.</p>
-                            </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <strong class="text-indigo-900 block mb-1">계속적인 저술·집필</strong>
+                            <p class="text-xs leading-relaxed">계속성을 띠고 재산상 이득을 목적으로 하는 저술활동은 겸직 대상입니다. 다만 명백히 계속성이 없는 일시적 기고는 제외됩니다.</p>
                         </div>
-                    </div>
-                `;
-                neisCopier.classList.add('hidden');
-            } 
-            else if (category === 'C') {
-                resHeader.innerHTML = `<h3 class="text-2xl font-bold text-amber-700 flex items-center gap-2"><i class="fa-solid fa-video"></i> 진단 결과: 인터넷 개인 미디어 사전 겸직허가 필수</h3>`;
-                
-                resContent.innerHTML = `
-                    <div class="bg-amber-50 text-amber-900 p-4 rounded-xl border border-amber-200 font-semibold mb-4 text-sm md:text-base">
-                        📢 유튜브, 블로그 등 인터넷 개인 미디어 활동은 <span class="text-amber-700 font-bold">수익 발생 여부</span>에 따라 겸직허가 대상이 됩니다.
-                    </div>
-                    <div class="space-y-3">
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                                <span class="text-slate-800"><i class="fa-solid fa-circle-dollar-to-slot text-rose-500 mr-2"></i>플랫폼별 수익 창출 요건 (허가 필수 기준)</span>
-                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                            </button>
-                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-3">
-                                <p>아래와 같은 수익 창출 요건을 충족하면, <strong class="text-rose-600">최초 수익 발생 직전</strong>에 반드시 나이스 겸직 허가를 받아야 합니다.</p>
-                                <ul class="list-disc pl-5 space-y-1 text-slate-700">
-                                    <li><strong>유튜브:</strong> 구독자 1,000명 및 연간 시청시간 4,000시간 도달 시</li>
-                                    <li><strong>블로그:</strong> 네이버 애드포스트 등 광고 배너 게재 승인 시</li>
-                                    <li><strong>아프리카TV/트위치 등:</strong> 별풍선, 후원 기능 활성화 시점</li>
-                                </ul>
-                                <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs mt-2">
-                                    <i class="fa-solid fa-circle-info text-indigo-500"></i> 타인 채널에 1회성 게스트로 출연하여 사례금을 받는 것은 '외부강의(A유형)'로 별도 신고해야 합니다.
-                                </div>
-                            </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <strong class="text-indigo-900 block mb-1">단체·학회 임원</strong>
+                            <p class="text-xs leading-relaxed">비영리업무도 영리 목적이 아닌 <strong>계속성 있는 업무</strong>이면 신청 대상입니다. 사례금이 없어도 마찬가지입니다.</p>
                         </div>
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                                <span class="text-slate-800"><i class="fa-solid fa-heart text-green-500 mr-2"></i>순수 취미 및 비수익형 활동 (면제)</span>
-                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                            </button>
-                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
-                                <p>수익 창출 설정을 하지 않은 순수 일상/취미용 채널은 별도의 겸직 허가 신청이 필요 없습니다.</p>
-                                <p class="text-xs text-slate-500">※ 단, 수익이 없더라도 교원으로서의 품위유지 의무는 동일하게 적용됩니다.</p>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                                <span class="text-slate-800"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2"></i>인터넷 미디어 3-OUT 절대 금지 행위</span>
-                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                            </button>
-                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
-                                <ul class="list-disc pl-5 space-y-1.5">
-                                    <li><strong class="text-slate-900">학생 초상권 침해:</strong> 학생 등장 영상 무단 업로드 금지 (개인정보 동의서 필수 구비)</li>
-                                    <li><strong class="text-slate-900">근무 중 수익 창출:</strong> 근무시간 중 라이브 방송 진행 엄단 (슈퍼챗 등 수수 금지)</li>
-                                    <li><strong class="text-slate-900">부적절한 협찬:</strong> 특정 기업 제품을 유료로 홍보하는 '뒷광고' 및 부적절한 협찬 수수 금지</li>
-                                </ul>
-                            </div>
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <strong class="text-indigo-900 block mb-1">공동주택 입주자대표</strong>
+                            <p class="text-xs leading-relaxed">봉사 성격이라도 계속적인 의결권과 책임이 따르므로 허가 대상입니다.</p>
                         </div>
                     </div>
-                `;
-                neisCopier.classList.add('hidden');
-            } 
-            else if (category === 'D') {
-                resHeader.innerHTML = `<h3 class="text-2xl font-bold text-emerald-700 flex items-center gap-2"><i class="fa-solid fa-building-shield"></i> 진단 결과: 활동 개시 전 사전 겸직허가 필수</h3>`;
-                
-                resContent.innerHTML = `
-                    <div class="bg-emerald-50 text-emerald-900 p-4 rounded-xl border border-emerald-200 font-semibold mb-4 text-sm md:text-base">
-                        💼 일시적인 단발성 활동이 아닌 주기적·상시적인 영리/비영리 업무는 <span class="text-emerald-700 font-bold">업무 개시 전 사전에 소속 기관장(학교장)의 승인</span>을 받아야 합니다.
+                    <p class="text-xs text-slate-500 mt-3">신규임용자가 기존 업무를 계속하려면 임용일부터 1개월 이내, 담당직무가 변경되면 변경일부터 1개월 이내에 신청·재심사해야 합니다. 휴직 중에도 겸직허가는 필요합니다.</p>`, false)}
+                ${accordion('영리업무 · 비영리업무 · 계속성의 기준', '<i class="fa-solid fa-gavel text-slate-600 mr-2" aria-hidden="true"></i>',
+                    `<div>
+                        <strong class="text-indigo-900 block mb-1">영리업무 — 계속적으로 재산상 이득을 취하는 업무</strong>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>상업·공업·금융업 또는 그 밖의 영리적인 업무를 스스로 경영하여 영리 추구가 뚜렷한 업무</li>
+                            <li>영리를 목적으로 하는 사기업체의 이사·감사 업무를 집행하는 무한책임사원·지배인·발기인 또는 그 밖의 임원이 되는 것</li>
+                            <li>본인의 직무와 관련 있는 타인의 기업에 대한 투자</li>
+                            <li>그 밖에 계속적으로 재산상 이득을 목적으로 하는 업무</li>
+                        </ul>
                     </div>
-                    <div class="space-y-3">
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                                <span class="text-slate-800"><i class="fa-solid fa-check-double text-emerald-600 mr-2"></i>대표적인 사전 겸직허가 심사 대상</span>
-                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform rotate-180"></i>
-                            </button>
-                            <div class="p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-3">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                                        <strong class="text-indigo-900 block mb-1">🏠 부동산 임대 사업</strong>
-                                        <p class="text-xs leading-relaxed">주택임대사업자 등록을 하거나, 직접 상시 관리하여 직무에 지장을 초래할 우려가 있을 때 허가 대상. (관리인을 두어 본업 지장이 없어야 허가 가능)</p>
-                                    </div>
-                                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                                        <strong class="text-indigo-900 block mb-1">✍️ 지속적인 저술·집필</strong>
-                                        <p class="text-xs leading-relaxed">출판사와 장기 계약을 맺고 도서를 출판하여 지속적인 인세(수익)를 수령하는 경우 겸직 대상입니다.</p>
-                                    </div>
-                                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                                        <strong class="text-indigo-900 block mb-1">👥 비영리 단체·학회 임원</strong>
-                                        <p class="text-xs leading-relaxed">사례금이 없는 비영리라도 학회, 재단법인, 시민단체의 이사·감사 등 직위를 지속적으로 수행하면 사전 승인이 원칙입니다.</p>
-                                    </div>
-                                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                                        <strong class="text-indigo-900 block mb-1">🏢 공동주택 입주자대표(동대표)</strong>
-                                        <p class="text-xs leading-relaxed">봉사 성격이더라도 지속적인 의결권과 책임이 수반되므로 학교 업무에 지장이 없는지 심사 후 허가를 득해야 합니다.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                                <span class="text-slate-800"><i class="fa-solid fa-folder-open text-indigo-500 mr-2"></i>겸직허가 신청 필수 증빙 서류 및 갱신</span>
-                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                            </button>
-                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-2">
-                                <ul class="list-disc pl-5 space-y-1.5">
-                                    <li><strong class="text-slate-900">증빙 서류 첨부:</strong> 나이스(NEIS) 신청 시 출판계약서, 임대사업자등록증, 위촉장, 단체 회칙 등을 반드시 스캔하여 첨부해야 반려되지 않습니다.</li>
-                                    <li><strong class="text-slate-900">유효 기간 및 갱신:</strong> 겸직 허가 기간은 <strong>최장 1년</strong>(통상 학년도 단위)이며, 활동이 계속될 경우 만료 전 매년 재심사 및 연장 신청을 해야 합니다.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
-                            <button onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.fa-chevron-down').classList.toggle('rotate-180');" type="button" class="w-full text-left px-4 py-3 font-semibold text-sm md:text-base flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition">
-                                <span class="text-slate-800"><i class="fa-solid fa-gavel text-slate-600 mr-2"></i>법령상 영리업무 기준 및 허가 기간 세부 지침</span>
-                                <i class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
-                            </button>
-                            <div class="hidden p-4 border-t border-slate-100 text-sm text-slate-600 bg-white space-y-3">
-                                <div>
-                                    <strong class="text-indigo-900 block mb-1">⚖️ 영리업무의 판단 기준</strong>
-                                    <ul class="list-disc pl-5 space-y-1 text-slate-600">
-                                        <li>상업·공업·금융업 등 영리적인 업무를 스스로 경영하여 영리를 추구함이 뚜렷한 업무</li>
-                                        <li>영리를 목적으로 하는 사기업체의 이사·감사·지배인 등 임원이 되는 것</li>
-                                        <li>본인의 직무와 관련 있는 타인의 기업에 대한 투자 행위</li>
-                                        <li>그 밖에 계속적으로 재산상 이득을 목적으로 하는 업무</li>
-                                    </ul>
-                                </div>
-                                <div class="pt-2 border-t border-slate-100">
-                                    <strong class="text-indigo-900 block mb-1">⏳ 겸직 허가 허용 기간 지침</strong>
-                                    <p class="text-xs md:text-sm leading-relaxed">일반 겸직은 복무규정에 의거하여 <strong>원칙적으로 2년 이내</strong>로 허가됩니다. 다만 복무점검 및 관리가 더욱 엄격히 요구되는 <span class="text-rose-600 font-bold">사교육업체 관련 및 인터넷 개인방송(유튜브 등) 활동은 최대 1년</span>으로 제한되므로, 활동 연장 시 반드시 기간 만료 전 연장 및 갱신 신청을 완료해야 합니다.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="pt-2 mt-2 border-t border-slate-100">
+                        <strong class="text-indigo-900 block mb-1">비영리업무 — 영리 목적이 아닌 계속성 있는 업무</strong>
+                        <p class="text-xs">영리·비영리 모두 겸직 허가 신청 대상입니다.</p>
                     </div>
-                `;
-                neisCopier.classList.add('hidden');
-            }
-
-            resultCard.classList.remove('hidden');
-            resultCard.scrollIntoView({ behavior: 'smooth' });
+                    <div class="pt-2 mt-2 border-t border-slate-100">
+                        <strong class="text-indigo-900 block mb-1">\'계속성\'의 기준</strong>
+                        <ul class="list-disc pl-5 space-y-1 text-xs">
+                            <li>매일·매주·매월 등 주기적으로 행해지는 것</li>
+                            <li>계절적으로 행해지는 것</li>
+                            <li>명확한 주기는 없으나 계속적으로 행해지는 것</li>
+                            <li>현재 하고 있는 일을 계속적으로 행할 의지와 가능성이 있는 것</li>
+                        </ul>
+                    </div>`, false)}
+                ${accordion('허가 이후 관리 — 실태조사와 허가 취소', '<i class="fa-solid fa-magnifying-glass-arrow-right text-amber-600 mr-2" aria-hidden="true"></i>',
+                    `<ul class="list-disc pl-5 space-y-1.5">
+                        <li><strong>연 2회 실태조사</strong> — 1월 조사는 전년도 말일(12.31.), 7월 조사는 전반기 말일(6.30.) 기준으로 겸직기간 내에 있는 교원이 대상입니다.</li>
+                        <li>실제 겸직 수행 여부, 허가 내용 일치 여부, 겸직 요건·기타 의무 위반 여부를 확인해 허가기간 수정, 위원회 개최, 허가 취소 등의 조치를 합니다.</li>
+                        <li><strong>수익 초과 보고</strong> — 실수익이 신청 시 기재한 연간 총 수익예상액을 초과하면 반드시 기관장에게 보고하고 재심사 여부를 검토해야 합니다.</li>
+                        <li><strong>허가 취소</strong> — 제출 자료가 허위·부실하거나, 실제 업무가 허가받은 업무와 실체적 동일성이 없으면 재심사하거나 허가를 취소할 수 있습니다.</li>
+                    </ul>`, false)}
+                </div>
+                <div class="mt-4 flex flex-col md:flex-row gap-3">
+                    <button onclick="startRequirements()" class="flex-1 bg-indigo-600 text-white font-bold py-2.5 rounded-lg hover:bg-indigo-700 transition">4대 요건 자가체크</button>
+                    <button onclick="startScreener()" class="flex-1 bg-rose-600 text-white font-bold py-2.5 rounded-lg hover:bg-rose-700 transition">사교육 관련 여부 판별</button>
+                </div>`;
+            openResult(header, body, false);
         }
+    }
 
-        function copyNeisText() {
-            const copyText = document.getElementById('neisText');
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(copyText.value);
-            alert("나이스 복무 신청용 서식이 복사되었습니다!");
-        }
+    /* =========================================================
+       초기화
+       ========================================================= */
+    renderFAQ();
+    renderTypeOptions();
     </script>
 </body>
 </html>
