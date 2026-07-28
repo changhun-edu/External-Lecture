@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v6.2</title>
+    <title>교직원 외부강의·겸직 도우미 v6.3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -61,7 +61,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3 px-4">
             <i class="fa-solid fa-user-shield text-indigo-600" aria-hidden="true"></i> 교직원 외부강의·겸직 도우미
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v6.2</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v6.3</p>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
@@ -75,6 +75,11 @@
                     class="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl shadow-xs focus:ring-2 focus:ring-indigo-500">
             </div>
             <div id="searchResults" class="hidden mt-2 bg-white border border-slate-200 rounded-xl shadow-md overflow-hidden divide-y divide-slate-100"></div>
+        </div>
+
+        <div id="resumeNotice" class="hidden mb-5 bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-3 text-sm text-indigo-900 flex items-center justify-between gap-3 no-print">
+            <span><i class="fa-solid fa-rotate-left mr-1" aria-hidden="true"></i> 보고 계시던 화면을 그대로 열었습니다.</span>
+            <button onclick="goHome()" class="shrink-0 font-bold underline hover:text-indigo-700">처음 화면으로</button>
         </div>
 
         <div id="restoreNotice" class="hidden mb-5 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-amber-900 flex items-center justify-between gap-3 no-print">
@@ -812,7 +817,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v6.2 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v6.3 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -828,8 +833,9 @@
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    let suppressScroll = false;
     function scrollTo_(el) {
-        if (!el) return;
+        if (!el || suppressScroll) return;
         el.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
     }
 
@@ -841,7 +847,7 @@
         hide('neisCopier');
     }
 
-    function goHome() {
+    function openHome() {
         hideAll();
         resetRouter();
         show('qaSection');
@@ -1130,7 +1136,7 @@
         }
     }
 
-    function showNoReport() {
+    function openNoReport() {
         hideAll();
         openResult(
             `<h3 class="text-2xl font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-500" aria-hidden="true"></i> 신고·허가 대상이 아닐 가능성이 큽니다</h3>`,
@@ -1150,7 +1156,7 @@
         );
     }
 
-    function showRepeatLecture() {
+    function openRepeatLecture() {
         hideAll();
         openResult(
             `<h3 class="text-2xl font-bold text-emerald-700 flex items-center gap-2"><i class="fa-solid fa-repeat" aria-hidden="true"></i> 겸직 허가 대상으로 보입니다</h3>`,
@@ -1198,7 +1204,7 @@
         renderScreenerProgress(2);
     }
 
-    function startScreener() {
+    function openScreener() {
         hideAll();
         show('section-screener');
         resetScreener();
@@ -1352,7 +1358,7 @@
     /* =========================================================
        4대 요건 자가체크
        ========================================================= */
-    function startRequirements() {
+    function openRequirements() {
         hideAll();
         show('section-requirements');
         hide('req-result');
@@ -1536,13 +1542,6 @@
     /* =========================================================
        셀프 모의고사
        ========================================================= */
-    function startQuiz() {
-        hideAll();
-        show('section-quiz');
-        resetQuiz();
-        scrollTo_(document.getElementById('section-quiz'));
-    }
-
     const QUIZ_TOTAL = 5;
     const QUIZ_CORRECT = {
         1: '맞습니다. 직업이나 계속적으로 종사하는 사무·사업은 업무에 해당하지만, 단순 취미활동이나 학업 등은 법상 업무로 볼 수 없어 겸직 허가 신청 대상이 아닙니다. 다만 본인이 단순 취미라고 판단하더라도 계속성이 있다면 복무담당부서의 판단을 받으시기 바랍니다.',
@@ -1554,7 +1553,7 @@
     let quizStep = 1;
     let quizMarks = [];
 
-    function startQuiz() {
+    function openQuiz() {
         hideAll();
         show('section-quiz');
         resetQuiz();
@@ -1622,7 +1621,7 @@
     /* =========================================================
        외부강의 (A유형)
        ========================================================= */
-    function startLecture() {
+    function openLecturePrecheck() {
         hideAll();
         show('precheck-section');
         document.getElementsByName('precheck').forEach(r => { r.checked = false; });
@@ -1632,20 +1631,24 @@
     function processPrecheck() {
         const checked = document.querySelector('input[name="precheck"]:checked');
         if (!checked) { alert('해당하는 항목을 하나 선택해 주세요.'); return; }
+        navigate(checked.value === 'yes' ? 'result-precheck-exempt' : 'lecture');
+    }
 
-        hide('precheck-section');
-        if (checked.value === 'yes') {
-            openResult(
-                `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 신고 제외 대상으로 보입니다</h3>`,
-                `<p class="font-semibold text-green-900">별도의 외부강의등 신고 의무가 없습니다.</p>
-                 <p class="text-sm text-slate-600">다만 활동을 위해 근무지를 벗어난다면 출장·연가 등 복무 처리는 별도로 해야 합니다. 복무 처리 없이 활동한 것은 부적정 사례로 지적됩니다.</p>`,
-                false
-            );
-        } else {
-            show('section-lecture');
-            checkThreshold();
-            scrollTo_(document.getElementById('section-lecture'));
-        }
+    function openPrecheckExempt() {
+        hideAll();
+        openResult(
+            `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 신고 제외 대상으로 보입니다</h3>`,
+            `<p class="font-semibold text-green-900">별도의 외부강의등 신고 의무가 없습니다.</p>
+             <p class="text-sm text-slate-600">다만 활동을 위해 근무지를 벗어난다면 출장·연가 등 복무 처리는 별도로 해야 합니다. 복무 처리 없이 활동한 것은 부적정 사례로 지적됩니다.</p>`,
+            false
+        );
+    }
+
+    function openLectureForm() {
+        hideAll();
+        show('section-lecture');
+        checkThreshold();
+        scrollTo_(document.getElementById('section-lecture'));
     }
 
     function toggleSchoolRadios() {
@@ -1833,7 +1836,7 @@
     /* =========================================================
        정적 안내 (B: 인터넷 개인 미디어 / C: 기타 영리·비영리)
        ========================================================= */
-    function showGuide(kind) {
+    function openGuide(kind) {
         hideAll();
 
         if (kind === 'MEDIA') {
@@ -2034,7 +2037,7 @@
     /* =========================================================
        허가 만료일 · 갱신 계산기
        ========================================================= */
-    function startRenew() {
+    function openRenew() {
         hideAll();
         show('section-renew');
         hide('renew-result');
@@ -2159,7 +2162,89 @@
 
     function clearState() {
         store.del(STORE_KEY);
+        store.del(VIEW_KEY);
         location.reload();
+    }
+
+    /* =========================================================
+       화면 이동 (URL은 바꾸지 않습니다 — 해시를 남기지 않음)
+       뒤로가기는 앱 안의 이전 화면으로 이동하고,
+       새로고침하면 보고 있던 화면을 그대로 복원합니다.
+       ========================================================= */
+    const VIEW_KEY = 'gyeomjik-helper-view';
+
+    const VIEW_RENDER = {
+        'home':                   openHome,
+        'lecture-precheck':       openLecturePrecheck,
+        'lecture':                openLectureForm,
+        'result-precheck-exempt': openPrecheckExempt,
+        'result-noreport':        openNoReport,
+        'result-repeat':          openRepeatLecture,
+        'screener':               openScreener,
+        'requirements':           openRequirements,
+        'quiz':                   openQuiz,
+        'renew':                  openRenew,
+        'guide-media':            () => openGuide('MEDIA'),
+        'guide-other':            () => openGuide('OTHER')
+    };
+
+    /* history API를 쓸 수 없는 환경(file:// 제한 등)에서는 조용히 비활성화 */
+    const HISTORY_OK = (function () {
+        try { history.replaceState({ app: 'gyeomjik', view: 'home' }, ''); return true; }
+        catch (e) { return false; }
+    })();
+
+    let currentView = 'home';
+
+    function renderView(view) {
+        const fn = VIEW_RENDER[view] || VIEW_RENDER['home'];
+        currentView = VIEW_RENDER[view] ? view : 'home';
+        fn();
+        store.set(VIEW_KEY, currentView);
+    }
+
+    /* 화면 이동 + 히스토리 기록. 두 번째 인자를 넘기지 않으면 기록합니다. */
+    function navigate(view) {
+        const bar = document.getElementById('resumeNotice');
+        if (bar) bar.classList.add('hidden');
+        if (view === currentView) { renderView(view); return; }
+        renderView(view);
+        if (HISTORY_OK) {
+            /* URL 인자를 넘기지 않으므로 주소창과 해시가 그대로 유지됩니다 */
+            try { history.pushState({ app: 'gyeomjik', view: view }, ''); } catch (e) {}
+        }
+    }
+
+    /* 공개 진입점 — HTML의 onclick은 그대로 두고 여기서 히스토리를 관리합니다 */
+    function goHome()            { navigate('home'); }
+    function startLecture()      { navigate('lecture-precheck'); }
+    function startScreener()     { navigate('screener'); }
+    function startRequirements() { navigate('requirements'); }
+    function startQuiz()         { navigate('quiz'); }
+    function startRenew()        { navigate('renew'); }
+    function showGuide(kind)     { navigate(kind === 'MEDIA' ? 'guide-media' : 'guide-other'); }
+    function showNoReport()      { navigate('result-noreport'); }
+    function showRepeatLecture() { navigate('result-repeat'); }
+
+    window.addEventListener('popstate', function (e) {
+        const view = (e.state && e.state.app === 'gyeomjik') ? e.state.view : 'home';
+        renderView(view);   /* 뒤로가기에서는 새 기록을 쌓지 않습니다 */
+    });
+
+    /* 새로고침 복원 */
+    function restoreView() {
+        const saved = store.get(VIEW_KEY);
+        const view = (saved && VIEW_RENDER[saved]) ? saved : 'home';
+        suppressScroll = true;
+        renderView(view);
+        suppressScroll = false;
+        if (HISTORY_OK) {
+            try { history.replaceState({ app: 'gyeomjik', view: view }, ''); } catch (e) {}
+        }
+        if (view !== 'home') {
+            const bar = document.getElementById('resumeNotice');
+            if (bar) bar.classList.remove('hidden');
+        }
     }
 
     /* =========================================================
@@ -2177,6 +2262,7 @@
         if (el) { el.addEventListener('input', saveState); el.addEventListener('change', saveState); }
     });
     loadState();
+    restoreView();
     document.addEventListener('click', e => {
         const box = document.getElementById('searchResults');
         if (!box.classList.contains('hidden') && !e.target.closest('#searchResults') && !e.target.closest('#searchBox')) {
