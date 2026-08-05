@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v10.2</title>
+    <title>교직원 외부강의·겸직 도우미 v10.5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v10.2 — 가독성 고정 확대 (노안 대응)
+           v10.5 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -116,7 +116,7 @@
                 <span>교직원 외부강의·겸직 도우미</span>
             </button>
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v10.2</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v10.5</p>
     </header>
 
     <button type="button" id="toTop" onclick="scrollTop_()" aria-label="맨 위로"
@@ -912,6 +912,7 @@
         <div id="section-lecture" class="hidden bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-xs mb-6 fade-in">
             <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
                 <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-pen-nib text-indigo-600" aria-hidden="true"></i> 외부강의 세부내역 입력</h2>
+                <button onclick="resetFormFields('section-lecture')" class="text-xs font-bold text-slate-500 hover:text-slate-800 underline mr-3" style="min-height:0">새로 입력</button>
                 <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl" aria-hidden="true"></i></button>
             </div>
 
@@ -927,37 +928,27 @@
             </div>
 
             <details class="mb-5 border border-slate-300 rounded-xl overflow-hidden bg-white">
-                <summary class="cursor-pointer select-none px-4 py-3 font-bold text-sm text-slate-800 bg-slate-50 hover:bg-slate-100">
-                    참고 — 외부강의등 신고 대상에서 제외되는 활동
-                </summary>
+                <summary class="cursor-pointer select-none px-4 py-3 font-bold text-sm text-slate-800 bg-slate-50 hover:bg-slate-100">참고 — 외부강의등 신고 대상에서 제외되는 활동</summary>
                 <div class="border-t border-slate-200 p-4 space-y-4">
                     <p class="text-sm text-slate-600">행동강령 지침상 아래 활동은 외부강의등에 해당하지 않습니다. 30초 판정의 <strong>진행 형태</strong>로 이미 갈리지만, 근거가 필요할 때 펼쳐 보세요.</p>
-<div class="space-y-2 text-sm md:text-base font-semibold text-slate-700 bg-slate-50 p-4 rounded-lg border border-slate-200 mb-5">
-                <legend class="sr-only">외부강의 신고 제외 항목</legend>
-                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 📚 <strong>책 집필</strong> (기고 송부가 아닌 출판 목적)</div>
-                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 📝 <strong>시험출제위원</strong> (단순 문제 출제 참여)</div>
-                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> ⚖️ <strong>법정 위원회 참석</strong> (법령에 따른 위원 활동)</div>
-                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 🎓 <strong>사전 겸직허가를 받은 대학 출강</strong></div>
-                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 📄 <strong>단순 서면 심사·자문</strong> (다수 대상 및 회의 형태가 아님)</div>
-                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 🎙️ <strong>1:1 면담·인터뷰</strong> (사회자와의 개별 방송 인터뷰, 기자와 1:1 문답)</div>
-                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 🎻 <strong>연주·공연·전시</strong> (연주회·전시회에서의 문화예술 행위)</div>
-                
-            </div>
-<div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900 mb-5 space-y-1.5">
-                <p class="font-bold"><i class="fa-solid fa-circle-exclamation mr-1" aria-hidden="true"></i> 제외 항목이라도 뒤집히는 경우</p>
-                <ul class="list-disc pl-5 space-y-1 text-xs">
-                    <li><strong>서면심사·서면자문</strong>이라도 2인 이상의 평가자나 자문단이 <strong>회의 형태</strong>로 진행하며 의견·지식을 전달·교환했다면 신고 대상입니다.</li>
-                    <li><strong>위원회</strong>는 <strong>법령에 근거해 설치</strong>된 것만 제외입니다. 정관 등 내부규정으로 설치된 이사회·위원회에 참석하고 사례금을 받으면 신고 대상입니다. 여기서 법령에는 법률·대통령령·총리령·부령·조례·규칙과, 상위법령의 위임에 따른 고시·훈령이 포함됩니다.</li>
-                    <li>제외 항목이어도 <strong>사전 결재와 복무 처리</strong>는 그대로 필요합니다.</li>
-                    <li>원칙적으로 신고 의무가 있으므로 <strong>판단이 어려우면 신고를 우선</strong>하는 것이 바람직합니다.</li>
-                </ul>
-            </div>
-
-            <div class="flex gap-3">
-                <button onclick="processPrecheck()" class="flex-1 bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 shadow-xs transition">다음 단계로</button>
-                <button onclick="goHome()" class="px-5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">취소</button>
-            </div>
-        </div>
+                    <ul class="space-y-2 text-sm text-slate-800">
+                        <li class="flex gap-2"><span aria-hidden="true">📚</span><span><strong>책 집필</strong> — 기고 송부가 아닌 출판 목적</span></li>
+                        <li class="flex gap-2"><span aria-hidden="true">📝</span><span><strong>시험출제위원</strong> — 단순 문제 출제 참여</span></li>
+                        <li class="flex gap-2"><span aria-hidden="true">⚖️</span><span><strong>법정 위원회 참석</strong> — 법령에 따른 위원 활동</span></li>
+                        <li class="flex gap-2"><span aria-hidden="true">🎓</span><span><strong>사전 겸직허가를 받은 대학 출강</strong></span></li>
+                        <li class="flex gap-2"><span aria-hidden="true">📄</span><span><strong>단순 서면 심사·자문</strong> — 다수 대상 및 회의 형태가 아님</span></li>
+                        <li class="flex gap-2"><span aria-hidden="true">🎙️</span><span><strong>1:1 면담·인터뷰</strong> — 사회자와의 개별 방송 인터뷰, 기자와 1:1 문답</span></li>
+                        <li class="flex gap-2"><span aria-hidden="true">🎻</span><span><strong>연주·공연·전시</strong> — 연주회·전시회에서의 문화예술 행위</span></li>
+                    </ul>
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900 space-y-1.5">
+                        <p class="font-bold"><i class="fa-solid fa-circle-exclamation mr-1" aria-hidden="true"></i> 제외 항목이라도 뒤집히는 경우</p>
+                        <ul class="list-disc pl-5 space-y-1 text-xs">
+                            <li><strong>서면심사·서면자문</strong>이라도 2인 이상의 평가자나 자문단이 <strong>회의 형태</strong>로 진행하며 의견·지식을 전달·교환했다면 신고 대상입니다.</li>
+                            <li><strong>위원회</strong>는 <strong>법령에 근거해 설치</strong>된 것만 제외입니다. 정관 등 내부규정으로 설치된 이사회·위원회에 참석하고 사례금을 받으면 신고 대상입니다. 여기서 법령에는 법률·대통령령·총리령·부령·조례·규칙과, 상위법령의 위임에 따른 고시·훈령이 포함됩니다.</li>
+                            <li>제외 항목이어도 <strong>사전 결재와 복무 처리</strong>는 그대로 필요합니다.</li>
+                            <li>원칙적으로 신고 의무가 있으므로 <strong>판단이 어려우면 신고를 우선</strong>하는 것이 바람직합니다.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
@@ -1083,6 +1074,7 @@
                 <h2 class="text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2">
                     <i class="fa-solid fa-clipboard-check text-sky-600" aria-hidden="true"></i> 강의가 아닌 활동 판정
                 </h2>
+                <button onclick="resetFormFields('section-nonlecture')" class="text-xs font-bold text-slate-500 hover:text-slate-800 underline mr-3" style="min-height:0">새로 입력</button>
                 <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-2xl" aria-hidden="true"></i></button>
             </div>
 
@@ -1256,7 +1248,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v10.2 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v10.5 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1559,7 +1551,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v10.2 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v10.5 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1604,7 +1596,7 @@
         scrollTo_(document.getElementById('router-wizard'));
     }
 
-    /* v10.2 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
+    /* v10.5 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
     const RQ_VIEW = {
         'rq-A': 'router-org', 'rq-A1': 'router-org-help', 'rq-R': 'router-red',
         'rq-0': 'router-what', 'rq-1': 'router-repeat', 'rq-1a': 'router-pay',
@@ -1619,7 +1611,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v10.2 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v10.5 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1631,6 +1623,12 @@
     /* 요청 주체를 확정한 뒤 원래 가려던 곳으로 보냅니다 */
     function rqDispatch() {
         const choice = RQ.next || 'UNKNOWN';
+        if (choice === 'QUICK') {           /* 30초 판정에서 온 확인 — 결과로 되돌립니다 */
+            QK.redChecked = 'none';
+            resetRouter();
+            navigate('quick-result');
+            return;
+        }
         if (choice === 'UNKNOWN') { rqShow('rq-0'); return; }
         resetRouter();
         switch (choice) {
@@ -1693,7 +1691,7 @@
         if (document.getElementById('rqr3').checked) flags.push('평소 지원·점검 대상');
         if (document.getElementById('rqr4').checked) flags.push('소속기관이 이해관계 당사자인 사안의 대리·자문');
         RQ.redFlags = flags;
-        if (flags.length) { resetRouter(); showConflict(); return; }
+        if (flags.length) { if (RQ.next === 'QUICK') QK.redChecked = 'flagged'; resetRouter(); showConflict(); return; }
         rqDispatch();
     }
 
@@ -1703,7 +1701,7 @@
     }
 
     /* =========================================================
-       v10.2 — 요청 주체가 소속기관인 경우
+       v10.5 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1729,7 +1727,7 @@
     }
 
     /* =========================================================
-       v10.2 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v10.5 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -1832,7 +1830,7 @@
         });
     }
 
-    /* v10.2 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
+    /* v10.5 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
     let LAST_RESULT = null;
     let LAST_LECTURE = null;
 
@@ -2396,7 +2394,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v10.2 — 신분별 사례금 상한액 점검 */
+    /* v10.5 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2442,7 +2440,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v10.2 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v10.5 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2452,7 +2450,7 @@
     };
 
     /* =========================================================
-       v10.2 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v10.5 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2491,9 +2489,8 @@
                 <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 mt-3 text-xs text-slate-700 space-y-1.5">
                     <p class="font-bold text-slate-900">이 화면이 곧 별지 제11호 서식입니다</p>
                     <p>「공직자의 이해충돌 방지제도 운영지침」 제9조(2024. 8. 14. 전부개정)로 신설된 절차입니다. 종이 서식을 따로 낼 필요 없이 나이스 신청이 곧 서면 제출을 갈음합니다.</p>
-                    <p class="pt-1.5 border-t border-slate-200"><strong>바로 허가가 나오지 않습니다.</strong> 신청을 받은 <strong>이해충돌방지담당관</strong>이 신청자를 지휘·감독하는 상급자 또는 소속기관장의 의견을 들어 직무수행에 지장이 있는지 판단합니다.</p>
-                    <p class="bg-emerald-50 border border-emerald-200 rounded-lg p-2.5 text-emerald-900"><strong>결과 통보(별지 제12호)는 나이스 결재로 갈음합니다.</strong> 별도 공문을 기다릴 필요 없이 <strong>결재가 완료되면 허가된 것</strong>입니다. 반대로 결재가 진행 중이면 아직 허가 전입니다.</p>
-                    <p class="text-rose-700 font-bold">결재가 떨어지기 전에 활동을 시작하면 무허가입니다. 의견 청취 단계가 있으므로 활동 직전이 아니라 여유를 두고 신청하세요.</p>
+                    <p class="pt-1.5 border-t border-slate-200">신청을 받은 <strong>이해충돌방지담당관</strong>이 지휘·감독 상급자 또는 소속기관장의 의견을 들어 판단하며, 결과 통보(별지 제12호)는 <strong>나이스 결재로 갈음</strong>합니다.</p>
+                    <p class="text-rose-700 font-bold">결재가 떨어지기 전에 시작하면 무허가입니다. 여유를 두고 신청하세요.</p>
                 </div>
             </div></div>`;
     }
@@ -2523,9 +2520,9 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v10.2 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v10.5 — 감사 지적 처분기준과 주요 위반사례 */
     /* =========================================================
-       v10.2 — 결론은 이 함수 하나에서만 계산합니다.
+       v10.5 — 결론은 이 함수 하나에서만 계산합니다.
        제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
        헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
        ========================================================= */
@@ -2538,18 +2535,18 @@
     };
 
     /* =========================================================
-       v10.2 — 30초 판정
+       v10.5 — 30초 판정
        사용자가 '강의인지 아닌지'를 고르지 않게 합니다.
        활동 이름만 고르면 사이트가 분류합니다.
        ========================================================= */
     /* =========================================================
-       v10.2 — 기관명 후보 제시
+       v10.5 — 기관명 후보 제시
        모기관은 신고 제외인데 산하 별도 법인은 신고 대상인 경우가 많습니다.
        (광주교육대학교 vs 광주교육대학교 산학협력단)
        사용자가 그 구분을 알아서 하도록 두지 않고, 후보로 나란히 보여 줍니다.
        ========================================================= */
     /* =========================================================
-       v10.2 — 기관 등록부
+       v10.5 — 기관 등록부
        교직원이 자주 만나는 기관은 이름만으로 확정 판별합니다.
        "추정"으로 얼버무리지 않는 것이 목적입니다.
        ========================================================= */
@@ -2640,7 +2637,7 @@
 
     const BASIS_LINE = '2026년 8월 기준 · 청탁금지법 제10조, 이해충돌방지법 제10조, 이해충돌 방지제도 운영지침 제9조(2024. 8. 14.), 교육청 「외부강의등 신고 준수사항 안내」 반영';
 
-    const QK = { agency: '', cls: null, form: null, pay: null, cont: false, picked: false, subEntity: null, raw: null, orgAnswer: null, orgAnswer2: null };
+    const QK = { agency: '', cls: null, form: null, pay: null, cont: false, picked: false, subEntity: null, raw: null, orgAnswer: null, orgAnswer2: null, redChecked: null };
 
     /* 형태 → 상세 판정기의 활동 유형 */
     const FORM_TO_NL = { talk: 'meeting', meet: 'meeting', both: 'field', alone: 'field', post: 'post', foreign: 'foreign' };
@@ -2734,6 +2731,7 @@
     function qkSubEntity(v) { QK.subEntity = v; qkRender(); }
 
     function qkSet(field, val) {
+        if (field === 'form') QK.redChecked = null;   /* 형태가 바뀌면 확인 결과도 무효 */
         QK[field] = val;
         const box = document.getElementById(field === 'form' ? 'qkForm' : 'qkPay');
         if (box) [...box.querySelectorAll('button')].forEach(b =>
@@ -2858,10 +2856,10 @@
         }
         if (isApply) {
             items.push({ why: '요청한 곳이 내가 관리·감독하는 기관이면 허가로 풀리지 않습니다. 신청 전에 걸러야 합니다.',
-                         label: '직무관련자 여부 확인', fn: "route('NONLECT')" });
+                         label: '직무관련자 여부 확인', fn: 'qkRedCheck()' });
         }
         if (QK.cont) {
-            items.push({ why: '계속되는 활동이라 겸직허가가 함께 필요합니다. 허가가 날 수 있는 건인지 먼저 보세요.',
+            items.push({ why: '허가가 날 수 있는 건인지 먼저 보세요.',
                          label: '겸직 허가 4대 요건 자가체크', fn: 'startRequirements()' });
             items.push({ why: '허가를 받으면 만료일과 갱신 시기를 챙겨야 합니다.',
                          label: '허가 만료일 · 갱신 계산기', fn: 'startRenew()' });
@@ -2878,6 +2876,47 @@
     }
 
     /* 남은 일이 무엇인지 버튼 이름에 넣습니다 */
+    /* v10.5 — 30초 판정에서 이미 기관을 물었으므로 직무관련자 4문항으로 바로 갑니다 */
+    /* v10.5 — 30초 판정에서 넘어올 때는 폼을 비우고 시작합니다.
+       이전에 입력했던 값이 위쪽에 남아 있으면 무엇이 넘어온 값인지 헷갈립니다. */
+    const FORM_IDS = {
+        'section-lecture':    ['agencyName', 'endDate', 'lectureSubject', 'payAmount',
+                               'monthlyCount', 'monthlyHours', 'overLimitReason', 'lectureType', 'reportMethod'],
+        'section-nonlecture': ['nlSubject', 'nlAgency', 'nlPayerDiff', 'nlPayer', 'nlSource',
+                               'nlStart', 'nlEnd', 'nlRelated', 'nlCounterpart', 'nlWorkTime',
+                               'nlType', 'nlPayKind']
+    };
+
+    function resetFormFields(sectionId) {
+        (FORM_IDS[sectionId] || []).forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (el.type === 'checkbox' || el.type === 'radio') { el.checked = el.defaultChecked; return; }
+            if (el.tagName === 'SELECT') {
+                const i = [...el.options].findIndex(o => o.defaultSelected);
+                el.selectedIndex = (i >= 0) ? i : 0;
+                return;
+            }
+            el.value = el.defaultValue || '';
+        });
+        const sec = document.getElementById(sectionId);
+        if (sec) sec.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = r.defaultChecked; });
+
+        ['schoolTypeSection', 'overLimitReasonSection', 'nlPayerWrap', 'restoreNotice', 'resumeNotice']
+            .forEach(id => { const e = document.getElementById(id); if (e) e.classList.add('hidden'); });
+
+        if (typeof checkThreshold === 'function') checkThreshold();
+        if (typeof toggleSchoolRadios === 'function') toggleSchoolRadios();
+        if (typeof toggleNlPayer === 'function') toggleNlPayer();
+    }
+
+    function qkRedCheck() {
+        clearRQ();
+        RQ.org = (QK.cls && QK.cls.exempt) ? 'public' : 'ext';
+        RQ.next = 'QUICK';
+        rqShow('rq-R');
+    }
+
     function qkDetailLabel() {
         const isLecture = (QK.form === 'talk' || QK.form === 'meet');
         if (isLecture) return (QK.cls && QK.cls.exempt) ? '사례금 상한액 확인하기' : '사례금 · 월 횟수 확인하기';
@@ -2895,11 +2934,16 @@
                 ${QK.cont ? `<div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mt-3 text-sm text-emerald-900">
                     <strong>겸직허가도 받으셔야 합니다.</strong> 국가공무원법 제64조와 복무규정 제25조·제26조는 계속성 있는 업무를 겸하는 것 자체를 따로 규율합니다. 위 신고·신청이 겸직허가를 갈음하지 않습니다.</div>` : ''}
             </div>
-            ${showRed ? `<div class="bg-rose-50 border border-rose-300 rounded-xl p-4 text-sm">
-                <p class="font-bold text-rose-900 mb-1.5">신청하기 전에 하나만 확인하세요</p>
-                <p class="text-rose-800 mb-2.5">요청한 곳이 내가 <strong>관리·감독</strong>하거나 우리 기관과 <strong>위탁·계약 관계</strong>인 곳입니까? 그렇다면 허가로 풀리지 않는 유형일 수 있습니다.</p>
-                <button onclick="route('NONLECT')" class="w-full bg-rose-600 text-white font-bold py-2.5 rounded-lg hover:bg-rose-700 transition text-sm">해당할 수 있습니다 — 확인하기</button>
-            </div>` : ''}
+            ${!showRed ? '' : (QK.redChecked === 'none'
+                ? `<div class="bg-emerald-50 border border-emerald-300 rounded-xl p-4 text-sm text-emerald-900">
+                    <p class="font-bold mb-1"><i class="fa-solid fa-circle-check mr-1" aria-hidden="true"></i> 직무관련자 확인을 마쳤습니다</p>
+                    <p>해당 사항이 없어 신청으로 처리할 수 있습니다. <button onclick="qkRedCheck()" class="underline font-bold" style="min-height:0">다시 확인</button></p>
+                </div>`
+                : `<div class="bg-rose-50 border border-rose-300 rounded-xl p-4 text-sm">
+                    <p class="font-bold text-rose-900 mb-1.5">신청하기 전에 하나만 확인하세요</p>
+                    <p class="text-rose-800 mb-2.5">요청한 곳이 내가 <strong>관리·감독</strong>하거나 우리 기관과 <strong>위탁·계약 관계</strong>인 곳입니까? 그렇다면 허가로 풀리지 않는 유형일 수 있습니다.</p>
+                    <button onclick="qkRedCheck()" class="w-full bg-rose-600 text-white font-bold py-2.5 rounded-lg hover:bg-rose-700 transition text-sm">4문항으로 확인하기</button>
+                </div>`)}
             ${qkNextSteps()}
             <div class="flex flex-col md:flex-row gap-2.5">
                 <button onclick="qkDetail()" class="flex-1 bg-slate-800 text-white font-bold py-2.5 rounded-lg hover:bg-slate-900 transition">${qkDetailLabel()}</button>
@@ -2909,7 +2953,7 @@
         </div>`;
     }
 
-    /* v10.2 — 30초 판정에서 이미 답한 것은 다시 묻지 않고 넘겨줍니다 */
+    /* v10.5 — 30초 판정에서 이미 답한 것은 다시 묻지 않고 넘겨줍니다 */
     function qkSummaryLine() {
         const f = { talk: '여러 사람 앞에서 말함', meet: '회의에서 의견 교환', alone: '혼자 또는 서면',
                     both: '혼자 + 회의', post: '직위 취임', foreign: '외국 기관 대리' }[QK.form] || '';
@@ -2930,6 +2974,7 @@
         const set = (id, v) => { const e = document.getElementById(id); if (e && v) e.value = v; };
         if (QK.form === 'talk' || QK.form === 'meet') {
             startLecture();                       /* 사전확인은 건너뜁니다 — 형태를 이미 물었습니다 */
+            resetFormFields('section-lecture');   /* 이전 입력을 비우고 넘어온 값만 채웁니다 */
             set('agencyName', QK.agency);
             /* 국·공립인지 사립인지 이미 답했다면 그대로 반영합니다 */
             if (typeof toggleSchoolRadios === 'function') toggleSchoolRadios();
@@ -2942,6 +2987,7 @@
             return;
         }
         startNonLecture();
+        resetFormFields('section-nonlecture');
         set('nlType', FORM_TO_NL[QK.form === 'both' ? 'alone' : QK.form]);
         set('nlAgency', QK.agency);
         set('nlPayKind', QK.pay === 'yes' ? 'allowance' : QK.pay === 'actual' ? 'actual' : 'none');
@@ -2949,7 +2995,7 @@
     }
 
     function qkReset() {
-        QK.agency = ''; QK.cls = null; QK.form = null; QK.pay = null; QK.cont = false; QK.picked = false; QK.subEntity = null; QK.raw = null; QK.orgAnswer = null; QK.orgAnswer2 = null;
+        QK.agency = ''; QK.cls = null; QK.form = null; QK.pay = null; QK.cont = false; QK.picked = false; QK.subEntity = null; QK.raw = null; QK.orgAnswer = null; QK.orgAnswer2 = null; QK.redChecked = null;
         const sg = document.getElementById('qkAgencySuggest'); if (sg) sg.classList.add('hidden');
         const a = document.getElementById('qkAgency'); if (a) a.value = '';
         const h = document.getElementById('qkAgencyHint'); if (h) h.classList.add('hidden');
@@ -3029,7 +3075,7 @@
         const also = (d.cont === true) ? ['겸직허가'] : [];
         return { key: 'apply', actType: at, also: also,
                  line: (d.cont === true)
-                     ? '직무관련외부활동신청 대상이며, 계속성이 있어 겸직허가도 함께 확인해야 합니다.'
+                     ? '회의 형태가 아닌 직무관련 활동입니다.'
                      : (payFree && !d.hasPay
                          ? '이 유형은 대가가 없어도 대상입니다. 활동 시작 전에 신청하세요.'
                          : '회의 형태가 아닌 직무관련 활동입니다. 활동 시작 전에 신청하세요.') };
@@ -3126,7 +3172,7 @@
     function looksLikeUniv(agency)    { return UNIV_HINT.some(k => agency.includes(k)); }
 
     /* '학교' 문자열만 보고 초·중등학교 분기로 보내면 대학·산학협력단이 잘못 걸립니다. */
-    /* v10.2 — 인식 범위를 넓힙니다.
+    /* v10.5 — 인식 범위를 넓힙니다.
        ① 유치원은 '학교'라는 글자가 없어 그동안 빠졌습니다.
        ② '부설초등학교'는 SEPARATE_ENTITY의 '부설'에 먼저 걸려 별도 법인으로 갔습니다.
           국립대 부설학교는 국립학교(교육부 소속)이므로 학교로 봐야 합니다.
@@ -3144,7 +3190,7 @@
     }
 
     function classifyAgency(agency) {
-        /* v10.2 — 등록부에 있으면 이름만으로 확정합니다. */
+        /* v10.5 — 등록부에 있으면 이름만으로 확정합니다. */
         const reg = lookupRegistry(agency);
         if (reg && !/(산학협력단|부설|부속|평생교육원)/.test(agency)) {
             return reg.exempt
@@ -3154,7 +3200,7 @@
                     warn: '공직유관단체는 국가·지방자치단체에 해당하지 않아 <strong>신고 대상</strong>입니다. 이를 제외 대상으로 잘못 보아 신고를 빠뜨리는 것이 감사에서 자주 지적되는 사례입니다.' };
         }
 
-        /* v10.2 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
+        /* v10.5 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
            국립대 부설초·중·고와 병설유치원은 국립학교로서 신고 제외 대상입니다. */
         if (ATTACHED_SCHOOL_PAT.test(agency) || /병설\s*유치원/.test(agency)) {
             if (looksLikeUniv(agency) || /(국립|공립|시립|도립|병설)/.test(agency)) {
@@ -3221,7 +3267,7 @@
                 warn: '공사·공단·재단·센터 등으로 끝나는 기관은 통상 공직유관단체로 보아 신고 대상입니다. <strong>지방자치단체의 출자·출연기관도 지방자치단체에 해당하지 않아 신고 대상</strong>입니다.'
             };
         }
-        /* v10.2 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
+        /* v10.5 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
         if (looksLikeSchoolAgency(agency)) {
             if (/(국립|공립|시립|도립)/.test(agency)) {
                 return {
@@ -3599,10 +3645,10 @@
     }
 
     /* =========================================================
-       v10.2 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v10.5 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v10.2 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v10.5 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
@@ -3617,7 +3663,7 @@
 `── 나이스 직무관련외부활동상세 입력값 ──
 
 [요청인]
- 기관명   : ${d.agency || '(요청 공문 발신 기관)'}
+ 기관명   : ${d.agency || '(발신 기관)'}
  담당자   : (공문의 담당자명)
  연락처   : (공문의 연락처)
 
@@ -3629,16 +3675,13 @@
  종료일자     : ${d.end || '(YYYY-MM-DD)'}
  사례금 총액  : (실비를 뺀 세전 금액)
  실비 별도금액: (교통비·숙박비·식비)
- 공문번호     : (요청 공문의 문서번호)
- 요청서류     : 요청 공문 사본을 첨부파일로 등록
+ 공문번호     : (문서번호)
+ 요청서류     : 공문 사본 첨부
 
 ── 참고 ──
 · 기간 ${period}
 · 여러 회에 걸친 활동이면 '일괄신고'를 체크하고 월(연) 평균 횟수와 연간 총 횟수를 함께 적습니다.
-· 사례금 총액과 실비는 칸이 나뉘어 있습니다. 합쳐 적지 마세요.
-· 저장 후 결재를 올리고, 결재가 완료되면 허가된 것입니다. 완료 전에는 활동을 시작하지 마세요.${isGyeomjik ? `
-· 계속·반복되는 활동이므로 이 신청과 별개로 겸직허가도 확인하세요.
-  (국가공무원법 제64조, 복무규정 제25조·제26조)` : ''}`;
+· 사례금 총액과 실비는 칸이 나뉘어 있습니다. 합쳐 적지 마세요.`;
 
         return `<div class="border-2 border-emerald-500 rounded-xl overflow-hidden mt-4 no-print">
             <div class="bg-emerald-600 text-white px-4 py-2 font-bold text-sm"><i class="fa-solid fa-keyboard mr-1" aria-hidden="true"></i> ⑥ 나이스 입력 도우미 — 칸별로 옮겨 담으세요</div>
@@ -3773,14 +3816,12 @@
             </div>`;
         }
 
-        /* ---------- ⑤ 복무 처리 ---------- */
-        html += `<div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-700 space-y-1">
-            <p class="font-bold text-slate-900">⑤ 복무 처리</p>
-            <ul class="list-disc pl-5 space-y-1">
-                <li>근무지를 벗어난다면 신고·허가 여부와 무관하게 <strong>출장 또는 연가·조퇴</strong>를 결재받으세요. 복무 처리 없이 활동한 것은 부적정 사례로 지적됩니다.</li>
-                ${workTime ? '<li class="text-rose-700 font-semibold">근무시간 중 일정이 포함되어 있습니다. 본연의 직무 수행에 지장이 없어야 하며, 반복되면 허가가 제한될 수 있습니다. 가급적 근무시간 외로 일정을 조정하세요.</li>' : '<li>근무시간 외에 수행하도록 일정을 잡는 것이 안전합니다.</li>'}
-            </ul>
-        </div>`;
+        /* ⑤ 근무시간 — 복무 처리 자체는 '보관 서류'가 소유하므로 여기서는 주의만 남깁니다 */
+        if (workTime) {
+            html += `<div class="bg-rose-50 border border-rose-200 rounded-xl p-4 text-sm text-rose-900">
+                <p><strong>근무시간 중 일정이 포함되어 있습니다.</strong> 본연의 직무 수행에 지장이 없어야 하며, 반복되면 허가가 제한될 수 있습니다.</p>
+            </div>`;
+        }
 
         const nlTriad = (type === 'meeting' || payKind === 'lecture') ? 'report'
                       : (!hasPay ? 'nopay' : (cont === true ? 'gyeomjik' : 'nonlect'));
@@ -3790,41 +3831,18 @@
             doNow += permitReason({ type, agency, payer, source, start, end, payKind, cont, related, counter, cls, subject: (document.getElementById('nlSubject') || {}).value });
         }
 
-        /* ---------- ⑥-2 나이스 어느 메뉴로 가는가 ---------- */
         const isLectureRoute = (type === 'meeting' || payKind === 'lecture');
-        doNow += neisPath(
-            isLectureRoute ? 'lecture' : 'activity',
-            isLectureRoute
-                ? '회의 형태의 심사·평가·자문이거나 강의료 명목이라면 외부강의등록입니다.'
-                : (cont === true
-                    ? '여러 회에 걸친 활동이면 신청 화면의 <strong>일괄신고</strong>를 체크하고 월(연) 평균 횟수와 연간 총 횟수를 적습니다. 계속성이 있으므로 <strong>겸직허가도 함께</strong> 확인하세요.'
-                    : '회의 형태가 아닌 직무관련 활동은 <strong>활동을 시작하기 전에</strong> 직무관련외부활동신청으로 처리합니다.'));
-
-        if (!isLectureRoute && cont === true) {
-            doNow += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3 space-y-1.5">
-                <p class="font-bold text-base"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> 반복되는 활동은 둘 다 필요할 수 있습니다</p>
-                <p>나이스 신청 화면에 <strong>일괄신고</strong> 칸과 <strong>연간 총 횟수</strong> 칸이 있으므로, 반복 활동도 직무관련외부활동신청으로 한 번에 처리할 수 있습니다.</p>
-                <p>다만 그것이 겸직허가를 갈음하지는 않습니다. 국가공무원법 제64조와 복무규정 제25조·제26조는 <strong>계속성 있는 업무를 겸하는 것 자체</strong>를 별도로 규율하므로, 임기가 있거나 정기적으로 반복되는 활동이라면 <strong>겸직허가도 함께</strong> 받으세요.</p>
-                <p class="text-xs">어느 한쪽만 받으면 나머지가 빠집니다. 판단이 애매하면 복무 담당 부서에 두 절차를 함께 물어보시는 편이 안전합니다.</p>
-            </div>`;
-        }
 
         if (!(type === 'meeting' || payKind === 'lecture')) {
             doNow += actTypeBlock(actTypeOf(type));
             if (type === 'post' && cont !== true) {
-                doNow += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3 space-y-2">
-                    <p class="font-bold text-base"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> 직위 취임은 절차가 둘일 수 있습니다</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li><strong>직무관련외부활동신청</strong> — 이해충돌방지법 제10조제5호. 직무와 관련된 직위라면 <strong>보수가 없어도</strong> 취임 자체가 대상입니다.</li>
-                        <li><strong>겸직허가</strong> — 국가공무원법 제64조·복무규정 제26조. 계속성이 있는 직위라면 이쪽도 함께 받아야 합니다. 복무규정 제26조는 영리 업무가 아닌 직무를 겸하는 경우에도 사전 허가를 요구합니다.</li>
-                    </ul>
-                    <p class="text-xs">둘 중 하나만 하면 나머지가 빠집니다. 학회 임원·재단 이사·위원 위촉처럼 임기가 있는 직위라면 <strong>두 절차를 모두</strong> 확인하세요.</p>
+                doNow += `<div class="bg-amber-50 border border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3">
+                    <p><strong>직무와 관련된 직위</strong>라면 보수가 없어도 취임 자체가 대상입니다(제10조제5호).</p>
                 </div>`;
             }
             if (type === 'foreign') {
                 doNow += `<div class="bg-slate-100 border border-slate-300 rounded-xl p-4 text-sm text-slate-800 mt-3">
-                    <p class="font-bold mb-1">외국 기관 대리는 대가 여부를 따지지 않습니다</p>
-                    <p class="text-xs">제10조제4호는 다른 호와 달리 <strong>“대가를 받는”이라는 요건이 없습니다.</strong> 무보수라도 대리 행위 자체가 제한 대상이므로, 사례금 항목과 무관하게 사전 신청이 필요합니다.</p>
+                    <p>제10조제4호는 다른 호와 달리 <strong>“대가를 받는”이라는 요건이 없습니다.</strong> 무보수라도 대리 행위 자체가 제한 대상입니다.</p>
                 </div>`;
             }
         }
@@ -3834,10 +3852,10 @@
             <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-folder-open mr-1" aria-hidden="true"></i> 감사 대비 — 이 네 가지를 모아 두세요</div>
             <div class="bg-white p-4 text-sm">
                 <ul class="space-y-2">
-                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>요청 공문 또는 요청서</strong> — 요청 주체와 활동 내용이 확정되는 근거. 나이스에 <strong>공문번호</strong>를 적고 <strong>사본을 첨부</strong>해야 하며, <strong>담당자명과 연락처</strong>도 필수 입력이니 공문에서 미리 확인해 두세요.</span></li>
+                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>요청 공문 또는 요청서</strong> — 요청 주체와 활동 내용이 확정되는 근거. 전화·문자로만 받은 요청은 근거가 되지 않습니다.</span></li>
                     <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>대가 지급 근거</strong> — 위탁계약서, 사업운영지침, 수당 지급기준 중 하나</span></li>
-                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>허가 또는 신고 결재문</strong> — 나이스 결재 완료 화면 갈무리. 직무관련외부활동은 <strong>이 결재 완료 자체가 허가서</strong>이므로 반드시 남겨 두세요.</span></li>
-                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>복무 처리 내역</strong> — 출장 또는 연가·조퇴 결재문</span></li>
+                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>결재문</strong> — 나이스 결재 완료 화면 갈무리. 별도 허가증이 나오지 않으므로 이것이 허가서입니다.</span></li>
+                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>복무 처리 내역</strong> — 근무지를 벗어난다면 신고·허가 여부와 무관하게 출장 또는 연가·조퇴를 결재받으세요.</span></li>
                 </ul>
                 <p class="text-xs text-slate-500 mt-3 pt-3 border-t border-slate-100">대가 지급 근거가 없으면, 외부강의등이 아닌 활동의 수당은 <strong>정당한 권원 없는 금품 수수</strong>로 볼 여지가 생깁니다(청탁금지법 제8조).</p>
             </div></div>`;
@@ -3853,7 +3871,6 @@
             `<div class="mt-5 space-y-2.5">
                 <p class="text-xs font-bold text-slate-500">아래는 근거입니다. 필요할 때만 펼쳐 보세요.</p>
                 ${why('이 결론이 나온 이유 — 단계별 판단', html)}
-                ${why('공문 · 신고 · 복무 3종 세트', reportTriad(nlTriad, true))}
                 ${why('실제로 지적되는 것들 · 행동강령책임관', violationBlock())}
             </div>
             <p class="text-xs text-slate-500 mt-4 pt-3 border-t border-slate-200">${BASIS_LINE}</p>
@@ -3861,10 +3878,10 @@
                 <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-forward mr-1" aria-hidden="true"></i> 다음으로 확인할 것</div>
                 <div class="p-4 space-y-2.5">
                     ${cont === true ? `<button onclick="startRequirements()" class="w-full text-left p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-white transition">
-                        <span class="block text-xs text-slate-600 mb-1">계속되는 활동이라 겸직허가가 함께 필요합니다. 허가가 날 수 있는 건인지 먼저 보세요.</span>
+                        <span class="block text-xs text-slate-600 mb-1">허가가 날 수 있는 건인지 먼저 보세요.</span>
                         <span class="block font-bold text-indigo-700 text-sm">겸직 허가 4대 요건 자가체크 <i class="fa-solid fa-angle-right ml-0.5" aria-hidden="true"></i></span></button>
                     <button onclick="startRenew()" class="w-full text-left p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-white transition">
-                        <span class="block text-xs text-slate-600 mb-1">허가를 받으면 만료일과 갱신 시기를 챙겨야 합니다.</span>
+                        <span class="block text-xs text-slate-600 mb-1">만료일과 갱신 시기를 계산합니다.</span>
                         <span class="block font-bold text-emerald-700 text-sm">허가 만료일 · 갱신 계산기 <i class="fa-solid fa-angle-right ml-0.5" aria-hidden="true"></i></span></button>` : ''}
                     <button onclick="backToNonLecture()" class="w-full text-left p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-slate-500 hover:bg-white transition">
                         <span class="block text-xs text-slate-600 mb-1">기관·기간·대가를 바꿔 보면 결론이 달라질 수 있습니다.</span>
@@ -4122,7 +4139,7 @@
 
     let currentView = 'home';
 
-    /* v10.2 — 지금 어디에 있는지, 어디로 나갈 수 있는지를 늘 보이게 합니다 */
+    /* v10.5 — 지금 어디에 있는지, 어디로 나갈 수 있는지를 늘 보이게 합니다 */
     const VIEW_TITLE = {
         'lecture-precheck':       '외부강의 신고 판정 — 사전 확인',
         'lecture':                '외부강의 신고 판정',
@@ -4151,7 +4168,7 @@
         'router-media':           '활동 성격 확인'
     };
 
-    /* v10.2 ③ — 결과가 길 때 맨 위로 */
+    /* v10.5 ③ — 결과가 길 때 맨 위로 */
     function scrollTop_() {
         try { window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }); }
         catch (e) { window.scrollTo(0, 0); }
