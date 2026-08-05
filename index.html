@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v7.6</title>
+    <title>교직원 외부강의·겸직 도우미 v8.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v7.6 — 가독성 고정 확대 (노안 대응)
+           v8.0 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -103,7 +103,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3 px-4">
             <i class="fa-solid fa-user-shield text-indigo-600" aria-hidden="true"></i> 교직원 외부강의·겸직 도우미
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v7.6</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v8.0</p>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
@@ -1151,7 +1151,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v7.6 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v8.0 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1161,7 +1161,7 @@
        공통 유틸
        ========================================================= */
     const PANELS = [
-        'precheck-section', 'section-lecture', 'result-card',
+        'menu-section', 'precheck-section', 'section-lecture', 'result-card',
         'qaSection', 'section-quiz', 'section-screener', 'section-requirements', 'section-renew',
         'section-nonlecture'
     ];
@@ -1185,6 +1185,7 @@
     function openHome() {
         hideAll();
         resetRouter();
+        show('menu-section');
         show('qaSection');
         scrollTo_(document.getElementById('menu-section'));
     }
@@ -1453,7 +1454,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v7.6 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v8.0 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1500,7 +1501,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v7.6 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v8.0 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1584,7 +1585,7 @@
     }
 
     /* =========================================================
-       v7.6 — 요청 주체가 소속기관인 경우
+       v8.0 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1610,7 +1611,7 @@
     }
 
     /* =========================================================
-       v7.6 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v8.0 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -2267,7 +2268,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v7.6 — 신분별 사례금 상한액 점검 */
+    /* v8.0 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2313,7 +2314,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v7.6 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v8.0 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2323,7 +2324,7 @@
     };
 
     /* =========================================================
-       v7.6 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v8.0 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2394,7 +2395,94 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v7.6 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v8.0 — 감사 지적 처분기준과 주요 위반사례 */
+    /* =========================================================
+       v8.0 — 결론은 이 함수 하나에서만 계산합니다.
+       제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
+       헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
+       ========================================================= */
+    const TRACK = {
+        report:  { label: '외부강의등록',        tone: 'indigo',  icon: 'fa-file-signature',   menu: 'lecture'  },
+        apply:   { label: '직무관련외부활동신청', tone: 'sky',     icon: 'fa-clipboard-check',  menu: 'activity' },
+        permit:  { label: '겸직허가',            tone: 'emerald', icon: 'fa-id-card-clip',     menu: 'gyeomjik' },
+        none:    { label: '신고·허가 불요',      tone: 'slate',   icon: 'fa-circle-check',     menu: null       },
+        blocked: { label: '수행 재검토',         tone: 'rose',    icon: 'fa-hand',             menu: null       }
+    };
+
+    /* 1층 — 결론 카드. 이것만 읽어도 할 일이 끝나야 합니다. */
+    function verdictCard(v, d) {
+        const t = TRACK[v.key];
+        const at = v.actType ? ACT_TYPE[v.actType] : null;
+        const steps = [];
+        if (t.menu === 'lecture')  steps.push('나이스 &gt; 외부활동 &gt; <strong>외부강의등록</strong>');
+        if (t.menu === 'activity') steps.push('나이스 &gt; 외부활동 &gt; <strong>직무관련외부활동신청</strong>');
+        if (at) steps.push(`외부활동유형은 <strong>${at.no}번째</strong> (${at.ho})`);
+        if (t.menu === 'lecture' && d.hasPay) steps.push('마친 날부터 <strong>10일 이내</strong>');
+        if (t.menu === 'activity') steps.push('활동 시작 전 신청 &middot; <strong>결재 완료까지</strong>');
+        if (t.menu === 'gyeomjik') steps.push('활동 시작 전 <strong>겸직허가</strong> 신청');
+        v.also.forEach(x => steps.push(`<strong>${x}</strong>도 함께 확인`));
+
+        return `<div class="border-2 border-${t.tone}-500 rounded-2xl overflow-hidden">
+            <div class="bg-${t.tone}-600 text-white px-5 py-4">
+                <p class="text-xs font-bold opacity-80 mb-1">이 건의 결론</p>
+                <p class="text-2xl font-bold flex items-center gap-2"><i class="fa-solid ${t.icon}" aria-hidden="true"></i> ${t.label}</p>
+            </div>
+            <div class="bg-white p-5">
+                <p class="font-semibold text-slate-900 mb-3">${v.line}</p>
+                <ul class="space-y-1.5 text-sm text-slate-700">
+                    ${steps.map(x => `<li class="flex gap-2"><i class="fa-solid fa-angle-right text-${t.tone}-500 mt-1 text-xs" aria-hidden="true"></i><span>${x}</span></li>`).join('')}
+                </ul>
+            </div>
+        </div>`;
+    }
+
+    /* 입력 요약 + 되돌아가기 — 결과 화면에서 내 입력을 잃지 않게 합니다 */
+    function inputSummary(rows, backFn) {
+        return `<div class="bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 mb-4">
+            <div class="flex items-start justify-between gap-3">
+                <div class="text-xs text-slate-700 space-y-0.5">
+                    ${rows.filter(Boolean).map(r => `<div>· ${r}</div>`).join('')}
+                </div>
+                <button onclick="${backFn}" class="no-print shrink-0 text-xs font-bold text-indigo-700 underline whitespace-nowrap">입력 수정</button>
+            </div>
+        </div>`;
+    }
+
+    /* 3층 — 근거. 기본은 접어 둡니다. */
+    function why(title, inner, open) {
+        return `<details class="border border-slate-200 rounded-xl overflow-hidden bg-white"${open ? ' open' : ''}>
+            <summary class="cursor-pointer select-none px-4 py-3 font-bold text-sm text-slate-800 bg-slate-50 hover:bg-slate-100">${title}</summary>
+            <div class="p-4 space-y-3 border-t border-slate-200">${inner}</div>
+        </details>`;
+    }
+
+    function verdict(d) {
+        /* 제4호(외국 기관 대리)와 제5호(직위 취임)는 조문에 대가 요건이 없습니다 */
+        const payFree = (d.type === 'foreign' || d.type === 'post');
+
+        if (d.lectureLike) {
+            return { key: 'report', actType: null, also: [],
+                     line: d.hasPay ? '사례금을 받는 외부강의등입니다. 마친 날부터 10일 이내에 신고하세요.'
+                                    : '외부강의등에 해당하지만 사례금이 없어 신고 의무는 없습니다. 사전 결재는 그대로 받으세요.' };
+        }
+        if (!d.hasPay && !payFree) {
+            if (d.cont === true) {
+                return { key: 'permit', actType: null, also: [],
+                         line: '대가는 없지만 1개월을 초과해 계속되는 활동입니다. 겸직허가를 받으세요.' };
+            }
+            return { key: 'none', actType: null, also: [],
+                     line: '대가가 없고 계속성도 없어 신고·신청·허가 모두 대상이 아닙니다. 공문과 복무 처리만 챙기세요.' };
+        }
+        const at = actTypeOf(d.type);
+        const also = (d.cont === true) ? ['겸직허가'] : [];
+        return { key: 'apply', actType: at, also: also,
+                 line: (d.cont === true)
+                     ? '직무관련외부활동신청 대상이며, 계속성이 있어 겸직허가도 함께 확인해야 합니다.'
+                     : (payFree && !d.hasPay
+                         ? '이 유형은 대가가 없어도 대상입니다. 활동 시작 전에 신청하세요.'
+                         : '회의 형태가 아닌 직무관련 활동입니다. 활동 시작 전에 신청하세요.') };
+    }
+
     function violationBlock() {
         return `<div class="border border-slate-300 rounded-xl overflow-hidden mt-4">
             <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-gavel mr-1" aria-hidden="true"></i> 실제로 지적되는 것들</div>
@@ -2415,7 +2503,7 @@
             </div></div>`;
     }
 
-    function reportTriad(mode) {
+    function reportTriad(mode, compact) {
         const m = TRIAD_MID[mode] || TRIAD_MID.report;
         const row = (no, title, body, strike) => `<div class="p-3.5 flex gap-3">
             <span class="bg-slate-800 text-white font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs">${no}</span>
@@ -2439,10 +2527,10 @@
                 <strong>셋 중 하나라도 빠지면</strong> 나머지를 갖췄더라도 지적 대상이 됩니다. 신고가 면제되는 경우에도 <strong>공문과 복무는 그대로 남습니다</strong>.
             </div>
         </div>
-        ${neisPath(mode === 'gyeomjik' ? 'gyeomjik' : (mode === 'nonlect' ? 'activity' : 'lecture'),
+        ${compact ? '' : (neisPath(mode === 'gyeomjik' ? 'gyeomjik' : (mode === 'nonlect' ? 'activity' : 'lecture'),
                    mode === 'nonlect' ? '회의 형태가 아닌 직무관련 활동은 외부강의등록이 아니라 이쪽입니다. <strong>활동 시작 전</strong>에 신청하세요.'
-                                      : '나이스에 외부강의 신고 메뉴가 없는 교직원은 내부 결재로 처리합니다.')}
-        ${violationBlock()}`;
+                                      : '나이스에 외부강의 신고 메뉴가 없는 교직원은 내부 결재로 처리합니다.') + violationBlock())}
+        `;
     }
 
     /* 신고 예외 판단용 키워드 — 2글자 이상으로 좁혀 오탐을 줄임 */
@@ -2865,10 +2953,10 @@
     }
 
     /* =========================================================
-       v7.6 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v8.0 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v7.6 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v8.0 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
@@ -2939,16 +3027,18 @@
         const cls    = classifyAgency(payer);
         const lectureLike = (type === 'meeting' || payKind === 'lecture');
 
-        /* ---------- 입력 요약 ---------- */
-        let html = `<div class="bg-slate-100 p-4 rounded-lg space-y-1 text-sm border border-slate-200">
-            <div>• 활동의 성격: <strong>${NL_TYPE_LABEL[type]}</strong></div>
-            <div>• 요청 기관: <strong>${agency}</strong></div>
-            <div>• 대가 지급 주체: <strong class="${diff && payerIn ? 'text-sky-700' : ''}">${payer}</strong>${(diff && payerIn) ? ' <span class="text-xs text-sky-700">(요청 기관과 다름)</span>' : ''}</div>
-            ${source ? `<div>• 사업 발주처: <strong>${source}</strong></div>` : ''}
-            <div>• 대가의 이름: <strong>${NL_PAY_LABEL[payKind]}</strong></div>
-            <div>• 활동 기간: <strong>${(start && end) ? (start + ' ~ ' + end + (cont === true ? ' (1개월 초과)' : cont === false ? ' (1개월 이내)' : '')) : '미입력'}</strong></div>
-            <div class="text-xs text-slate-500 pt-1.5 mt-1.5 border-t border-slate-200">이 판정은 입력하신 내용을 기준으로 한 <strong>추정</strong>입니다. 최종 판단은 소속기관 복무 담당 부서에 확인하세요.</div>
-        </div>`;
+        /* ---------- 입력 요약 (결과 최상단 고정) ---------- */
+        const summaryRows = [
+            `활동: <strong>${NL_TYPE_LABEL[type]}</strong>`,
+            `요청 기관: <strong>${agency}</strong>`,
+            (diff && payerIn) ? `대가 지급: <strong class="text-sky-700">${payer}</strong> (요청 기관과 다름)` : null,
+            source ? `발주처: <strong>${source}</strong>` : null,
+            `대가: <strong>${NL_PAY_LABEL[payKind]}</strong>`,
+            `기간: <strong>${(start && end) ? (start + ' ~ ' + end + (cont === true ? ' (1개월 초과)' : cont === false ? ' (1개월 이내)' : '')) : '미입력'}</strong>`
+        ];
+
+        let html = '';
+        let doNow = '';
 
         /* ---------- ① 외부강의등 신고 ---------- */
         html += `<div class="border border-indigo-200 rounded-xl overflow-hidden">
@@ -3048,16 +3138,15 @@
 
         const nlTriad = (type === 'meeting' || payKind === 'lecture') ? 'report'
                       : (!hasPay ? 'nopay' : (cont === true ? 'gyeomjik' : 'nonlect'));
-        html += reportTriad(nlTriad);
 
         /* ---------- ⑥ 허가 신청 사유란 문구 ---------- */
         if (hasPay && type !== 'meeting') {
-            html += permitReason({ type, agency, payer, source, start, end, payKind, cont, related, counter, cls, subject: (document.getElementById('nlSubject') || {}).value });
+            doNow += permitReason({ type, agency, payer, source, start, end, payKind, cont, related, counter, cls, subject: (document.getElementById('nlSubject') || {}).value });
         }
 
         /* ---------- ⑥-2 나이스 어느 메뉴로 가는가 ---------- */
         const isLectureRoute = (type === 'meeting' || payKind === 'lecture');
-        html += neisPath(
+        doNow += neisPath(
             isLectureRoute ? 'lecture' : 'activity',
             isLectureRoute
                 ? '회의 형태의 심사·평가·자문이거나 강의료 명목이라면 외부강의등록입니다.'
@@ -3066,7 +3155,7 @@
                     : '회의 형태가 아닌 직무관련 활동은 <strong>활동을 시작하기 전에</strong> 직무관련외부활동신청으로 처리합니다.'));
 
         if (!isLectureRoute && cont === true) {
-            html += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3 space-y-1.5">
+            doNow += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3 space-y-1.5">
                 <p class="font-bold text-base"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> 반복되는 활동은 둘 다 필요할 수 있습니다</p>
                 <p>나이스 신청 화면에 <strong>일괄신고</strong> 칸과 <strong>연간 총 횟수</strong> 칸이 있으므로, 반복 활동도 직무관련외부활동신청으로 한 번에 처리할 수 있습니다.</p>
                 <p>다만 그것이 겸직허가를 갈음하지는 않습니다. 국가공무원법 제64조와 복무규정 제25조·제26조는 <strong>계속성 있는 업무를 겸하는 것 자체</strong>를 별도로 규율하므로, 임기가 있거나 정기적으로 반복되는 활동이라면 <strong>겸직허가도 함께</strong> 받으세요.</p>
@@ -3075,9 +3164,9 @@
         }
 
         if (!(type === 'meeting' || payKind === 'lecture')) {
-            html += actTypeBlock(actTypeOf(type));
+            doNow += actTypeBlock(actTypeOf(type));
             if (type === 'post' && cont !== true) {
-                html += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3 space-y-2">
+                doNow += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3 space-y-2">
                     <p class="font-bold text-base"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> 직위 취임은 절차가 둘일 수 있습니다</p>
                     <ul class="list-disc pl-5 space-y-1">
                         <li><strong>직무관련외부활동신청</strong> — 이해충돌방지법 제10조제5호. 직무와 관련된 직위라면 <strong>보수가 없어도</strong> 취임 자체가 대상입니다.</li>
@@ -3087,7 +3176,7 @@
                 </div>`;
             }
             if (type === 'foreign') {
-                html += `<div class="bg-slate-100 border border-slate-300 rounded-xl p-4 text-sm text-slate-800 mt-3">
+                doNow += `<div class="bg-slate-100 border border-slate-300 rounded-xl p-4 text-sm text-slate-800 mt-3">
                     <p class="font-bold mb-1">외국 기관 대리는 대가 여부를 따지지 않습니다</p>
                     <p class="text-xs">제10조제4호는 다른 호와 달리 <strong>“대가를 받는”이라는 요건이 없습니다.</strong> 무보수라도 대리 행위 자체가 제한 대상이므로, 사례금 항목과 무관하게 사전 신청이 필요합니다.</p>
                 </div>`;
@@ -3095,7 +3184,7 @@
         }
 
         /* ---------- ⑦ 보관 서류 ---------- */
-        html += `<div class="border border-slate-300 rounded-xl overflow-hidden mt-4">
+        doNow += `<div class="border border-slate-300 rounded-xl overflow-hidden mt-4">
             <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-folder-open mr-1" aria-hidden="true"></i> 감사 대비 — 이 네 가지를 모아 두세요</div>
             <div class="bg-white p-4 text-sm">
                 <ul class="space-y-2">
@@ -3107,17 +3196,35 @@
                 <p class="text-xs text-slate-500 mt-3 pt-3 border-t border-slate-100">대가 지급 근거가 없으면, 외부강의등이 아닌 활동의 수당은 <strong>정당한 권원 없는 금품 수수</strong>로 볼 여지가 생깁니다(청탁금지법 제8조).</p>
             </div></div>`;
 
-        html += `<div class="mt-2 flex flex-col md:flex-row gap-3 no-print">
-            <button onclick="startRequirements()" class="flex-1 bg-indigo-600 text-white font-bold py-2.5 rounded-lg hover:bg-indigo-700 transition">4대 요건 자가체크</button>
-            <button onclick="startRenew()" class="flex-1 bg-emerald-600 text-white font-bold py-2.5 rounded-lg hover:bg-emerald-700 transition">허가 기간 계산기</button>
-        </div>`;
+        /* ---------- 3층 조립 ---------- */
+        const v = verdict({ lectureLike, hasPay, cont, type });
+        const t = TRACK[v.key];
 
-        const header = lectureLike
-            ? `<h3 class="text-2xl font-bold text-indigo-700 flex items-center gap-2"><i class="fa-solid fa-file-signature" aria-hidden="true"></i> 외부강의등이 섞여 있을 수 있습니다</h3>`
-            : `<h3 class="text-2xl font-bold text-sky-700 flex items-center gap-2"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> 신고가 아니라 겸직 쪽을 확인하세요</h3>`;
+        const body =
+            inputSummary(summaryRows, 'backToNonLecture()') +
+            verdictCard(v, { hasPay }) +
+            (doNow ? `<div class="mt-4 space-y-4">${doNow}</div>` : '') +
+            `<div class="mt-5 space-y-2.5">
+                <p class="text-xs font-bold text-slate-500">아래는 근거입니다. 필요할 때만 펼쳐 보세요.</p>
+                ${why('이 결론이 나온 이유 — 단계별 판단', html)}
+                ${why('공문 · 신고 · 복무 3종 세트', reportTriad(nlTriad, true))}
+                ${why('실제로 지적되는 것들 · 행동강령책임관', violationBlock())}
+            </div>
+            <div class="mt-5 flex flex-col md:flex-row gap-3 no-print">
+                <button onclick="backToNonLecture()" class="flex-1 bg-slate-700 text-white font-bold py-2.5 rounded-lg hover:bg-slate-800 transition">입력 수정</button>
+                <button onclick="startRequirements()" class="flex-1 bg-indigo-600 text-white font-bold py-2.5 rounded-lg hover:bg-indigo-700 transition">4대 요건 자가체크</button>
+                <button onclick="startRenew()" class="flex-1 bg-emerald-600 text-white font-bold py-2.5 rounded-lg hover:bg-emerald-700 transition">허가 기간 계산기</button>
+            </div>`;
+
+        const header = `<h3 class="text-2xl font-bold text-${t.tone}-700 flex items-center gap-2"><i class="fa-solid ${t.icon}" aria-hidden="true"></i> ${t.label}</h3>`;
 
         hideAll();
-        openResult(header, html, false);
+        openResult(header, body, false);
+    }
+
+    /* 결과에서 입력 폼으로 — 입력값은 그대로 남아 있습니다 */
+    function backToNonLecture() {
+        navigate('nonlecture');
     }
 
     /* =========================================================
