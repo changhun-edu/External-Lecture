@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v9.4</title>
+    <title>교직원 외부강의·겸직 도우미 v9.5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v9.4 — 가독성 고정 확대 (노안 대응)
+           v9.5 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -112,7 +112,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3 px-4">
             <i class="fa-solid fa-user-shield text-indigo-600" aria-hidden="true"></i> 교직원 외부강의·겸직 도우미
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v9.4</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v9.5</p>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
@@ -1208,7 +1208,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v9.4 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v9.5 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1511,7 +1511,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v9.4 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v9.5 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1556,7 +1556,7 @@
         scrollTo_(document.getElementById('router-wizard'));
     }
 
-    /* v9.4 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
+    /* v9.5 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
     const RQ_VIEW = {
         'rq-A': 'router-org', 'rq-A1': 'router-org-help', 'rq-R': 'router-red',
         'rq-0': 'router-what', 'rq-1': 'router-repeat', 'rq-1a': 'router-pay',
@@ -1571,7 +1571,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v9.4 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v9.5 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1655,7 +1655,7 @@
     }
 
     /* =========================================================
-       v9.4 — 요청 주체가 소속기관인 경우
+       v9.5 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1681,7 +1681,7 @@
     }
 
     /* =========================================================
-       v9.4 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v9.5 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -1784,7 +1784,7 @@
         });
     }
 
-    /* v9.4 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
+    /* v9.5 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
     let LAST_RESULT = null;
     let LAST_LECTURE = null;
 
@@ -2358,7 +2358,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v9.4 — 신분별 사례금 상한액 점검 */
+    /* v9.5 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2404,7 +2404,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v9.4 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v9.5 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2414,7 +2414,7 @@
     };
 
     /* =========================================================
-       v9.4 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v9.5 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2485,9 +2485,9 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v9.4 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v9.5 — 감사 지적 처분기준과 주요 위반사례 */
     /* =========================================================
-       v9.4 — 결론은 이 함수 하나에서만 계산합니다.
+       v9.5 — 결론은 이 함수 하나에서만 계산합니다.
        제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
        헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
        ========================================================= */
@@ -2500,12 +2500,12 @@
     };
 
     /* =========================================================
-       v9.4 — 30초 판정
+       v9.5 — 30초 판정
        사용자가 '강의인지 아닌지'를 고르지 않게 합니다.
        활동 이름만 고르면 사이트가 분류합니다.
        ========================================================= */
     /* =========================================================
-       v9.4 — 기관명 후보 제시
+       v9.5 — 기관명 후보 제시
        모기관은 신고 제외인데 산하 별도 법인은 신고 대상인 경우가 많습니다.
        (광주교육대학교 vs 광주교육대학교 산학협력단)
        사용자가 그 구분을 알아서 하도록 두지 않고, 후보로 나란히 보여 줍니다.
@@ -2549,7 +2549,7 @@
 
     const BASIS_LINE = '2026년 8월 기준 · 청탁금지법 제10조, 이해충돌방지법 제10조, 이해충돌 방지제도 운영지침 제9조(2024. 8. 14.), 교육청 「외부강의등 신고 준수사항 안내」 반영';
 
-    const QK = { agency: '', cls: null, form: null, pay: null, cont: false, picked: false, subEntity: null };
+    const QK = { agency: '', cls: null, form: null, pay: null, cont: false, picked: false, subEntity: null, raw: null, orgAnswer: null, orgAnswer2: null };
 
     /* 활동 이름 → 진행 형태 기본값. 칩은 제안만 하고 결정하지 않습니다. */
     const CHIPS = [
@@ -2622,7 +2622,7 @@
 
     function qkAgencyInput(picked) {
         QK.agency = (document.getElementById('qkAgency').value || '').trim();
-        if (!picked) { QK.picked = false; QK.subEntity = null; }
+        if (!picked) { QK.picked = false; QK.subEntity = null; QK.orgAnswer = null; QK.orgAnswer2 = null; }
         const hint = document.getElementById('qkAgencyHint');
         const sug = document.getElementById('qkAgencySuggest');
 
@@ -2646,12 +2646,57 @@
             sug.classList.add('hidden');
         }
 
-        QK.cls = classifyAgency(QK.agency);
-        hint.classList.remove('hidden');
-        hint.className = `mt-2 text-sm rounded-lg px-3 py-2.5 border ${QK.cls.exempt ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-sky-50 border-sky-200 text-sky-900'}`;
-        hint.innerHTML = `<strong>${QK.cls.label}</strong>${QK.cls.exempt ? ' — 외부강의등이라면 신고 제외' : ' — 외부강의등이라면 신고 대상'}`;
+        QK.raw = classifyAgency(QK.agency);
+        QK.cls = resolveAgency();
+        paintAgencyHint();
         qkRender();
     }
+
+    /* 되물어야 하는 경우, 사용자의 답을 판별 결과로 바꿉니다 */
+    function resolveAgency() {
+        const raw = QK.raw;
+        if (!raw || !raw.ask) return raw;
+        const opts = ASK_OPTIONS[raw.ask] || [];
+        const picked = opts.find(o => o.v === QK.orgAnswer);
+        if (!picked) return raw;                       /* 아직 답을 안 했습니다 */
+        if (picked.sub === 'school' && !QK.orgAnswer2) return { ...raw, ask: 'school', label: picked.t, pending2: true };
+        if (picked.sub === 'school') {
+            const p2 = ASK_OPTIONS.school.find(o => o.v === QK.orgAnswer2);
+            return { exempt: !!(p2 && p2.exempt), label: (p2 ? p2.label : picked.label), warn: '', resolved: true };
+        }
+        return { exempt: !!picked.exempt, label: picked.label, warn: '', resolved: true };
+    }
+
+    function paintAgencyHint() {
+        const hint = document.getElementById('qkAgencyHint');
+        const c = QK.cls;
+        hint.classList.remove('hidden');
+
+        /* 아직 판별이 안 끝났다면 추정하지 않고 되묻습니다 */
+        if (c && c.ask) {
+            const kind = c.pending2 ? 'school' : c.ask;
+            const opts = ASK_OPTIONS[kind];
+            const fn = c.pending2 ? 'qkOrgAnswer2' : 'qkOrgAnswer';
+            hint.className = 'mt-2 rounded-lg px-3 py-3 border bg-amber-50 border-amber-300 text-amber-900';
+            hint.innerHTML = `<p class="text-sm font-bold mb-2">${kind === 'school'
+                    ? `‘${QK.agency}’은 국·공립인가요, 사립인가요?`
+                    : `‘${QK.agency}’은 처음 보는 이름입니다. 어디에 가까운가요?`}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    ${opts.map(o => `<button type="button" onclick="${fn}('${o.v}')" class="text-left px-3 py-2 bg-white border border-slate-300 rounded-lg hover:border-amber-500 transition" style="min-height:0">
+                        <span class="block font-bold text-slate-900 text-sm">${o.t}</span>
+                        <span class="block text-xs text-slate-500">${o.d}</span></button>`).join('')}
+                </div>
+                <p class="text-xs mt-2">한 번만 고르시면 판별이 끝납니다.</p>`;
+            return;
+        }
+
+        const sure = QK.picked || (c && c.resolved);
+        hint.className = `mt-2 text-sm rounded-lg px-3 py-2.5 border ${c.exempt ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-sky-50 border-sky-200 text-sky-900'}`;
+        hint.innerHTML = `<strong>${sure ? '<i class="fa-solid fa-circle-check mr-1" aria-hidden="true"></i>' : ''}${c.label}</strong>${c.exempt ? ' — 외부강의등이라면 신고 제외' : ' — 외부강의등이라면 신고 대상'}`;
+    }
+
+    function qkOrgAnswer(v)  { QK.orgAnswer = v; QK.orgAnswer2 = null; QK.cls = resolveAgency(); paintAgencyHint(); qkRender(); }
+    function qkOrgAnswer2(v) { QK.orgAnswer2 = v; QK.cls = resolveAgency(); paintAgencyHint(); qkRender(); }
 
     /* 후보에서 고른 경우 — 판별이 확정되므로 되묻지 않습니다 */
     function qkPickAgency(name) {
@@ -2681,7 +2726,7 @@
 
     function qkRender() {
         const box = document.getElementById('qkResult');
-        if (!(QK.agency && QK.form && QK.pay)) { box.classList.add('hidden'); return; }
+        if (!(QK.agency && QK.form && QK.pay) || (QK.cls && QK.cls.ask)) { box.classList.add('hidden'); return; }
         const wasHidden = box.classList.contains('hidden');
         box.classList.remove('hidden');
         box.innerHTML = qkVerdictHtml();
@@ -2820,7 +2865,7 @@
     }
 
     function qkReset() {
-        QK.agency = ''; QK.cls = null; QK.form = null; QK.pay = null; QK.cont = false; QK.picked = false; QK.subEntity = null;
+        QK.agency = ''; QK.cls = null; QK.form = null; QK.pay = null; QK.cont = false; QK.picked = false; QK.subEntity = null; QK.raw = null; QK.orgAnswer = null; QK.orgAnswer2 = null;
         const sg = document.getElementById('qkAgencySuggest'); if (sg) sg.classList.add('hidden');
         const a = document.getElementById('qkAgency'); if (a) a.value = '';
         const h = document.getElementById('qkAgencyHint'); if (h) h.classList.add('hidden');
@@ -3063,8 +3108,45 @@
                 warn: '공사·공단·재단·센터 등으로 끝나는 기관은 통상 공직유관단체로 보아 신고 대상입니다. <strong>지방자치단체의 출자·출연기관도 지방자치단체에 해당하지 않아 신고 대상</strong>입니다.'
             };
         }
-        return { exempt: false, label: '공공기관 또는 민간기관 추정', warn: '' };
+        /* v9.5 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
+        if (looksLikeSchoolAgency(agency)) {
+            if (/(국립|공립|시립|도립)/.test(agency)) {
+                return {
+                    exempt: true,
+                    label: '국·공립학교 (신고 제외 대상)',
+                    warn: '공립학교는 교육청 또는 지방자치단체 소속, 국립학교는 교육부 소속에 해당하여 <strong>신고 제외</strong>입니다. 다만 <strong>사전 결재와 사례금 상한액은 그대로</strong> 적용됩니다.'
+                };
+            }
+            /* 이름만으로는 설립 유형이 갈립니다. 추정하지 말고 되묻습니다. */
+            return { exempt: false, ask: 'school', label: SCHOOL_KIND_LABEL(agency), warn: '' };
+        }
+        /* 알아보지 못한 이름 — 추정하지 않고 유형을 직접 고르게 합니다 */
+        return { exempt: false, ask: 'type', label: '처음 보는 이름', warn: '' };
     }
+
+    function SCHOOL_KIND_LABEL(a) {
+        if (a.includes('유치원')) return '유치원';
+        if (a.includes('초등학교')) return '초등학교';
+        if (a.includes('중학교')) return '중학교';
+        if (a.includes('고등학교')) return '고등학교';
+        if (a.includes('특수학교')) return '특수학교';
+        return '학교';
+    }
+
+    /* 되물을 때 쓰는 선택지 — 고른 값이 곧 판별 결과가 됩니다 */
+    const ASK_OPTIONS = {
+        school: [
+            { v: 'pub',  t: '국·공립',  d: '교육청·교육부 소속',        exempt: true,  label: '국·공립학교 (신고 제외 대상)' },
+            { v: 'priv', t: '사립',     d: '학교법인이 세운 학교',      exempt: false, label: '사립학교 (신고 대상)' }
+        ],
+        type: [
+            { v: 'sch',  t: '학교',            d: '초·중·고·유치원',            exempt: true,  label: '국·공립학교 (신고 제외 대상)', sub: 'school' },
+            { v: 'gov',  t: '관공서',          d: '교육청·시청·도청·교육부',     exempt: true,  label: '국가기관·지방자치단체' },
+            { v: 'pub',  t: '공공기관·공단·재단', d: '진흥원·평가원·개발원 등',    exempt: false, label: '공직유관단체' },
+            { v: 'univ', t: '대학',            d: '대학교·대학원',              exempt: false, label: '대학 (국·공립이면 제외)', sub: 'school' },
+            { v: 'priv', t: '민간 기업·단체',   d: '기업·협회·학회·출판사',       exempt: false, label: '민간기관 (신고 대상)' }
+        ]
+    };
 
     function analyzeLecture() {
         const agency = document.getElementById('agencyName').value.trim();
@@ -3401,10 +3483,10 @@
     }
 
     /* =========================================================
-       v9.4 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v9.5 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v9.4 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v9.5 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
