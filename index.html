@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v7.4</title>
+    <title>교직원 외부강의·겸직 도우미 v7.6</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v7.4 — 가독성 고정 확대 (노안 대응)
+           v7.6 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -103,7 +103,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3 px-4">
             <i class="fa-solid fa-user-shield text-indigo-600" aria-hidden="true"></i> 교직원 외부강의·겸직 도우미
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v7.4</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v7.6</p>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
@@ -153,9 +153,10 @@
                         <p class="text-sm text-slate-800 font-semibold mb-2">강의가 아닌 직무관련 외부활동</p>
                         <ul class="text-xs text-slate-600 space-y-1 list-disc pl-4">
                             <li>모니터링·실태점검·컨설팅·용역·개별 자문 등 <strong>회의 형태가 아닌</strong> 활동</li>
-                            <li><strong>사전 신청</strong> — 활동을 시작하기 전에</li>
+                            <li><strong>사전 신청</strong> — 활동 시작 전에 신청하고 <strong>결재 완료까지</strong> 받아야 합니다</li>
                             <li>요청자가 국가·지자체여도 면제되지 않음</li>
-                            <li>이해충돌방지법 제10조제2호 단서</li>
+                            <li>이해충돌방지법 제10조제2호·제4호·제5호 단서</li>
+                            <li>공직자의 이해충돌 방지제도 운영지침 제9조 (별지 제11호 서식)</li>
                         </ul>
                     </div>
                 </div>
@@ -1011,9 +1012,15 @@
                     </select>
                 </div>
 
+                <div>
+                    <label for="nlSubject" class="block text-sm font-bold text-slate-700 mb-1">2. 활동 주제 <span class="font-normal text-slate-500">(나이스 ‘외부활동주제’ 칸에 그대로 들어갑니다)</span></label>
+                    <input type="text" id="nlSubject" placeholder="예: 2026 늘봄학교 운영 모니터링" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500">
+                    <p class="text-xs text-slate-500 mt-1">요청 공문의 사업명·과제명을 그대로 옮기시면 됩니다.</p>
+                </div>
+
                 <div class="bg-sky-50/60 p-4 rounded-xl border border-sky-100 space-y-3">
                     <div>
-                        <label for="nlAgency" class="block text-sm font-bold text-slate-700 mb-1">2. 요청 공문을 보낸 기관</label>
+                        <label for="nlAgency" class="block text-sm font-bold text-slate-700 mb-1">3. 요청 공문을 보낸 기관</label>
                         <input type="text" id="nlAgency" required placeholder="예: 광주교육대학교 산학협력단" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 bg-white">
                     </div>
                     <label class="flex items-start gap-3 text-sm cursor-pointer">
@@ -1034,17 +1041,17 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="nlStart" class="block text-sm font-bold text-slate-700 mb-1">3. 활동 시작일 (위촉 시작)</label>
+                        <label for="nlStart" class="block text-sm font-bold text-slate-700 mb-1">4. 활동 시작일 (위촉 시작)</label>
                         <input type="date" id="nlStart" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500">
                     </div>
                     <div>
-                        <label for="nlEnd" class="block text-sm font-bold text-slate-700 mb-1">4. 활동 종료일 (위촉 종료)</label>
+                        <label for="nlEnd" class="block text-sm font-bold text-slate-700 mb-1">5. 활동 종료일 (위촉 종료)</label>
                         <input type="date" id="nlEnd" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500">
                     </div>
                 </div>
 
                 <div>
-                    <label for="nlPayKind" class="block text-sm font-bold text-slate-700 mb-1">5. 받게 될 대가의 이름</label>
+                    <label for="nlPayKind" class="block text-sm font-bold text-slate-700 mb-1">6. 받게 될 대가의 이름</label>
                     <select id="nlPayKind" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 bg-white">
                         <option value="allowance">수당 · 활동비</option>
                         <option value="research">연구비 · 용역비 · 과제비</option>
@@ -1144,7 +1151,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v7.4 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v7.6 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1446,7 +1453,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v7.4 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v7.6 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1493,7 +1500,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v7.4 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v7.6 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1577,7 +1584,7 @@
     }
 
     /* =========================================================
-       v7.4 — 요청 주체가 소속기관인 경우
+       v7.6 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1603,7 +1610,7 @@
     }
 
     /* =========================================================
-       v7.4 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v7.6 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -2260,7 +2267,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v7.4 — 신분별 사례금 상한액 점검 */
+    /* v7.6 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2306,17 +2313,17 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v7.4 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v7.6 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
         lecture:  { name: '외부강의등록',        path: '기본메뉴 &gt; 외부활동 &gt; 외부강의등록',        tone: 'indigo',  law: '청탁금지법 제10조 · 공무원 행동강령 제15조' },
-        activity: { name: '직무관련외부활동신청', path: '기본메뉴 &gt; 외부활동 &gt; 직무관련외부활동신청', tone: 'sky',     law: '이해충돌방지법 제10조제2호 단서' },
+        activity: { name: '직무관련외부활동신청', path: '기본메뉴 &gt; 외부활동 &gt; 직무관련외부활동신청', tone: 'sky',     law: '이해충돌방지법 제10조제2호·제4호·제5호 단서 · 이해충돌 방지제도 운영지침 제9조' },
         gyeomjik: { name: '겸직허가 신청',       path: '복무 메뉴 또는 내부 결재 (기관별 상이)',           tone: 'emerald', law: '국가공무원법 제64조 · 복무규정 제25조·제26조' }
     };
 
     /* =========================================================
-       v7.4 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v7.6 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2352,6 +2359,13 @@
             <div class="bg-white p-4">
                 <ul class="space-y-2.5 text-sm">${rows}</ul>
                 <p class="text-xs text-slate-600 mt-3 pt-3 border-t border-slate-100">${t.note}</p>
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 mt-3 text-xs text-slate-700 space-y-1.5">
+                    <p class="font-bold text-slate-900">이 화면이 곧 별지 제11호 서식입니다</p>
+                    <p>「공직자의 이해충돌 방지제도 운영지침」 제9조(2024. 8. 14. 전부개정)로 신설된 절차입니다. 종이 서식을 따로 낼 필요 없이 나이스 신청이 곧 서면 제출을 갈음합니다.</p>
+                    <p class="pt-1.5 border-t border-slate-200"><strong>바로 허가가 나오지 않습니다.</strong> 신청을 받은 <strong>이해충돌방지담당관</strong>이 신청자를 지휘·감독하는 상급자 또는 소속기관장의 의견을 들어 직무수행에 지장이 있는지 판단합니다.</p>
+                    <p class="bg-emerald-50 border border-emerald-200 rounded-lg p-2.5 text-emerald-900"><strong>결과 통보(별지 제12호)는 나이스 결재로 갈음합니다.</strong> 별도 공문을 기다릴 필요 없이 <strong>결재가 완료되면 허가된 것</strong>입니다. 반대로 결재가 진행 중이면 아직 허가 전입니다.</p>
+                    <p class="text-rose-700 font-bold">결재가 떨어지기 전에 활동을 시작하면 무허가입니다. 의견 청취 단계가 있으므로 활동 직전이 아니라 여유를 두고 신청하세요.</p>
+                </div>
             </div></div>`;
     }
 
@@ -2380,7 +2394,7 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v7.4 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v7.6 — 감사 지적 처분기준과 주요 위반사례 */
     function violationBlock() {
         return `<div class="border border-slate-300 rounded-xl overflow-hidden mt-4">
             <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-gavel mr-1" aria-hidden="true"></i> 실제로 지적되는 것들</div>
@@ -2815,6 +2829,16 @@
         foreign: '외국의 기관 · 법인 · 단체 대리',
         etc:     '그 밖의 활동'
     };
+    /* 나이스 '외부활동방법' 칸에 넣을 한 문장 — 실제 입력 예시를 본떴습니다 */
+    const NL_HOW_HINT = {
+        field:   '(대상 기관) 방문하여 (사업명) 운영 실태 모니터링 및 결과 보고서 작성',
+        consult: '(대상) 대상 서면 컨설팅 및 검토 의견서 제출',
+        project: '(과제명) 연구용역 참여 및 산출물 작성',
+        post:    '(단체명) (직위명)으로 취임하여 (수행 역할)',
+        foreign: '(기관명) 대리 업무 수행',
+        etc:     '(대상과 방식을 한 문장으로)'
+    };
+
     const NL_PAY_LABEL = {
         allowance: '수당 · 활동비',
         research:  '연구비 · 용역비 · 과제비',
@@ -2841,51 +2865,54 @@
     }
 
     /* =========================================================
-       v7.4 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v7.6 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       ========================================================= */
+    /* =========================================================
+       v7.6 — 나이스 「직무관련외부활동상세」 입력 도우미
+       이 화면이 곧 운영지침 별지 제11호 서식입니다.
+       자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
+       긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
        ========================================================= */
     function permitReason(d) {
-        const kind = (d.cont === true) ? '겸직허가' : '외부활동 허가';
-        const period = (d.start && d.end) ? `${d.start} ~ ${d.end}` : '(활동 기간 기재)';
-        const orgLine = RQ.org ? ORG_LABEL[RQ.org] : '외부 기관';
-        const conflictLine = (d.counter || (RQ.redFlags && RQ.redFlags.length))
-            ? '있음 — 감사·청렴 담당 부서에 사전 질의 후 회신을 첨부합니다.'
-            : (d.related
-                ? '같은 분야이나, 요청 기관은 본인의 지도·감독 대상이 아니며 관리·정산에 관여하지 않습니다.'
-                : '없음 — 요청 기관은 본인의 직무관련자가 아니며, 관리·감독·정산 관계가 없습니다.');
+        const isGyeomjik = (d.cont === true);
+        const period = (d.start && d.end) ? `${d.start} ~ ${d.end}` : '(시작일자 ~ 종료일자)';
+        const subject = d.subject || '(요청 공문의 사업명·과제명을 그대로)';
+        const how = NL_HOW_HINT[d.type] || '(대상과 방식을 한 문장으로)';
 
         const text =
-`[${kind} 신청 사유]
+`── 나이스 직무관련외부활동상세 입력값 ──
 
-1. 요청 기관: ${d.agency || '(기관명)'}${(d.payer && d.payer !== d.agency) ? `
-   - 대가 지급 주체: ${d.payer} (요청 기관과 다름)` : ''}${d.source ? `
-   - 사업 발주처: ${d.source}` : ''}
-   - 기관 성격: ${d.cls && d.cls.label ? d.cls.label : orgLine}
+[요청인]
+ 기관명   : ${d.agency || '(요청 공문 발신 기관)'}
+ 담당자   : (공문의 담당자명)
+ 연락처   : (공문의 연락처)
 
-2. 활동 내용: ${NL_TYPE_LABEL[d.type] || '(수행할 일을 구체적으로)'}
-   (실제로 하게 될 일을 한두 문장으로 적으세요. 공문 제목이 아니라 수행 내용 기준입니다.)
+[신청내역]
+ 외부활동유형 : ${ACT_TYPE[actTypeOf(d.type)].no}번째 — ${ACT_TYPE[actTypeOf(d.type)].label}
+ 외부활동주제 : ${subject}
+ 외부활동방법 : ${how}
+ 시작일자     : ${d.start || '(YYYY-MM-DD)'}
+ 종료일자     : ${d.end || '(YYYY-MM-DD)'}
+ 사례금 총액  : (실비를 뺀 세전 금액)
+ 실비 별도금액: (교통비·숙박비·식비)
+ 공문번호     : (요청 공문의 문서번호)
+ 요청서류     : 요청 공문 사본을 첨부파일로 등록
 
-3. 활동 기간 및 횟수: ${period}
-
-4. 대가: ${NL_PAY_LABEL[d.payKind] || '(명목)'}
-   - 지급 근거: (위탁계약서 / 사업운영지침 / 수당 지급기준 중 해당 문서명과 조항)
-
-5. 직무관련성: ${conflictLine}
-
-6. 본연의 직무 수행에 미치는 영향
-   - 근무시간 외에 수행하며, 근무시간 중 일정은 출장 또는 연가로 처리합니다.
-   - 활동으로 인해 담당 업무의 처리가 지연되지 않도록 일정을 조정하였습니다.
-
-7. 근거 법령
-   - 국가공무원법 제64조, 국가공무원 복무규정 제25조·제26조
-   - 공직자의 이해충돌 방지법 제10조제2호 단서(소속기관장 허가)`;
+── 참고 ──
+· 기간 ${period}
+· 여러 회에 걸친 활동이면 '일괄신고'를 체크하고 월(연) 평균 횟수와 연간 총 횟수를 함께 적습니다.
+· 사례금 총액과 실비는 칸이 나뉘어 있습니다. 합쳐 적지 마세요.
+· 저장 후 결재를 올리고, 결재가 완료되면 허가된 것입니다. 완료 전에는 활동을 시작하지 마세요.${isGyeomjik ? `
+· 계속·반복되는 활동이므로 이 신청과 별개로 겸직허가도 확인하세요.
+  (국가공무원법 제64조, 복무규정 제25조·제26조)` : ''}`;
 
         return `<div class="border-2 border-emerald-500 rounded-xl overflow-hidden mt-4 no-print">
-            <div class="bg-emerald-600 text-white px-4 py-2 font-bold text-sm"><i class="fa-solid fa-pen-to-square mr-1" aria-hidden="true"></i> ⑥ ${kind} 신청서 사유란 — 그대로 옮겨 쓰세요</div>
+            <div class="bg-emerald-600 text-white px-4 py-2 font-bold text-sm"><i class="fa-solid fa-keyboard mr-1" aria-hidden="true"></i> ⑥ 나이스 입력 도우미 — 칸별로 옮겨 담으세요</div>
             <div class="bg-white p-4">
-                <textarea id="permitReasonText" rows="14" readonly class="w-full bg-slate-100 border border-slate-200 px-3 py-2 rounded-lg text-xs text-slate-700 font-mono resize-none"></textarea>
-                <button onclick="copyBox('permitReasonText','permitReasonStatus')" class="mt-2 w-full bg-emerald-600 text-white font-bold py-2.5 rounded-lg hover:bg-emerald-700 transition text-sm">사유란 문구 복사</button>
+                <textarea id="permitReasonText" rows="20" readonly class="w-full bg-slate-100 border border-slate-200 px-3 py-2 rounded-lg text-xs text-slate-700 font-mono resize-none"></textarea>
+                <button onclick="copyBox('permitReasonText','permitReasonStatus')" class="mt-2 w-full bg-emerald-600 text-white font-bold py-2.5 rounded-lg hover:bg-emerald-700 transition text-sm">입력값 복사</button>
                 <p id="permitReasonStatus" role="status" class="text-right text-xs font-bold h-4 mt-1"></p>
-                <p class="text-xs text-slate-500 mt-2">괄호로 남겨 둔 부분은 직접 채우셔야 합니다. 특히 <strong>대가의 지급 근거 문서명</strong>은 감사에서 가장 먼저 확인하는 항목입니다.</p>
+                <p class="text-xs text-slate-500 mt-2">이 화면에는 <strong>직무관련성이나 사유를 서술하는 칸이 없습니다.</strong> 판단 근거는 담당관이 상급자·소속기관장의 의견을 들어 따로 확인하므로, 요청 공문을 정확히 첨부하는 것이 사실상의 소명 자료입니다.</p>
             </div>
             <script type="application/json" id="permitReasonData">${JSON.stringify(text)}<\/script>
         </div>`;
@@ -2893,7 +2920,7 @@
 
     function analyzeNonLecture() {
         const type   = document.getElementById('nlType').value;
-        const agency = document.getElementById('nlAgency').value.trim();
+        const agency = document.getElementById('nlAgency', 'nlSubject').value.trim();
         const diff   = document.getElementById('nlPayerDiff').checked;
         const payerIn = document.getElementById('nlPayer').value.trim();
         const payer  = (diff && payerIn) ? payerIn : agency;
@@ -3025,21 +3052,31 @@
 
         /* ---------- ⑥ 허가 신청 사유란 문구 ---------- */
         if (hasPay && type !== 'meeting') {
-            html += permitReason({ type, agency, payer, source, start, end, payKind, cont, related, counter, cls });
+            html += permitReason({ type, agency, payer, source, start, end, payKind, cont, related, counter, cls, subject: (document.getElementById('nlSubject') || {}).value });
         }
 
         /* ---------- ⑥-2 나이스 어느 메뉴로 가는가 ---------- */
+        const isLectureRoute = (type === 'meeting' || payKind === 'lecture');
         html += neisPath(
-            (type === 'meeting' || payKind === 'lecture') ? 'lecture' : (cont === true ? 'gyeomjik' : 'activity'),
-            (type === 'meeting' || payKind === 'lecture')
+            isLectureRoute ? 'lecture' : 'activity',
+            isLectureRoute
                 ? '회의 형태의 심사·평가·자문이거나 강의료 명목이라면 외부강의등록입니다.'
                 : (cont === true
-                    ? '1개월을 초과해 계속되는 활동은 신고·신청이 아니라 겸직허가입니다.'
-                    : '회의 형태가 아닌 직무관련 활동은 <strong>활동 시작 전</strong>에 직무관련외부활동신청으로 처리합니다.'));
+                    ? '여러 회에 걸친 활동이면 신청 화면의 <strong>일괄신고</strong>를 체크하고 월(연) 평균 횟수와 연간 총 횟수를 적습니다. 계속성이 있으므로 <strong>겸직허가도 함께</strong> 확인하세요.'
+                    : '회의 형태가 아닌 직무관련 활동은 <strong>활동을 시작하기 전에</strong> 직무관련외부활동신청으로 처리합니다.'));
+
+        if (!isLectureRoute && cont === true) {
+            html += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3 space-y-1.5">
+                <p class="font-bold text-base"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> 반복되는 활동은 둘 다 필요할 수 있습니다</p>
+                <p>나이스 신청 화면에 <strong>일괄신고</strong> 칸과 <strong>연간 총 횟수</strong> 칸이 있으므로, 반복 활동도 직무관련외부활동신청으로 한 번에 처리할 수 있습니다.</p>
+                <p>다만 그것이 겸직허가를 갈음하지는 않습니다. 국가공무원법 제64조와 복무규정 제25조·제26조는 <strong>계속성 있는 업무를 겸하는 것 자체</strong>를 별도로 규율하므로, 임기가 있거나 정기적으로 반복되는 활동이라면 <strong>겸직허가도 함께</strong> 받으세요.</p>
+                <p class="text-xs">어느 한쪽만 받으면 나머지가 빠집니다. 판단이 애매하면 복무 담당 부서에 두 절차를 함께 물어보시는 편이 안전합니다.</p>
+            </div>`;
+        }
 
         if (!(type === 'meeting' || payKind === 'lecture')) {
             html += actTypeBlock(actTypeOf(type));
-            if (type === 'post') {
+            if (type === 'post' && cont !== true) {
                 html += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3 space-y-2">
                     <p class="font-bold text-base"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> 직위 취임은 절차가 둘일 수 있습니다</p>
                     <ul class="list-disc pl-5 space-y-1">
@@ -3062,9 +3099,9 @@
             <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-folder-open mr-1" aria-hidden="true"></i> 감사 대비 — 이 네 가지를 모아 두세요</div>
             <div class="bg-white p-4 text-sm">
                 <ul class="space-y-2">
-                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>요청 공문 또는 요청서</strong> — 요청 주체와 활동 내용이 확정되는 근거</span></li>
+                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>요청 공문 또는 요청서</strong> — 요청 주체와 활동 내용이 확정되는 근거. 나이스에 <strong>공문번호</strong>를 적고 <strong>사본을 첨부</strong>해야 하며, <strong>담당자명과 연락처</strong>도 필수 입력이니 공문에서 미리 확인해 두세요.</span></li>
                     <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>대가 지급 근거</strong> — 위탁계약서, 사업운영지침, 수당 지급기준 중 하나</span></li>
-                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>허가 또는 신고 결재문</strong> — 나이스 결재 완료 화면 갈무리</span></li>
+                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>허가 또는 신고 결재문</strong> — 나이스 결재 완료 화면 갈무리. 직무관련외부활동은 <strong>이 결재 완료 자체가 허가서</strong>이므로 반드시 남겨 두세요.</span></li>
                     <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>복무 처리 내역</strong> — 출장 또는 연가·조퇴 결재문</span></li>
                 </ul>
                 <p class="text-xs text-slate-500 mt-3 pt-3 border-t border-slate-100">대가 지급 근거가 없으면, 외부강의등이 아닌 활동의 수당은 <strong>정당한 권원 없는 금품 수수</strong>로 볼 여지가 생깁니다(청탁금지법 제8조).</p>
