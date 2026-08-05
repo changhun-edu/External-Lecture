@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v9.1</title>
+    <title>교직원 외부강의·겸직 도우미 v9.4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v9.1 — 가독성 고정 확대 (노안 대응)
+           v9.4 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -112,7 +112,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3 px-4">
             <i class="fa-solid fa-user-shield text-indigo-600" aria-hidden="true"></i> 교직원 외부강의·겸직 도우미
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v9.1</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v9.4</p>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
@@ -152,8 +152,9 @@
                         <p class="text-sm font-bold text-slate-800 mb-2">1. 어디서 요청했나요?</p>
                         <input type="text" id="qkAgency" oninput="qkAgencyInput()" placeholder="요청 공문을 보낸 기관 이름" autocomplete="off"
                                class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        <div id="qkAgencySuggest" class="hidden mt-1.5 border border-slate-300 rounded-lg overflow-hidden bg-white divide-y divide-slate-100"></div>
                         <div id="qkAgencyHint" class="hidden mt-2 text-sm rounded-lg px-3 py-2.5"></div>
-                        <p class="text-xs text-slate-500 mt-1.5">정식 명칭으로 적어 주세요. 기관 성격은 알아서 판별합니다.</p>
+                        <p class="text-xs text-slate-500 mt-1.5"><strong>요청 공문의 발신 기관</strong>을 적으세요. 후보가 뜨면 골라 주시면 가장 정확합니다.</p>
                     </div>
 
                     <div>
@@ -170,6 +171,7 @@
                         <div class="mt-2.5">
                             <p class="text-xs text-slate-500 mb-1.5">활동 이름으로 고르면 위 형태를 대신 골라 드립니다. <strong>맞는지 확인하세요.</strong></p>
                             <div class="flex flex-wrap gap-2" id="qkChips"></div>
+                            <p id="qkChipEcho" class="hidden text-sm text-indigo-800 font-bold mt-2.5 bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-2.5"></p>
                         </div>
                     </div>
 
@@ -1206,7 +1208,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v9.1 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v9.4 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1509,7 +1511,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v9.1 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v9.4 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1546,17 +1548,30 @@
         icon.classList.toggle('rotate-180', opening);
     }
 
-    /* 라우터 화면 하나만 띄웁니다 */
-    function rqShow(id) {
+    /* 라우터 화면 하나만 그립니다 (히스토리 조작 없음) */
+    function rqPaint(id) {
         hideAll(); show('qaSection');
         hide('router-card'); show('router-wizard');
         RQ_SCREENS.forEach(hide); show(id);
         scrollTo_(document.getElementById('router-wizard'));
     }
 
+    /* v9.4 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
+    const RQ_VIEW = {
+        'rq-A': 'router-org', 'rq-A1': 'router-org-help', 'rq-R': 'router-red',
+        'rq-0': 'router-what', 'rq-1': 'router-repeat', 'rq-1a': 'router-pay',
+        'rq-2': 'router-kind', 'rq-3': 'router-media'
+    };
+
+    function rqShow(id) {
+        const v = RQ_VIEW[id];
+        if (v) { navigate(v); return; }
+        rqPaint(id);
+    }
+
     function route(choice) {
         clearRQ();
-        /* v9.1 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v9.4 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1640,7 +1655,7 @@
     }
 
     /* =========================================================
-       v9.1 — 요청 주체가 소속기관인 경우
+       v9.4 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1666,7 +1681,7 @@
     }
 
     /* =========================================================
-       v9.1 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v9.4 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -1767,6 +1782,26 @@
             const data = document.getElementById(dataId);
             if (area && data) { try { area.value = JSON.parse(data.textContent); } catch (e) {} }
         });
+    }
+
+    /* v9.4 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
+    let LAST_RESULT = null;
+    let LAST_LECTURE = null;
+
+    function renderLectureResult() {
+        openLectureForm();
+        if (LAST_LECTURE) openResult(LAST_LECTURE.header, LAST_LECTURE.content, LAST_LECTURE.showNeis);
+    }
+
+    function paintResult(header, content, showNeis) {
+        LAST_RESULT = { header: header, content: content, showNeis: !!showNeis };
+        navigate('result-detail');
+    }
+
+    function renderLastResult() {
+        if (!LAST_RESULT) { openHome(); return; }
+        hideAll();
+        openResult(LAST_RESULT.header, LAST_RESULT.content, LAST_RESULT.showNeis);
     }
 
     function openNoReport() {
@@ -2323,7 +2358,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v9.1 — 신분별 사례금 상한액 점검 */
+    /* v9.4 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2369,7 +2404,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v9.1 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v9.4 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2379,7 +2414,7 @@
     };
 
     /* =========================================================
-       v9.1 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v9.4 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2450,9 +2485,9 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v9.1 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v9.4 — 감사 지적 처분기준과 주요 위반사례 */
     /* =========================================================
-       v9.1 — 결론은 이 함수 하나에서만 계산합니다.
+       v9.4 — 결론은 이 함수 하나에서만 계산합니다.
        제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
        헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
        ========================================================= */
@@ -2465,13 +2500,56 @@
     };
 
     /* =========================================================
-       v9.1 — 30초 판정
+       v9.4 — 30초 판정
        사용자가 '강의인지 아닌지'를 고르지 않게 합니다.
        활동 이름만 고르면 사이트가 분류합니다.
        ========================================================= */
+    /* =========================================================
+       v9.4 — 기관명 후보 제시
+       모기관은 신고 제외인데 산하 별도 법인은 신고 대상인 경우가 많습니다.
+       (광주교육대학교 vs 광주교육대학교 산학협력단)
+       사용자가 그 구분을 알아서 하도록 두지 않고, 후보로 나란히 보여 줍니다.
+       ========================================================= */
+    const ORG_DERIV = ['산학협력단', '부설초등학교', '부설중학교', '평생교육원', '병원'];
+
+    function univFullName(stem) {
+        if (/대$/.test(stem)) return stem + '학교';
+        if (/대학$/.test(stem)) return stem + '교';
+        return stem;
+    }
+
+    function buildOrgSuggest() {
+        const out = [];
+        NATIONAL_UNIV.forEach(stem => {
+            const full = univFullName(stem);
+            out.push(full);
+            ORG_DERIV.forEach(d => out.push(full + ' ' + d));
+        });
+        KNOWN_PUBLIC_ORGS.forEach(n => { if (n.length > 3) out.push(n); });
+        ['교육부', '전남광주통합특별시교육청', '광주광역시교육청', '전라남도교육청'].forEach(n => {
+            out.push(n);
+            out.push(n + ' 산하 재단');
+        });
+        return [...new Set(out)];
+    }
+
+    let ORG_SUGGEST = [];
+
+    function orgCandidates(q) {
+        if (!q || q.length < 2) return [];
+        const hit = ORG_SUGGEST.filter(n => n.includes(q) || q.includes(n));
+        /* 모기관을 입력했는데 파생 기관이 후보에 없으면 끌어올립니다 */
+        const extra = [];
+        ORG_SUGGEST.forEach(n => {
+            if (hit.includes(n)) return;
+            if (ORG_DERIV.some(d => n.endsWith(' ' + d) && q.includes(n.replace(' ' + d, '')))) extra.push(n);
+        });
+        return [...hit, ...extra].slice(0, 6);
+    }
+
     const BASIS_LINE = '2026년 8월 기준 · 청탁금지법 제10조, 이해충돌방지법 제10조, 이해충돌 방지제도 운영지침 제9조(2024. 8. 14.), 교육청 「외부강의등 신고 준수사항 안내」 반영';
 
-    const QK = { agency: '', cls: null, form: null, pay: null, cont: false };
+    const QK = { agency: '', cls: null, form: null, pay: null, cont: false, picked: false, subEntity: null };
 
     /* 활동 이름 → 진행 형태 기본값. 칩은 제안만 하고 결정하지 않습니다. */
     const CHIPS = [
@@ -2514,22 +2592,60 @@
             `<button type="button" class="qk-chip" id="qkc${i}" onclick="qkChip(${i})">${c.t}</button>`).join('');
     }
 
+    /* 칩은 화면 아래, 형태 버튼은 위에 있습니다.
+       칩을 눌러도 위쪽만 바뀌면 눌렸는지 알 수 없으므로 양쪽 모두 표시합니다. */
+    function markChips(i) {
+        CHIPS.forEach((c, k) => {
+            const b = document.getElementById('qkc' + k);
+            if (b) b.setAttribute('aria-pressed', String(k === i));
+        });
+    }
+
     function qkChip(i) {
-        qkSet('form', CHIPS[i].f);
+        qkSet('form', CHIPS[i].f, true);
+        markChips(i);
         const hint = document.getElementById('qkChipHint');
         if (hint) hint.remove();
         const box = document.getElementById('qkForm');
         const p = document.createElement('p');
         p.id = 'qkChipHint';
-        p.className = 'text-xs text-indigo-700 font-bold mt-2';
-        p.innerHTML = `‘${CHIPS[i].t}’이라서 <strong>${FORM_LABEL[CHIPS[i].f]}</strong>로 골라 뒀습니다. 실제와 다르면 위에서 바꾸세요.`;
+        p.className = 'text-sm text-indigo-800 font-bold mt-2 bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-2.5';
+        p.innerHTML = `<i class="fa-solid fa-arrow-up mr-1" aria-hidden="true"></i> ‘${CHIPS[i].t}’이라서 위에서 <strong>${FORM_LABEL[CHIPS[i].f]}</strong>를 골라 뒀습니다. 실제와 다르면 위 항목을 직접 누르세요.`;
         box.after(p);
+
+        const echo = document.getElementById('qkChipEcho');
+        if (echo) {
+            echo.classList.remove('hidden');
+            echo.innerHTML = `<i class="fa-solid fa-circle-check mr-1" aria-hidden="true"></i> 선택됨 — <strong>${FORM_LABEL[CHIPS[i].f]}</strong>`;
+        }
     }
 
-    function qkAgencyInput() {
+    function qkAgencyInput(picked) {
         QK.agency = (document.getElementById('qkAgency').value || '').trim();
+        if (!picked) { QK.picked = false; QK.subEntity = null; }
         const hint = document.getElementById('qkAgencyHint');
-        if (!QK.agency) { QK.cls = null; hint.classList.add('hidden'); qkRender(); return; }
+        const sug = document.getElementById('qkAgencySuggest');
+
+        if (!QK.agency) {
+            QK.cls = null; hint.classList.add('hidden'); sug.classList.add('hidden');
+            qkRender(); return;
+        }
+
+        /* 후보 제시 — 모기관과 산하 별도 법인을 나란히 놓습니다 */
+        const cands = picked ? [] : orgCandidates(QK.agency).filter(n => n !== QK.agency);
+        if (cands.length) {
+            sug.classList.remove('hidden');
+            sug.innerHTML = cands.map(n => {
+                const c = classifyAgency(n);
+                return `<button type="button" onclick="qkPickAgency('${n.replace(/'/g, "\\'")}')" class="w-full text-left px-3 py-2.5 hover:bg-indigo-50 transition" style="min-height:0">
+                    <span class="block font-bold text-slate-900 text-sm">${n}</span>
+                    <span class="block text-xs ${c.exempt ? 'text-emerald-700' : 'text-sky-700'}">${c.label} · ${c.exempt ? '신고 제외' : '신고 대상'}</span>
+                </button>`;
+            }).join('');
+        } else {
+            sug.classList.add('hidden');
+        }
+
         QK.cls = classifyAgency(QK.agency);
         hint.classList.remove('hidden');
         hint.className = `mt-2 text-sm rounded-lg px-3 py-2.5 border ${QK.cls.exempt ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-sky-50 border-sky-200 text-sky-900'}`;
@@ -2537,11 +2653,27 @@
         qkRender();
     }
 
-    function qkSet(field, val) {
+    /* 후보에서 고른 경우 — 판별이 확정되므로 되묻지 않습니다 */
+    function qkPickAgency(name) {
+        document.getElementById('qkAgency').value = name;
+        QK.picked = true; QK.subEntity = null;
+        qkAgencyInput(true);
+        document.getElementById('qkAgencySuggest').classList.add('hidden');
+    }
+
+    function qkSubEntity(v) { QK.subEntity = v; qkRender(); }
+
+    function qkSet(field, val, fromChip) {
         QK[field] = val;
         const box = document.getElementById(field === 'form' ? 'qkForm' : 'qkPay');
         if (box) [...box.querySelectorAll('button')].forEach(b =>
             b.setAttribute('aria-pressed', String(b.getAttribute('onclick').includes(`'${val}'`))));
+        /* 형태를 직접 골랐다면 칩 선택과 안내는 더 이상 맞지 않으므로 지웁니다 */
+        if (field === 'form' && !fromChip) {
+            markChips(-1);
+            const h = document.getElementById('qkChipHint'); if (h) h.remove();
+            const e = document.getElementById('qkChipEcho'); if (e) e.classList.add('hidden');
+        }
         qkRender();
     }
 
@@ -2550,8 +2682,11 @@
     function qkRender() {
         const box = document.getElementById('qkResult');
         if (!(QK.agency && QK.form && QK.pay)) { box.classList.add('hidden'); return; }
+        const wasHidden = box.classList.contains('hidden');
         box.classList.remove('hidden');
         box.innerHTML = qkVerdictHtml();
+        /* 결과가 처음 나타날 때만 기록을 남깁니다. 선택을 바꿀 때마다 쌓지 않습니다. */
+        if (wasHidden && currentView === 'home') markState('quick-result');
     }
 
     function qkVerdictHtml() {
@@ -2566,10 +2701,37 @@
                     '외부강의등에 해당하지만 사례금이 없습니다.',
                     ['대가 유무와 무관하게 <strong>사전 결재를 받고</strong> 출강하세요',
                      '요청 공문과 복무 처리는 그대로 필요합니다']));
+            } else if (cls.exempt && !QK.picked && QK.subEntity !== 'no') {
+                /* '신고 제외'는 틀렸을 때 대가가 가장 큰 결론입니다.
+                   후보에서 고르지 않았다면 확정 전에 발신처를 한 번 더 묻습니다. */
+                if (QK.subEntity === 'yes') {
+                    cards.push(qkCard('report', '외부강의등록으로 신고하세요',
+                        '산하 별도 법인이 요청한 것이라면 모기관과 달리 <strong>신고 대상</strong>입니다.',
+                        ['마친 날부터 <strong>10일 이내</strong>',
+                         '신고서의 요청 기관에는 <strong>실제 공문을 보낸 법인</strong>을 적으세요',
+                         '근무시간 중이면 출장 또는 연가']));
+                } else {
+                    cards.push(`<div class="border-2 border-amber-400 rounded-2xl overflow-hidden fade-in">
+                        <div class="bg-amber-500 text-white px-5 py-4">
+                            <p class="text-2xl font-bold flex items-center gap-2"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> 하나만 확인하겠습니다</p>
+                        </div>
+                        <div class="bg-white p-5">
+                            <p class="font-semibold text-slate-900 mb-2">‘${cls.label}’은 신고 제외 대상입니다. 그런데 <strong>산하 별도 법인</strong>이 요청한 경우라면 결론이 뒤집힙니다.</p>
+                            <p class="text-sm text-slate-700 mb-3"><strong>요청 공문의 발신 기관 이름</strong>에 아래가 붙어 있습니까?</p>
+                            <p class="text-sm font-bold text-slate-900 bg-slate-100 border border-slate-200 rounded-lg px-3 py-2.5 mb-3">산학협력단 · 부설○○ · 병원 · 평생교육원 · 재단 · 진흥원</p>
+                            <div class="flex flex-col md:flex-row gap-2.5">
+                                <button onclick="qkSubEntity('no')" class="flex-1 bg-emerald-600 text-white font-bold py-2.5 rounded-lg hover:bg-emerald-700 transition">붙어 있지 않습니다</button>
+                                <button onclick="qkSubEntity('yes')" class="flex-1 bg-sky-600 text-white font-bold py-2.5 rounded-lg hover:bg-sky-700 transition">붙어 있습니다</button>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-3">신고 대상을 제외로 잘못 보아 신고를 빠뜨리는 것이 감사에서 자주 지적되는 사례입니다. 그래서 한 번 더 여쭙습니다.</p>
+                        </div>
+                    </div>`);
+                }
             } else if (cls.exempt) {
                 cards.push(qkCard('none', '신고 제외 — 사전 결재만 받으세요',
                     `${cls.label}이 요청한 외부강의등은 신고 대상에서 제외됩니다.`,
-                    ['사례금 <strong>상한액은 그대로</strong> 적용됩니다',
+                    ['<strong>공문 발신처를 한 번만 다시 확인하세요.</strong> 기관명 끝에 산학협력단·부설·병원·평생교육원이 붙어 있으면 신고 대상으로 바뀝니다',
+                     '사례금 <strong>상한액은 그대로</strong> 적용됩니다',
                      '월 3회·6시간 계산에는 넣지 않습니다',
                      '그 기관이 <strong>공직유관단체로 지정</strong>돼 있으면 신고 대상입니다 (서울대·인천대·국립대병원 등)']));
             } else {
@@ -2658,10 +2820,13 @@
     }
 
     function qkReset() {
-        QK.agency = ''; QK.cls = null; QK.form = null; QK.pay = null; QK.cont = false;
+        QK.agency = ''; QK.cls = null; QK.form = null; QK.pay = null; QK.cont = false; QK.picked = false; QK.subEntity = null;
+        const sg = document.getElementById('qkAgencySuggest'); if (sg) sg.classList.add('hidden');
         const a = document.getElementById('qkAgency'); if (a) a.value = '';
         const h = document.getElementById('qkAgencyHint'); if (h) h.classList.add('hidden');
         const ch = document.getElementById('qkChipHint'); if (ch) ch.remove();
+        const ce = document.getElementById('qkChipEcho'); if (ce) ce.classList.add('hidden');
+        markChips(-1);
         ['qkForm', 'qkPay'].forEach(id => {
             const b = document.getElementById(id);
             if (b) [...b.querySelectorAll('button')].forEach(x => x.setAttribute('aria-pressed', 'false'));
@@ -3018,7 +3183,9 @@
 
         html += reportTriad(triadMode);
 
+        LAST_LECTURE = { header: header, content: html, showNeis: triadMode === 'report' };
         openResult(header, html, triadMode === 'report');
+        if (currentView !== 'lecture-result') markState('lecture-result');
     }
 
     function copyNeisText() {
@@ -3234,10 +3401,10 @@
     }
 
     /* =========================================================
-       v9.1 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v9.4 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v9.1 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v9.4 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
@@ -3500,8 +3667,7 @@
 
         const header = `<h3 class="text-2xl font-bold text-${t.tone}-700 flex items-center gap-2"><i class="fa-solid ${t.icon}" aria-hidden="true"></i> ${t.label}</h3>`;
 
-        hideAll();
-        openResult(header, body, false);
+        paintResult(header, body, false);
     }
 
     /* 결과에서 입력 폼으로 — 입력값은 그대로 남아 있습니다 */
@@ -3718,6 +3884,17 @@
         'result-precheck-exempt': openPrecheckExempt,
         'result-noreport':        openNoReport,
         'result-duty':            openDuty,
+        'result-detail':          renderLastResult,
+        'lecture-result':         renderLectureResult,
+        'quick-result':           function () { openHome(); qkRender(); },
+        'router-org':             function () { rqPaint('rq-A'); },
+        'router-org-help':        function () { rqPaint('rq-A1'); },
+        'router-red':             function () { rqPaint('rq-R'); },
+        'router-what':            function () { rqPaint('rq-0'); },
+        'router-repeat':          function () { rqPaint('rq-1'); },
+        'router-pay':             function () { rqPaint('rq-1a'); },
+        'router-kind':            function () { rqPaint('rq-2'); },
+        'router-media':           function () { rqPaint('rq-3'); },
         'result-conflict':        openConflict,
         'nonlecture':             openNonLectureForm,
         'result-repeat':          openRepeatLecture,
@@ -3745,6 +3922,13 @@
     }
 
     /* 화면 이동 + 히스토리 기록. 두 번째 인자를 넘기지 않으면 기록합니다. */
+    /* 화면을 다시 그리지 않고 기록만 남깁니다 */
+    function markState(view) {
+        currentView = view;
+        store.set(VIEW_KEY, view);
+        if (HISTORY_OK) { try { history.pushState({ app: 'gyeomjik', view: view }, ''); } catch (e) {} }
+    }
+
     function navigate(view) {
         const bar = document.getElementById('resumeNotice');
         if (bar) bar.classList.add('hidden');
@@ -3794,6 +3978,7 @@
     /* =========================================================
        초기화
        ========================================================= */
+    ORG_SUGGEST = buildOrgSuggest();
     renderChips();
     renderFAQ();
     renderTypeOptions();
