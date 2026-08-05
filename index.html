@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v8.0</title>
+    <title>교직원 외부강의·겸직 도우미 v9.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v8.0 — 가독성 고정 확대 (노안 대응)
+           v9.1 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -44,6 +44,15 @@
             padding-top: 0.7rem !important; padding-bottom: 0.7rem !important;
         }
         button { min-height: 52px; }
+
+        /* 30초 판정 선택 버튼 */
+        .qk-opt { display:block; width:100%; text-align:left; border:1px solid #cbd5e1; background:#fff;
+                  border-radius:0.75rem; padding:0.7rem 0.9rem; font-weight:700; color:#0f172a; line-height:1.4; }
+        .qk-opt span { display:block; font-size:15px; font-weight:400; color:#475569; margin-top:0.15rem; }
+        .qk-opt[aria-pressed="true"] { background:#eef2ff; border-color:#4f46e5; box-shadow:inset 0 0 0 1px #4f46e5; }
+        .qk-chip { border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:0.45rem 0.95rem;
+                   font-weight:700; color:#334155; min-height:0; }
+        .qk-chip[aria-pressed="true"] { background:#4f46e5; border-color:#4f46e5; color:#fff; }
 
         /* 옅은 회색은 노안에서 특히 읽기 어렵습니다 — 대비를 올립니다 */
         .text-slate-500 { color: #475569 !important; }
@@ -103,7 +112,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3 px-4">
             <i class="fa-solid fa-user-shield text-indigo-600" aria-hidden="true"></i> 교직원 외부강의·겸직 도우미
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v8.0</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v9.1</p>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
@@ -131,6 +140,55 @@
 
         <!-- ===================== 메인 메뉴 ===================== -->
         <div id="menu-section" class="no-print mb-6 fade-in">
+
+            <div class="mb-5 bg-white border-2 border-indigo-500 rounded-2xl overflow-hidden shadow-md">
+                <div class="bg-indigo-600 text-white px-5 py-3.5">
+                    <p class="font-bold text-lg"><i class="fa-solid fa-bolt mr-1.5" aria-hidden="true"></i> 30초 판정</p>
+                    <p class="text-xs text-indigo-100 mt-1">세 가지만 고르면 무엇을 해야 하는지 알려드립니다. 강의인지 아닌지는 고르실 필요 없습니다.</p>
+                </div>
+                <div class="p-5 space-y-5">
+
+                    <div>
+                        <p class="text-sm font-bold text-slate-800 mb-2">1. 어디서 요청했나요?</p>
+                        <input type="text" id="qkAgency" oninput="qkAgencyInput()" placeholder="요청 공문을 보낸 기관 이름" autocomplete="off"
+                               class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        <div id="qkAgencyHint" class="hidden mt-2 text-sm rounded-lg px-3 py-2.5"></div>
+                        <p class="text-xs text-slate-500 mt-1.5">정식 명칭으로 적어 주세요. 기관 성격은 알아서 판별합니다.</p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-bold text-slate-800 mb-2">2. 어떻게 진행하나요?</p>
+                        <p class="text-xs text-slate-500 mb-2">활동 이름이 아니라 <strong>진행 형태</strong>가 기준입니다. 같은 모니터링이라도 회의가 끼면 결론이 달라집니다.</p>
+                        <div class="grid grid-cols-1 gap-2" id="qkForm">
+                            <button type="button" onclick="qkSet('form','talk')"   class="qk-opt">여러 사람 앞에서 말하거나, 신문·잡지에 글을 싣습니다<span>강의 · 특강 · 연수 · 강연 · 발표 · 기고 · 온라인 동영상 강의</span></button>
+                            <button type="button" onclick="qkSet('form','meet')"   class="qk-opt">여러 사람이 모인 회의에서 의견을 주고받습니다<span>자문회의 · 심사위원회 · 평가회의 · 강평회 (이름이 심사·자문이어도 회의면 여기)</span></button>
+                            <button type="button" onclick="qkSet('form','alone')"  class="qk-opt">혼자 다니며 보고 적거나, 서면으로만 합니다<span>모니터링 · 실태점검 · 서면심사 · 서면자문 · 감수 · 연구용역 · 문항출제 · 집필</span></button>
+                            <button type="button" onclick="qkSet('form','both')"   class="qk-opt">둘 다입니다<span>예: 3일 점검하고 마지막 날 강평 회의에서 발표</span></button>
+                            <button type="button" onclick="qkSet('form','post')"   class="qk-opt">어떤 직위를 맡습니다<span>학회·협회 임원 · 재단 이사 · 위원 위촉</span></button>
+                            <button type="button" onclick="qkSet('form','foreign')" class="qk-opt">외국 기관을 대리합니다<span>외국의 기관 · 법인 · 단체</span></button>
+                        </div>
+                        <div class="mt-2.5">
+                            <p class="text-xs text-slate-500 mb-1.5">활동 이름으로 고르면 위 형태를 대신 골라 드립니다. <strong>맞는지 확인하세요.</strong></p>
+                            <div class="flex flex-wrap gap-2" id="qkChips"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-bold text-slate-800 mb-2">3. 대가를 받나요?</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2" id="qkPay">
+                            <button type="button" onclick="qkSet('pay','yes')"    class="qk-opt">받습니다<span>강사료 · 수당 · 심사료 등</span></button>
+                            <button type="button" onclick="qkSet('pay','actual')" class="qk-opt">실비만<span>교통비 · 식비만 실비로</span></button>
+                            <button type="button" onclick="qkSet('pay','no')"     class="qk-opt">없습니다<span>무보수</span></button>
+                        </div>
+                    </div>
+
+                    <div id="qkResult" class="hidden"></div>
+                </div>
+            </div>
+
+            <details class="mb-5 border border-slate-300 rounded-xl overflow-hidden bg-white">
+                <summary class="cursor-pointer select-none px-4 py-3 font-bold text-sm text-slate-800 bg-slate-50 hover:bg-slate-100">나이스 외부활동 메뉴가 둘인 이유 — 외부강의등록과 직무관련외부활동신청</summary>
+                <div class="border-t border-slate-200">
 
             <div class="mb-6 bg-white border-2 border-slate-800 rounded-2xl overflow-hidden shadow-md">
                 <div class="bg-slate-800 text-white px-5 py-3">
@@ -164,44 +222,41 @@
                     <strong>계속·반복되는 활동</strong>은 두 메뉴가 아니라 <strong>겸직허가</strong>입니다. 1개월을 초과해 지속되면 신고나 신청이 아니라 허가를 받으셔야 합니다.
                 </div>
             </div>
-
-            <div id="router-card" class="bg-white border-2 border-indigo-300 rounded-2xl p-5 md:p-7 shadow-md">
-                <h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-1.5">어떤 일을 하려고 하시나요?</h2>
-                <p class="text-slate-500 text-sm md:text-base mb-5">상황을 고르면 확인해야 할 절차로 바로 안내합니다. 법령 분류를 미리 아실 필요는 없습니다.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <button onclick="route('ONCE')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                        <span class="text-2xl shrink-0" aria-hidden="true">🎤</span>
-                        <span><strong class="block text-slate-900">한 번만 하는 강의·특강·자문 요청을 받았다</strong><span class="text-sm text-slate-500">단발성 요청, 사례금이 있든 없든</span></span>
-                    </button>
-                    <button onclick="route('REPEAT')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                        <span class="text-2xl shrink-0" aria-hidden="true">🔁</span>
-                        <span><strong class="block text-slate-900">계속 나가는 강의·정기 출강 제안을 받았다</strong><span class="text-sm text-slate-500">대학 출강, 정기 강좌 등</span></span>
-                    </button>
-                    <button onclick="route('MEDIA')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                        <span class="text-2xl shrink-0" aria-hidden="true">📹</span>
-                        <span><strong class="block text-slate-900">유튜브·블로그 등 인터넷 활동을 한다</strong><span class="text-sm text-slate-500">시작 예정이거나 이미 운영 중</span></span>
-                    </button>
-                    <button onclick="route('PUB')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                        <span class="text-2xl shrink-0" aria-hidden="true">📚</span>
-                        <span><strong class="block text-slate-900">출판사·학원·교육업체에서 제안이 왔다</strong><span class="text-sm text-slate-500">원고, 문항 출제, 교재, 컨설팅, 자문</span></span>
-                    </button>
-                    <button onclick="route('NONLECT')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-sky-500 hover:bg-white transition text-left">
-                        <span class="text-2xl shrink-0" aria-hidden="true">📋</span>
-                        <span><strong class="block text-slate-900">강의가 아닌 일을 부탁받았다</strong><span class="text-sm text-slate-500">모니터링, 실태조사, 현장점검, 컨설팅, 연구용역, 위원 위촉</span></span>
-                    </button>
-                    <button onclick="route('PERSONAL')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                        <span class="text-2xl shrink-0" aria-hidden="true">🏠</span>
-                        <span><strong class="block text-slate-900">부동산 임대, 동대표, 단체 임원 등 개인 활동</strong><span class="text-sm text-slate-500">강의·미디어가 아닌 그 밖의 활동</span></span>
-                    </button>
-                    <button onclick="route('UNKNOWN')" class="md:col-span-2 flex items-start gap-3 p-4 bg-indigo-50 border-2 border-indigo-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                        <span class="text-2xl shrink-0" aria-hidden="true">❓</span>
-                        <span><strong class="block text-indigo-900">잘 모르겠다</strong><span class="text-sm text-indigo-700">활동의 성격부터 차근차근 찾아드립니다</span></span>
-                    </button>
                 </div>
-            </div>
+            </details>
 
-            <div id="router-wizard" class="hidden bg-white border-2 border-indigo-300 rounded-2xl p-5 md:p-7 shadow-md fade-in">
+            <div id="router-card" class="bg-white border border-slate-300 rounded-2xl p-5 md:p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900 mb-1">그 밖에 확인할 것</h2>
+                    <p class="text-slate-500 text-sm mb-4">위 30초 판정으로 답이 나오지 않는 것들입니다.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                        <button onclick="route('MEDIA')" class="flex items-start gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-lg shrink-0" aria-hidden="true">📺</span>
+                            <span><strong class="block text-slate-900 text-sm">유튜브 · 블로그 등 인터넷 활동</strong><span class="text-xs text-slate-500">시작 예정이거나 이미 운영 중</span></span>
+                        </button>
+                        <button onclick="route('PUB')" class="flex items-start gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-lg shrink-0" aria-hidden="true">📚</span>
+                            <span><strong class="block text-slate-900 text-sm">출판사 · 학원 · 교육업체 제안</strong><span class="text-xs text-slate-500">사교육업체 관련 금지 사항 확인</span></span>
+                        </button>
+                        <button onclick="route('PERSONAL')" class="flex items-start gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-lg shrink-0" aria-hidden="true">🏠</span>
+                            <span><strong class="block text-slate-900 text-sm">부동산 임대 · 동대표 · 단체 임원</strong><span class="text-xs text-slate-500">강의·미디어가 아닌 개인 활동</span></span>
+                        </button>
+                        <button onclick="startRequirements()" class="flex items-start gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-lg shrink-0" aria-hidden="true">✅</span>
+                            <span><strong class="block text-slate-900 text-sm">겸직허가 4대 요건 자가체크</strong><span class="text-xs text-slate-500">허가가 날 수 있는 건인지 확인</span></span>
+                        </button>
+                        <button onclick="startRenew()" class="flex items-start gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-lg shrink-0" aria-hidden="true">📅</span>
+                            <span><strong class="block text-slate-900 text-sm">허가 기간 계산기</strong><span class="text-xs text-slate-500">만료일과 갱신 시기</span></span>
+                        </button>
+                        <button onclick="route('NONLECT')" class="flex items-start gap-3 p-3.5 bg-rose-50 border border-rose-200 rounded-xl hover:border-rose-500 hover:bg-white transition text-left">
+                            <span class="text-lg shrink-0" aria-hidden="true">🛡️</span>
+                            <span><strong class="block text-slate-900 text-sm">직무관련자 여부 확인</strong><span class="text-xs text-rose-700">허가로 풀리지 않는 유형인지</span></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="router-wizard" class="hidden bg-white border-2 border-indigo-300 rounded-2xl p-5 md:p-7 shadow-md fade-in">
                 <div class="flex justify-between items-start mb-5">
                     <h2 class="text-xl md:text-2xl font-bold text-slate-900">몇 가지만 확인할게요</h2>
                     <button onclick="resetRouter()" class="text-sm font-bold text-slate-500 hover:text-slate-800 shrink-0">← 처음으로</button>
@@ -1151,7 +1206,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v8.0 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v9.1 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1454,7 +1509,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v8.0 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v9.1 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1501,7 +1556,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v8.0 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v9.1 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1585,7 +1640,7 @@
     }
 
     /* =========================================================
-       v8.0 — 요청 주체가 소속기관인 경우
+       v9.1 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1611,7 +1666,7 @@
     }
 
     /* =========================================================
-       v8.0 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v9.1 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -2268,7 +2323,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v8.0 — 신분별 사례금 상한액 점검 */
+    /* v9.1 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2314,7 +2369,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v8.0 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v9.1 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2324,7 +2379,7 @@
     };
 
     /* =========================================================
-       v8.0 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v9.1 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2395,9 +2450,9 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v8.0 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v9.1 — 감사 지적 처분기준과 주요 위반사례 */
     /* =========================================================
-       v8.0 — 결론은 이 함수 하나에서만 계산합니다.
+       v9.1 — 결론은 이 함수 하나에서만 계산합니다.
        제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
        헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
        ========================================================= */
@@ -2408,6 +2463,212 @@
         none:    { label: '신고·허가 불요',      tone: 'slate',   icon: 'fa-circle-check',     menu: null       },
         blocked: { label: '수행 재검토',         tone: 'rose',    icon: 'fa-hand',             menu: null       }
     };
+
+    /* =========================================================
+       v9.1 — 30초 판정
+       사용자가 '강의인지 아닌지'를 고르지 않게 합니다.
+       활동 이름만 고르면 사이트가 분류합니다.
+       ========================================================= */
+    const BASIS_LINE = '2026년 8월 기준 · 청탁금지법 제10조, 이해충돌방지법 제10조, 이해충돌 방지제도 운영지침 제9조(2024. 8. 14.), 교육청 「외부강의등 신고 준수사항 안내」 반영';
+
+    const QK = { agency: '', cls: null, form: null, pay: null, cont: false };
+
+    /* 활동 이름 → 진행 형태 기본값. 칩은 제안만 하고 결정하지 않습니다. */
+    const CHIPS = [
+        { t: '강의 · 특강',        f: 'talk'    },
+        { t: '연수 · 직무연수',    f: 'talk'    },
+        { t: '강연 · 발표',        f: 'talk'    },
+        { t: '원고 기고 · 칼럼',   f: 'talk'    },
+        { t: '온라인 동영상 강의', f: 'talk'    },
+        { t: '자문회의 · 심사위원회', f: 'meet' },
+        { t: '토론 · 좌담',        f: 'meet'    },
+        { t: '모니터링 · 실태점검', f: 'alone'  },
+        { t: '현장 컨설팅',        f: 'alone'   },
+        { t: '서면 심사 · 서면 자문', f: 'alone' },
+        { t: '자료 감수 · 검토',   f: 'alone'   },
+        { t: '연구용역 · 수탁과제', f: 'alone'  },
+        { t: '교재 · 자료 개발',   f: 'alone'   },
+        { t: '문항 출제',          f: 'alone'   },
+        { t: '책 집필',            f: 'alone'   },
+        { t: '학회 · 협회 임원',   f: 'post'    },
+        { t: '재단 · 단체 이사',   f: 'post'    },
+        { t: '위원 위촉',          f: 'post'    },
+        { t: '외국 기관 대리',     f: 'foreign' }
+    ];
+
+    const FORM_LABEL = {
+        talk:    '여러 사람 앞에서 말하거나 글을 싣는 형태',
+        meet:    '여러 사람이 모인 회의에서 의견을 주고받는 형태',
+        alone:   '혼자 또는 서면으로만 하는 형태',
+        both:    '혼자 하는 활동 + 회의가 함께 있는 형태',
+        post:    '직위에 취임하는 형태',
+        foreign: '외국 기관을 대리하는 형태'
+    };
+
+    /* 형태 → 상세 판정기의 활동 유형 */
+    const FORM_TO_NL = { talk: 'meeting', meet: 'meeting', both: 'field', alone: 'field', post: 'post', foreign: 'foreign' };
+
+    function renderChips() {
+        const box = document.getElementById('qkChips'); if (!box) return;
+        box.innerHTML = CHIPS.map((c, i) =>
+            `<button type="button" class="qk-chip" id="qkc${i}" onclick="qkChip(${i})">${c.t}</button>`).join('');
+    }
+
+    function qkChip(i) {
+        qkSet('form', CHIPS[i].f);
+        const hint = document.getElementById('qkChipHint');
+        if (hint) hint.remove();
+        const box = document.getElementById('qkForm');
+        const p = document.createElement('p');
+        p.id = 'qkChipHint';
+        p.className = 'text-xs text-indigo-700 font-bold mt-2';
+        p.innerHTML = `‘${CHIPS[i].t}’이라서 <strong>${FORM_LABEL[CHIPS[i].f]}</strong>로 골라 뒀습니다. 실제와 다르면 위에서 바꾸세요.`;
+        box.after(p);
+    }
+
+    function qkAgencyInput() {
+        QK.agency = (document.getElementById('qkAgency').value || '').trim();
+        const hint = document.getElementById('qkAgencyHint');
+        if (!QK.agency) { QK.cls = null; hint.classList.add('hidden'); qkRender(); return; }
+        QK.cls = classifyAgency(QK.agency);
+        hint.classList.remove('hidden');
+        hint.className = `mt-2 text-sm rounded-lg px-3 py-2.5 border ${QK.cls.exempt ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-sky-50 border-sky-200 text-sky-900'}`;
+        hint.innerHTML = `<strong>${QK.cls.label}</strong>${QK.cls.exempt ? ' — 외부강의등이라면 신고 제외' : ' — 외부강의등이라면 신고 대상'}`;
+        qkRender();
+    }
+
+    function qkSet(field, val) {
+        QK[field] = val;
+        const box = document.getElementById(field === 'form' ? 'qkForm' : 'qkPay');
+        if (box) [...box.querySelectorAll('button')].forEach(b =>
+            b.setAttribute('aria-pressed', String(b.getAttribute('onclick').includes(`'${val}'`))));
+        qkRender();
+    }
+
+    function qkToggleCont() { QK.cont = !QK.cont; qkRender(); }
+
+    function qkRender() {
+        const box = document.getElementById('qkResult');
+        if (!(QK.agency && QK.form && QK.pay)) { box.classList.add('hidden'); return; }
+        box.classList.remove('hidden');
+        box.innerHTML = qkVerdictHtml();
+    }
+
+    function qkVerdictHtml() {
+        const hasPay = (QK.pay === 'yes');
+        const cls = QK.cls || { exempt: false, label: '기관 미확인' };
+        const cards = [];
+
+        /* 회의·강의 부분 — 외부강의등 */
+        if (QK.form === 'talk' || QK.form === 'meet' || QK.form === 'both') {
+            if (!hasPay) {
+                cards.push(qkCard('none', '신고 의무는 없습니다',
+                    '외부강의등에 해당하지만 사례금이 없습니다.',
+                    ['대가 유무와 무관하게 <strong>사전 결재를 받고</strong> 출강하세요',
+                     '요청 공문과 복무 처리는 그대로 필요합니다']));
+            } else if (cls.exempt) {
+                cards.push(qkCard('none', '신고 제외 — 사전 결재만 받으세요',
+                    `${cls.label}이 요청한 외부강의등은 신고 대상에서 제외됩니다.`,
+                    ['사례금 <strong>상한액은 그대로</strong> 적용됩니다',
+                     '월 3회·6시간 계산에는 넣지 않습니다',
+                     '그 기관이 <strong>공직유관단체로 지정</strong>돼 있으면 신고 대상입니다 (서울대·인천대·국립대병원 등)']));
+            } else {
+                cards.push(qkCard('report', '외부강의등록으로 신고하세요',
+                    '나이스 → 외부활동 → 외부강의등록',
+                    ['마친 날부터 <strong>10일 이내</strong>',
+                     '요청 공문을 첨부하고 공문번호를 적으세요',
+                     '근무시간 중이면 출장 또는 연가']));
+            }
+        }
+
+        /* 혼자·서면·직위·대리 부분 — 직무관련외부활동 */
+        if (QK.form === 'alone' || QK.form === 'both' || QK.form === 'post' || QK.form === 'foreign') {
+            const nl = FORM_TO_NL[QK.form === 'both' ? 'alone' : QK.form];
+            const payFree = (QK.form === 'post' || QK.form === 'foreign');
+            if (!hasPay && !payFree) {
+                cards.push(qkCard('none', '신청도 필요 없습니다',
+                    '외부강의등이 아니고 대가도 없습니다.',
+                    ['요청 공문과 복무 처리는 그대로 챙기세요']));
+            } else {
+                const at = ACT_TYPE[actTypeOf(nl)];
+                cards.push(qkCard('apply', '직무관련외부활동신청을 하세요',
+                    '나이스 → 외부활동 → 직무관련외부활동신청',
+                    [`외부활동유형은 <strong>${at.no}번째</strong> (${at.ho})`,
+                     '활동을 시작하기 전에 신청하고 <strong>결재 완료까지</strong> 받으세요',
+                     payFree && !hasPay ? '이 유형은 <strong>대가가 없어도</strong> 대상입니다' : '요청 공문을 첨부하고 담당자·연락처를 적습니다']));
+            }
+        }
+
+        const multi = (QK.form === 'both');
+        return `${multi ? '<div class="bg-amber-100 border border-amber-300 rounded-xl px-4 py-3 mb-3 text-sm text-amber-900"><strong>처리할 것이 둘입니다.</strong> 회의에서 발언한 부분과 혼자 수행한 부분을 나눠 각각 처리하세요. 사례금도 회의 부분에 해당하는 금액만 외부강의등으로 잡습니다.</div>' : ''}
+            <div class="space-y-3">${cards.join('')}</div>
+            ${qkFooter()}`;
+    }
+
+    function qkCard(key, title, lead, steps) {
+        const t = TRACK[key] || TRACK.none;
+        return `<div class="border-2 border-${t.tone}-500 rounded-2xl overflow-hidden fade-in">
+            <div class="bg-${t.tone}-600 text-white px-5 py-4">
+                <p class="text-2xl font-bold flex items-center gap-2"><i class="fa-solid ${t.icon}" aria-hidden="true"></i> ${title}</p>
+            </div>
+            <div class="bg-white p-5">
+                <p class="font-semibold text-slate-900 mb-3">${lead}</p>
+                <ul class="space-y-1.5 text-sm text-slate-700">
+                    ${steps.map(x => `<li class="flex gap-2"><i class="fa-solid fa-angle-right text-${t.tone}-500 mt-1 text-xs" aria-hidden="true"></i><span>${x}</span></li>`).join('')}
+                </ul>
+            </div>
+        </div>`;
+    }
+
+    function qkFooter() {
+        const showRed = (QK.form === 'alone' || QK.form === 'both' || QK.form === 'post' || QK.form === 'foreign');
+        return `<div class="mt-3 space-y-3">
+            <div class="bg-white border border-slate-300 rounded-xl p-4">
+                <label class="flex gap-3 items-start cursor-pointer">
+                    <input type="checkbox" ${QK.cont ? 'checked' : ''} onchange="qkToggleCont()" class="w-5 h-5 mt-0.5 accent-emerald-600">
+                    <span class="text-sm"><strong class="block text-slate-900">이 일이 1개월 넘게 계속됩니까?</strong><span class="text-slate-500">정기 출강, 임기가 있는 위촉, 매년 반복되는 사업</span></span>
+                </label>
+                ${QK.cont ? `<div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mt-3 text-sm text-emerald-900">
+                    <strong>겸직허가도 받으셔야 합니다.</strong> 국가공무원법 제64조와 복무규정 제25조·제26조는 계속성 있는 업무를 겸하는 것 자체를 따로 규율합니다. 위 신고·신청이 겸직허가를 갈음하지 않습니다.</div>` : ''}
+            </div>
+            ${showRed ? `<div class="bg-rose-50 border border-rose-300 rounded-xl p-4 text-sm">
+                <p class="font-bold text-rose-900 mb-1.5">신청하기 전에 하나만 확인하세요</p>
+                <p class="text-rose-800 mb-2.5">요청한 곳이 내가 <strong>관리·감독</strong>하거나 우리 기관과 <strong>위탁·계약 관계</strong>인 곳입니까? 그렇다면 허가로 풀리지 않는 유형일 수 있습니다.</p>
+                <button onclick="route('NONLECT')" class="w-full bg-rose-600 text-white font-bold py-2.5 rounded-lg hover:bg-rose-700 transition text-sm">해당할 수 있습니다 — 확인하기</button>
+            </div>` : ''}
+            <div class="flex flex-col md:flex-row gap-2.5">
+                <button onclick="qkDetail()" class="flex-1 bg-slate-800 text-white font-bold py-2.5 rounded-lg hover:bg-slate-900 transition">금액·기간까지 자세히 확인하기</button>
+                <button onclick="qkReset()" class="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-2.5 rounded-lg hover:border-slate-500 transition">다시 고르기</button>
+            </div>
+            <p class="text-xs text-slate-500">${BASIS_LINE}</p>
+        </div>`;
+    }
+
+    function qkDetail() {
+        const set = (id, v) => { const e = document.getElementById(id); if (e && v) e.value = v; };
+        if (QK.form === 'talk' || QK.form === 'meet') {
+            startLecture();
+            set('agencyName', QK.agency);
+            return;
+        }
+        startNonLecture();
+        set('nlType', FORM_TO_NL[QK.form === 'both' ? 'alone' : QK.form]);
+        set('nlAgency', QK.agency);
+        set('nlPayKind', QK.pay === 'yes' ? 'allowance' : QK.pay === 'actual' ? 'actual' : 'none');
+    }
+
+    function qkReset() {
+        QK.agency = ''; QK.cls = null; QK.form = null; QK.pay = null; QK.cont = false;
+        const a = document.getElementById('qkAgency'); if (a) a.value = '';
+        const h = document.getElementById('qkAgencyHint'); if (h) h.classList.add('hidden');
+        const ch = document.getElementById('qkChipHint'); if (ch) ch.remove();
+        ['qkForm', 'qkPay'].forEach(id => {
+            const b = document.getElementById(id);
+            if (b) [...b.querySelectorAll('button')].forEach(x => x.setAttribute('aria-pressed', 'false'));
+        });
+        const r = document.getElementById('qkResult');
+        if (r) { r.classList.add('hidden'); r.innerHTML = ''; }
+    }
 
     /* 1층 — 결론 카드. 이것만 읽어도 할 일이 끝나야 합니다. */
     function verdictCard(v, d) {
@@ -2561,6 +2822,14 @@
     const SEPARATE_ENTITY = ['산학협력단', '산학협력', '재단법인', '사단법인', '학교법인',
                              '부설', '부속', '평생교육원', '연구소'];
     const UNIV_HINT = ['대학교', '대학원', '대학'];
+    /* 이름에 '국립'이 드러나지 않는 국·공립대학교 — 현장 사례를 덮는 수준으로만 둡니다 */
+    const NATIONAL_UNIV = [
+        '광주교육대', '서울교육대', '경인교육대', '춘천교육대', '청주교육대',
+        '공주교육대', '전주교육대', '진주교육대', '대구교육대', '부산교육대',
+        '한국교원대', '전남대', '전북대', '경북대', '부산대', '충남대', '충북대',
+        '강원대', '제주대', '경상국립대', '창원대', '순천대', '목포대', '안동대',
+        '한밭대', '금오공과대', '한국해양대', '한국체육대', '한국방송통신대', '한국교통대'
+    ];
 
     function isSeparateEntity(agency) { return SEPARATE_ENTITY.some(k => agency.includes(k)); }
     function looksLikeUniv(agency)    { return UNIV_HINT.some(k => agency.includes(k)); }
@@ -2591,11 +2860,23 @@
         }
         /* ② 대학은 초·중등학교 분기로 보내지 않습니다. */
         if (looksLikeUniv(agency)) {
+            /* 국·공립대학교는 교육부 또는 지방자치단체 소속이어서 원칙적으로 신고 제외입니다.
+               다만 공직유관단체로 지정된 국·공립대(서울대·인천대 등)는 제외 대상이 아닙니다.
+               공직유관단체 판별은 이 분기보다 앞에서 이미 처리됩니다. */
+            if (NATIONAL_UNIV.some(k => agency.includes(k)) || /(국립|도립|시립|공립)/.test(agency)) {
+                return {
+                    exempt: true,
+                    label: '국·공립대학교 (신고 제외 대상)',
+                    warn: '국립대학교는 교육부 소속, 공립대학교는 지방자치단체 소속에 해당하여 <strong>신고 제외</strong>입니다. ' +
+                          '다만 <strong>공직유관단체로 지정된 국·공립대</strong>(서울대·인천대 등)와 <strong>산학협력단</strong>은 제외 대상이 아닙니다. ' +
+                          '또한 출강이 1개월을 넘겨 계속되면 신고가 아니라 <strong>겸직허가</strong> 대상입니다.'
+                };
+            }
             return {
                 exempt: false,
-                label: '대학 추정',
-                warn: '국·공립대학이라 하더라도 국가기관·지방자치단체와 동일하게 보아 신고를 면제하지는 않는 것이 일반적입니다. ' +
-                      '또한 대학 출강이 1개월을 넘겨 계속되면 신고가 아니라 <strong>겸직허가</strong> 대상입니다.'
+                label: '사립대학교 추정',
+                warn: '국립·도립·시립이 이름에 없어 사립대학으로 보았습니다. <strong>신고 대상</strong>입니다. ' +
+                      '국·공립대라면 정식 명칭으로 다시 입력해 보세요. 출강이 1개월을 넘겨 계속되면 <strong>겸직허가</strong> 대상입니다.'
             };
         }
         if (agency.includes('동아리') || agency.includes('연구회')) {
@@ -2647,7 +2928,7 @@
         let html = `<div class="bg-slate-100 p-4 rounded-lg space-y-1 text-sm border border-slate-200 mb-4">
             <div>• 입력한 기관: <strong>${agency}</strong></div>
             <div>• 판별 범주: <span class="${result.exempt ? 'text-green-700' : 'text-indigo-700'} font-bold">${result.label}</span></div>
-            <div class="text-xs text-slate-500 pt-1.5 mt-1.5 border-t border-slate-200">기관 판별은 입력하신 <strong>기관명 문자열을 기준으로 한 추정</strong>입니다. 실제 기관 성격과 다를 수 있으니 신고 여부를 확정하기 전에 복무 담당 부서에 확인하세요.</div>
+            <div class="text-xs text-slate-500 pt-1.5 mt-1.5 border-t border-slate-200">기관 판별은 입력하신 <strong>기관명 문자열을 기준으로 한 추정</strong>입니다. 정식 명칭과 다르게 입력하셨다면 결과가 달라질 수 있습니다.</div>
         </div>`;
 
         if (result.warn) {
@@ -2953,10 +3234,10 @@
     }
 
     /* =========================================================
-       v8.0 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v9.1 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v8.0 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v9.1 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
@@ -3076,8 +3357,8 @@
                     <li>처리에 시간이 걸릴 수 있으니 위촉 수락 전에 미리 문의하세요.</li>
                 </ul>`;
         } else if (cont === false) {
-            html += `<p class="font-bold text-amber-700">기간만 보면 대상이 아니나, 확인이 필요합니다.</p>
-                <p>활동 기간이 1개월 이내여서 계속성이 없어 보입니다. 다만 <strong>위촉장을 받는 형태</strong>이거나 매년 반복되는 사업이면 계속성이 인정될 수 있으니 복무 담당 부서에 확인하세요.</p>`;
+            html += `<p class="font-bold text-emerald-700">겸직허가 대상이 아닙니다.</p>
+                <p>활동 기간이 1개월 이내여서 계속성이 없습니다. 다만 <strong>위촉장을 받거나 매년 반복되는 사업</strong>이라면 결론이 뒤집힙니다. 그때만 복무 담당 부서에 “위촉 기간이 있는 활동인데 계속성이 인정되는지”를 물어보세요.</p>`;
         } else {
             html += `<p class="font-bold text-amber-700">활동 기간을 확인해야 판단할 수 있습니다.</p>
                 <p>대가를 받는 활동이 <strong>1개월을 초과해 계속</strong>되면 신고가 아니라 겸직허가 대상입니다. 위촉 기간을 입력하시면 자동으로 판정합니다.</p>`;
@@ -3119,7 +3400,7 @@
             html += `<div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-sm text-amber-900 space-y-2">
                 <p class="font-bold text-base"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 직무 관련성 — 허가 심사에서 다뤄질 부분</p>
                 <ul class="list-disc pl-5 space-y-1">
-                    <li>내가 담당하는 업무와 <strong>같은 분야</strong>의 활동입니다. 이는 이해충돌방지법 <strong>제10조제2호</strong> 영역으로, <strong>소속기관장의 허가로 해결됩니다.</strong></li>
+                    <li>내가 담당하는 업무와 <strong>같은 분야</strong>의 활동입니다. 이해충돌방지법 <strong>제10조제2호</strong> 영역이라 <strong>신청과 결재로 해결됩니다.</strong> 따로 하실 일은 없습니다.</li>
                     <li>다만 겸직허가 4대 요건 중 <strong>공정한 직무수행 저해</strong> 항목에서 심사가 엄격해질 수 있습니다.</li>
                     <li>허가 신청서에 직무관련성 유무를 <strong>스스로 진술</strong>해 두면 나중에 방어선이 됩니다.</li>
                 </ul>
@@ -3210,6 +3491,7 @@
                 ${why('공문 · 신고 · 복무 3종 세트', reportTriad(nlTriad, true))}
                 ${why('실제로 지적되는 것들 · 행동강령책임관', violationBlock())}
             </div>
+            <p class="text-xs text-slate-500 mt-4 pt-3 border-t border-slate-200">${BASIS_LINE}</p>
             <div class="mt-5 flex flex-col md:flex-row gap-3 no-print">
                 <button onclick="backToNonLecture()" class="flex-1 bg-slate-700 text-white font-bold py-2.5 rounded-lg hover:bg-slate-800 transition">입력 수정</button>
                 <button onclick="startRequirements()" class="flex-1 bg-indigo-600 text-white font-bold py-2.5 rounded-lg hover:bg-indigo-700 transition">4대 요건 자가체크</button>
@@ -3512,6 +3794,7 @@
     /* =========================================================
        초기화
        ========================================================= */
+    renderChips();
     renderFAQ();
     renderTypeOptions();
     (function initRenewTypes() {
