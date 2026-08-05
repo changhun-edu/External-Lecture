@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v9.9</title>
+    <title>교직원 외부강의·겸직 도우미 v10.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v9.9 — 가독성 고정 확대 (노안 대응)
+           v10.0 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -116,7 +116,7 @@
                 <span>교직원 외부강의·겸직 도우미</span>
             </button>
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v9.9</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v10.0</p>
     </header>
 
     <button type="button" id="toTop" onclick="scrollTop_()" aria-label="맨 위로"
@@ -1228,7 +1228,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v9.9 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v10.0 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1531,7 +1531,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v9.9 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v10.0 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1576,7 +1576,7 @@
         scrollTo_(document.getElementById('router-wizard'));
     }
 
-    /* v9.9 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
+    /* v10.0 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
     const RQ_VIEW = {
         'rq-A': 'router-org', 'rq-A1': 'router-org-help', 'rq-R': 'router-red',
         'rq-0': 'router-what', 'rq-1': 'router-repeat', 'rq-1a': 'router-pay',
@@ -1591,7 +1591,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v9.9 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v10.0 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1675,7 +1675,7 @@
     }
 
     /* =========================================================
-       v9.9 — 요청 주체가 소속기관인 경우
+       v10.0 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1701,7 +1701,7 @@
     }
 
     /* =========================================================
-       v9.9 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v10.0 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -1804,7 +1804,7 @@
         });
     }
 
-    /* v9.9 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
+    /* v10.0 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
     let LAST_RESULT = null;
     let LAST_LECTURE = null;
 
@@ -2378,7 +2378,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v9.9 — 신분별 사례금 상한액 점검 */
+    /* v10.0 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2424,7 +2424,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v9.9 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v10.0 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2434,7 +2434,7 @@
     };
 
     /* =========================================================
-       v9.9 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v10.0 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2505,9 +2505,9 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v9.9 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v10.0 — 감사 지적 처분기준과 주요 위반사례 */
     /* =========================================================
-       v9.9 — 결론은 이 함수 하나에서만 계산합니다.
+       v10.0 — 결론은 이 함수 하나에서만 계산합니다.
        제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
        헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
        ========================================================= */
@@ -2520,16 +2520,68 @@
     };
 
     /* =========================================================
-       v9.9 — 30초 판정
+       v10.0 — 30초 판정
        사용자가 '강의인지 아닌지'를 고르지 않게 합니다.
        활동 이름만 고르면 사이트가 분류합니다.
        ========================================================= */
     /* =========================================================
-       v9.9 — 기관명 후보 제시
+       v10.0 — 기관명 후보 제시
        모기관은 신고 제외인데 산하 별도 법인은 신고 대상인 경우가 많습니다.
        (광주교육대학교 vs 광주교육대학교 산학협력단)
        사용자가 그 구분을 알아서 하도록 두지 않고, 후보로 나란히 보여 줍니다.
        ========================================================= */
+    /* =========================================================
+       v10.0 — 기관 등록부
+       교직원이 자주 만나는 기관은 이름만으로 확정 판별합니다.
+       "추정"으로 얼버무리지 않는 것이 목적입니다.
+       ========================================================= */
+    const ORG_REGISTRY = [
+        /* 공직유관단체 · 공공기관 → 신고 대상 */
+        { n: '한국교육학술정보원', a: ['KERIS', '케리스', '교육학술정보원'], exempt: false },
+        { n: '한국과학창의재단', a: ['창의재단', '과학창의재단'], exempt: false },
+        { n: '한국교육개발원', a: ['KEDI', '교육개발원'], exempt: false },
+        { n: '한국교육과정평가원', a: ['KICE', '교육과정평가원'], exempt: false },
+        { n: '한국직업능력연구원', a: ['직업능력연구원'], exempt: false },
+        { n: '국가평생교육진흥원', a: ['평생교육진흥원'], exempt: false },
+        { n: '한국청소년활동진흥원', a: ['청소년활동진흥원'], exempt: false },
+        { n: '한국청소년상담복지개발원', a: ['청소년상담복지개발원'], exempt: false },
+        { n: '한국장학재단', a: ['장학재단'], exempt: false },
+        { n: '한국사학진흥재단', a: ['사학진흥재단'], exempt: false },
+        { n: '한국교직원공제회', a: ['교직원공제회'], exempt: false },
+        { n: '학교안전공제중앙회', a: ['학교안전공제회'], exempt: false },
+        { n: '한국문화예술교육진흥원', a: ['문화예술교육진흥원', '아르떼'], exempt: false },
+        { n: '한국지능정보사회진흥원', a: ['NIA', '지능정보사회진흥원'], exempt: false },
+        { n: '한국인터넷진흥원', a: ['KISA', '인터넷진흥원'], exempt: false },
+        { n: '한국콘텐츠진흥원', a: ['콘텐츠진흥원'], exempt: false },
+        { n: '한국연구재단', a: ['연구재단', 'NRF'], exempt: false },
+        { n: '한국과학기술원', a: ['KAIST', '카이스트'], exempt: false },
+        { n: '한국교육방송공사', a: ['EBS', '이비에스'], exempt: false },
+        { n: '대한체육회', a: [], exempt: false },
+        { n: '국립광주과학관', a: [], exempt: false },
+        { n: '서울대학교', a: ['서울대'], exempt: false },
+        { n: '인천대학교', a: ['인천대'], exempt: false },
+        /* 국가기관 소속기관 → 신고 제외 */
+        { n: '국립특수교육원', a: ['특수교육원'], exempt: true },
+        { n: '중앙교육연수원', a: [], exempt: true },
+        { n: '국립국제교육원', a: ['국제교육원'], exempt: true },
+        { n: '국사편찬위원회', a: [], exempt: true },
+        { n: '국립국어원', a: [], exempt: true },
+        { n: '국립중앙도서관', a: [], exempt: true },
+        { n: '교육부', a: [], exempt: true }
+    ];
+
+    function normOrg(x) { return (x || '').replace(/[\s()·.\-]/g, '').toLowerCase(); }
+
+    function lookupRegistry(agency) {
+        const q = normOrg(agency);
+        if (!q) return null;
+        for (const o of ORG_REGISTRY) {
+            const keys = [o.n, ...(o.a || [])].map(normOrg);
+            if (keys.some(k => k && (q === k || q.includes(k)))) return o;
+        }
+        return null;
+    }
+
     const ORG_DERIV = ['산학협력단', '부설초등학교', '부설중학교', '평생교육원', '병원'];
 
     function univFullName(stem) {
@@ -2546,6 +2598,7 @@
             ORG_DERIV.forEach(d => out.push(full + ' ' + d));
         });
         KNOWN_PUBLIC_ORGS.forEach(n => { if (n.length > 3) out.push(n); });
+        ORG_REGISTRY.forEach(o => out.push(o.n));
         ['교육부', '전남광주통합특별시교육청', '광주광역시교육청', '전라남도교육청'].forEach(n => {
             out.push(n);
             out.push(n + ' 산하 재단');
@@ -2775,7 +2828,7 @@
         </div>`;
     }
 
-    /* v9.9 ① — 결과에서 한 항목만 고쳐 다시 보기 */
+    /* v10.0 ① — 결과에서 한 항목만 고쳐 다시 보기 */
     function qkEdit(which) {
         if (which === 'agency') {
             QK.agency = ''; QK.cls = null; QK.raw = null;
@@ -2814,7 +2867,7 @@
         </div>`;
     }
 
-    /* v9.9 ② — 다음에 무엇을 확인해야 하는지, 이유와 함께 */
+    /* v10.0 ② — 다음에 무엇을 확인해야 하는지, 이유와 함께 */
     function qkNextSteps() {
         const items = [];
         const isReport = (QK.form === 'talk' || QK.form === 'meet' || QK.form === 'both');
@@ -3061,7 +3114,7 @@
     function looksLikeUniv(agency)    { return UNIV_HINT.some(k => agency.includes(k)); }
 
     /* '학교' 문자열만 보고 초·중등학교 분기로 보내면 대학·산학협력단이 잘못 걸립니다. */
-    /* v9.9 — 인식 범위를 넓힙니다.
+    /* v10.0 — 인식 범위를 넓힙니다.
        ① 유치원은 '학교'라는 글자가 없어 그동안 빠졌습니다.
        ② '부설초등학교'는 SEPARATE_ENTITY의 '부설'에 먼저 걸려 별도 법인으로 갔습니다.
           국립대 부설학교는 국립학교(교육부 소속)이므로 학교로 봐야 합니다.
@@ -3079,7 +3132,17 @@
     }
 
     function classifyAgency(agency) {
-        /* v9.9 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
+        /* v10.0 — 등록부에 있으면 이름만으로 확정합니다. */
+        const reg = lookupRegistry(agency);
+        if (reg && !/(산학협력단|부설|부속|평생교육원)/.test(agency)) {
+            return reg.exempt
+                ? { exempt: true,  resolved: true, label: reg.n + ' — 국가기관·소속기관',
+                    warn: '국가나 지방자치단체(소속기관 포함)가 요청한 외부강의등은 <strong>신고 제외</strong>입니다. 다만 사전 결재와 사례금 상한액은 그대로 적용됩니다.' }
+                : { exempt: false, resolved: true, label: reg.n + ' — 공직유관단체',
+                    warn: '공직유관단체는 국가·지방자치단체에 해당하지 않아 <strong>신고 대상</strong>입니다. 이를 제외 대상으로 잘못 보아 신고를 빠뜨리는 것이 감사에서 자주 지적되는 사례입니다.' };
+        }
+
+        /* v10.0 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
            국립대 부설초·중·고와 병설유치원은 국립학교로서 신고 제외 대상입니다. */
         if (ATTACHED_SCHOOL_PAT.test(agency) || /병설\s*유치원/.test(agency)) {
             if (looksLikeUniv(agency) || /(국립|공립|시립|도립|병설)/.test(agency)) {
@@ -3098,7 +3161,7 @@
                 const isIUCF = (key === '산학협력단' || key === '산학협력');
                 return {
                     exempt: false,
-                    label: `별도 법인 추정 [${key}]`,
+                    label: `별도 법인 [${key}]`,
                     warn: '산학협력단·부설기관·재단 등은 모기관(국립대학, 국가기관 등)과 <strong>별개의 법인</strong>입니다. ' +
                           '국가·지방자치단체의 위탁사업이라도 <strong>계약과 대가 지급의 주체가 이 법인</strong>이면 이 법인을 기준으로 판단하므로, 신고 제외 대상으로 보기 어렵습니다.',
                     legal: isIUCF ? IUCF_LEGAL : ''
@@ -3107,7 +3170,7 @@
         }
         for (const org of KNOWN_PUBLIC_ORGS) {
             if (agency.includes(org)) {
-                return { exempt: false, label: `공직유관단체 추정 [${org}]`, warn: '' };
+                return { exempt: false, label: `공직유관단체 [${org}]`, warn: '' };
             }
         }
         /* ② 대학은 초·중등학교 분기로 보내지 않습니다. */
@@ -3124,12 +3187,8 @@
                           '또한 출강이 1개월을 넘겨 계속되면 신고가 아니라 <strong>겸직허가</strong> 대상입니다.'
                 };
             }
-            return {
-                exempt: false,
-                label: '사립대학교 추정',
-                warn: '국립·도립·시립이 이름에 없어 사립대학으로 보았습니다. <strong>신고 대상</strong>입니다. ' +
-                      '국·공립대라면 정식 명칭으로 다시 입력해 보세요. 출강이 1개월을 넘겨 계속되면 <strong>겸직허가</strong> 대상입니다.'
-            };
+            /* 이름만으로는 국·공립인지 사립인지 갈립니다. 추정하지 않고 되묻습니다. */
+            return { exempt: false, ask: 'school', label: '대학교', warn: '' };
         }
         if (agency.includes('동아리') || agency.includes('연구회')) {
             return {
@@ -3141,16 +3200,16 @@
         /* 국가기관·지자체 접미사를 먼저 확인해야 \'주민센터\'가 일반 \'센터\'로 잘못 잡히지 않습니다. */
         const isMinistry = agency.length <= 6 && MINISTRY_SUFFIX.some(s => agency.endsWith(s));
         if (GOV_SUFFIX.some(s => agency.endsWith(s)) || isMinistry) {
-            return { exempt: true, label: '국가기관·지방자치단체 추정', warn: '' };
+            return { exempt: true, label: '국가기관·지방자치단체', warn: '' };
         }
         if (PUBLIC_ORG_SUFFIX.some(s => agency.endsWith(s))) {
             return {
                 exempt: false,
-                label: '공직유관단체 추정',
+                label: '공직유관단체 또는 민간기관 — 신고 대상',
                 warn: '공사·공단·재단·센터 등으로 끝나는 기관은 통상 공직유관단체로 보아 신고 대상입니다. <strong>지방자치단체의 출자·출연기관도 지방자치단체에 해당하지 않아 신고 대상</strong>입니다.'
             };
         }
-        /* v9.9 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
+        /* v10.0 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
         if (looksLikeSchoolAgency(agency)) {
             if (/(국립|공립|시립|도립)/.test(agency)) {
                 return {
@@ -3220,7 +3279,7 @@
         let html = `<div class="bg-slate-100 p-4 rounded-lg space-y-1 text-sm border border-slate-200 mb-4">
             <div>• 입력한 기관: <strong>${agency}</strong></div>
             <div>• 판별 범주: <span class="${result.exempt ? 'text-green-700' : 'text-indigo-700'} font-bold">${result.label}</span></div>
-            <div class="text-xs text-slate-500 pt-1.5 mt-1.5 border-t border-slate-200">기관 판별은 입력하신 <strong>기관명 문자열을 기준으로 한 추정</strong>입니다. 정식 명칭과 다르게 입력하셨다면 결과가 달라질 수 있습니다.</div>
+            <div class="text-xs text-slate-500 pt-1.5 mt-1.5 border-t border-slate-200">${result.resolved ? '등록된 기관명과 <strong>정확히 일치</strong>하여 판별했습니다.' : '입력하신 <strong>기관명을 기준으로</strong> 판별했습니다. 정식 명칭과 다르게 적으셨다면 결과가 달라질 수 있습니다.'}</div>
         </div>`;
 
         if (result.warn) {
@@ -3256,7 +3315,7 @@
                      <p class="text-sm text-slate-600">복무 담당 부서의 판단을 받기 전에는 <strong>신고 대상으로 보고 준비</strong>하시는 편이 안전합니다. 복무는 <strong>출장(여비 부지급) 또는 연가·조퇴</strong>로 결재받으세요.</p>`;
         } else if (result.exempt) {
             triadMode = 'exempt';
-            header = `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 신고 제외 대상으로 추정됩니다</h3>`;
+            header = `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 신고 제외 대상입니다</h3>`;
             html += `<p class="text-green-800 font-semibold">국가기관·지방자치단체가 요청한 외부강의등은 신고 대상에서 제외됩니다.</p>
                      <p class="text-sm text-slate-600">복무는 <strong>출장(여비 부지급) 또는 연가·조퇴</strong>로 결재받으세요. 복무 처리 없이 활동하는 것은 부적정 사례입니다.</p>`;
         } else {
@@ -3528,10 +3587,10 @@
     }
 
     /* =========================================================
-       v9.9 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v10.0 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v9.9 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v10.0 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
@@ -4051,7 +4110,7 @@
 
     let currentView = 'home';
 
-    /* v9.9 — 지금 어디에 있는지, 어디로 나갈 수 있는지를 늘 보이게 합니다 */
+    /* v10.0 — 지금 어디에 있는지, 어디로 나갈 수 있는지를 늘 보이게 합니다 */
     const VIEW_TITLE = {
         'lecture-precheck':       '외부강의 신고 판정 — 사전 확인',
         'lecture':                '외부강의 신고 판정',
@@ -4080,7 +4139,7 @@
         'router-media':           '활동 성격 확인'
     };
 
-    /* v9.9 ③ — 결과가 길 때 맨 위로 */
+    /* v10.0 ③ — 결과가 길 때 맨 위로 */
     function scrollTop_() {
         try { window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }); }
         catch (e) { window.scrollTo(0, 0); }
