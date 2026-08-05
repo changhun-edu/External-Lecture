@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v9.6</title>
+    <title>교직원 외부강의·겸직 도우미 v9.7</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v9.6 — 가독성 고정 확대 (노안 대응)
+           v9.7 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -50,9 +50,6 @@
                   border-radius:0.75rem; padding:0.7rem 0.9rem; font-weight:700; color:#0f172a; line-height:1.4; }
         .qk-opt span { display:block; font-size:15px; font-weight:400; color:#475569; margin-top:0.15rem; }
         .qk-opt[aria-pressed="true"] { background:#eef2ff; border-color:#4f46e5; box-shadow:inset 0 0 0 1px #4f46e5; }
-        .qk-chip { border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:0.45rem 0.95rem;
-                   font-weight:700; color:#334155; min-height:0; }
-        .qk-chip[aria-pressed="true"] { background:#4f46e5; border-color:#4f46e5; color:#fff; }
 
         /* 옅은 회색은 노안에서 특히 읽기 어렵습니다 — 대비를 올립니다 */
         .text-slate-500 { color: #475569 !important; }
@@ -112,7 +109,7 @@
         <h1 class="text-2xl md:text-3xl font-bold text-slate-900 flex items-center justify-center gap-3 px-4">
             <i class="fa-solid fa-user-shield text-indigo-600" aria-hidden="true"></i> 교직원 외부강의·겸직 도우미
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v9.6</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v9.7</p>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6">
@@ -161,18 +158,17 @@
                         <p class="text-sm font-bold text-slate-800 mb-2">2. 어떻게 진행하나요?</p>
                         <p class="text-xs text-slate-500 mb-2">활동 이름이 아니라 <strong>진행 형태</strong>가 기준입니다. 같은 모니터링이라도 회의가 끼면 결론이 달라집니다.</p>
                         <div class="grid grid-cols-1 gap-2" id="qkForm">
-                            <button type="button" onclick="qkSet('form','talk')"   class="qk-opt">여러 사람 앞에서 말하거나, 신문·잡지에 글을 싣습니다<span>강의 · 특강 · 연수 · 강연 · 발표 · 기고 · 온라인 동영상 강의</span></button>
-                            <button type="button" onclick="qkSet('form','meet')"   class="qk-opt">여러 사람이 모인 회의에서 의견을 주고받습니다<span>자문회의 · 심사위원회 · 평가회의 · 강평회 (이름이 심사·자문이어도 회의면 여기)</span></button>
-                            <button type="button" onclick="qkSet('form','alone')"  class="qk-opt">혼자 다니며 보고 적거나, 서면으로만 합니다<span>모니터링 · 실태점검 · 서면심사 · 서면자문 · 감수 · 연구용역 · 문항출제 · 집필</span></button>
-                            <button type="button" onclick="qkSet('form','both')"   class="qk-opt">둘 다입니다<span>예: 3일 점검하고 마지막 날 강평 회의에서 발표</span></button>
-                            <button type="button" onclick="qkSet('form','post')"   class="qk-opt">어떤 직위를 맡습니다<span>학회·협회 임원 · 재단 이사 · 위원 위촉</span></button>
+                            <button type="button" onclick="qkSet('form','talk')"   class="qk-opt">여러 사람 앞에서 말하거나, 신문·잡지에 글을 싣습니다<span>강의 · 특강 · 연수 · 직무연수 · 강연 · 발표 · 원고 기고 · 칼럼 · 온라인 동영상 강의</span></button>
+                            <button type="button" onclick="qkSet('form','meet')"   class="qk-opt">여러 사람이 모인 회의에서 의견을 주고받습니다<span>자문회의 · 심사위원회 · 평가회의 · 심의회 · 강평회 · 토론 · 좌담 (이름이 심사·자문이어도 회의면 여기)</span></button>
+                            <button type="button" onclick="qkSet('form','alone')"  class="qk-opt">혼자 다니며 보고 적거나, 서면으로만 합니다<span>모니터링 · 실태점검 · 현장점검 · 컨설팅 · 서면심사 · 서면자문 · 감수 · 검토 · 연구용역 · 수탁과제 · 교재 개발 · 자료 개발 · 문항 출제 · 책 집필</span></button>
+                            <button type="button" onclick="qkSet('form','both')"   class="qk-opt">둘 다입니다<span>예: 3일 점검하고 마지막 날 강평 회의에서 발표 / 컨설팅 후 교직원 대상 설명회</span></button>
+                            <button type="button" onclick="qkSet('form','post')"   class="qk-opt">어떤 직위를 맡습니다<span>학회·협회 임원 · 재단 이사 · 각종 위원 위촉 · 자문위원 · 심의위원</span></button>
                             <button type="button" onclick="qkSet('form','foreign')" class="qk-opt">외국 기관을 대리합니다<span>외국의 기관 · 법인 · 단체</span></button>
                         </div>
-                        <div class="mt-2.5">
-                            <p class="text-xs text-slate-500 mb-1.5">활동 이름으로 고르면 위 형태를 대신 골라 드립니다. <strong>맞는지 확인하세요.</strong></p>
-                            <div class="flex flex-wrap gap-2" id="qkChips"></div>
-                            <p id="qkChipEcho" class="hidden text-sm text-indigo-800 font-bold mt-2.5 bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-2.5"></p>
-                        </div>
+                        <p class="text-xs text-slate-500 mt-2.5 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5">
+                            하시려는 일이 위 예시에 없나요? <strong>이름이 아니라 진행 방식</strong>으로 고르시면 됩니다.
+                            여럿이 모여 말하면 두 번째, 혼자 하거나 서면이면 세 번째입니다.
+                        </p>
                     </div>
 
                     <div>
@@ -1208,7 +1204,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v9.6 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v9.7 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1511,7 +1507,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v9.6 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v9.7 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1556,7 +1552,7 @@
         scrollTo_(document.getElementById('router-wizard'));
     }
 
-    /* v9.6 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
+    /* v9.7 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
     const RQ_VIEW = {
         'rq-A': 'router-org', 'rq-A1': 'router-org-help', 'rq-R': 'router-red',
         'rq-0': 'router-what', 'rq-1': 'router-repeat', 'rq-1a': 'router-pay',
@@ -1571,7 +1567,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v9.6 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v9.7 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1655,7 +1651,7 @@
     }
 
     /* =========================================================
-       v9.6 — 요청 주체가 소속기관인 경우
+       v9.7 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1681,7 +1677,7 @@
     }
 
     /* =========================================================
-       v9.6 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v9.7 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -1784,7 +1780,7 @@
         });
     }
 
-    /* v9.6 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
+    /* v9.7 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
     let LAST_RESULT = null;
     let LAST_LECTURE = null;
 
@@ -2358,7 +2354,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v9.6 — 신분별 사례금 상한액 점검 */
+    /* v9.7 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2404,7 +2400,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v9.6 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v9.7 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2414,7 +2410,7 @@
     };
 
     /* =========================================================
-       v9.6 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v9.7 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2485,9 +2481,9 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v9.6 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v9.7 — 감사 지적 처분기준과 주요 위반사례 */
     /* =========================================================
-       v9.6 — 결론은 이 함수 하나에서만 계산합니다.
+       v9.7 — 결론은 이 함수 하나에서만 계산합니다.
        제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
        헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
        ========================================================= */
@@ -2500,12 +2496,12 @@
     };
 
     /* =========================================================
-       v9.6 — 30초 판정
+       v9.7 — 30초 판정
        사용자가 '강의인지 아닌지'를 고르지 않게 합니다.
        활동 이름만 고르면 사이트가 분류합니다.
        ========================================================= */
     /* =========================================================
-       v9.6 — 기관명 후보 제시
+       v9.7 — 기관명 후보 제시
        모기관은 신고 제외인데 산하 별도 법인은 신고 대상인 경우가 많습니다.
        (광주교육대학교 vs 광주교육대학교 산학협력단)
        사용자가 그 구분을 알아서 하도록 두지 않고, 후보로 나란히 보여 줍니다.
@@ -2551,74 +2547,8 @@
 
     const QK = { agency: '', cls: null, form: null, pay: null, cont: false, picked: false, subEntity: null, raw: null, orgAnswer: null, orgAnswer2: null };
 
-    /* 활동 이름 → 진행 형태 기본값. 칩은 제안만 하고 결정하지 않습니다. */
-    const CHIPS = [
-        { t: '강의 · 특강',        f: 'talk'    },
-        { t: '연수 · 직무연수',    f: 'talk'    },
-        { t: '강연 · 발표',        f: 'talk'    },
-        { t: '원고 기고 · 칼럼',   f: 'talk'    },
-        { t: '온라인 동영상 강의', f: 'talk'    },
-        { t: '자문회의 · 심사위원회', f: 'meet' },
-        { t: '토론 · 좌담',        f: 'meet'    },
-        { t: '모니터링 · 실태점검', f: 'alone'  },
-        { t: '현장 컨설팅',        f: 'alone'   },
-        { t: '서면 심사 · 서면 자문', f: 'alone' },
-        { t: '자료 감수 · 검토',   f: 'alone'   },
-        { t: '연구용역 · 수탁과제', f: 'alone'  },
-        { t: '교재 · 자료 개발',   f: 'alone'   },
-        { t: '문항 출제',          f: 'alone'   },
-        { t: '책 집필',            f: 'alone'   },
-        { t: '학회 · 협회 임원',   f: 'post'    },
-        { t: '재단 · 단체 이사',   f: 'post'    },
-        { t: '위원 위촉',          f: 'post'    },
-        { t: '외국 기관 대리',     f: 'foreign' }
-    ];
-
-    const FORM_LABEL = {
-        talk:    '여러 사람 앞에서 말하거나 글을 싣는 형태',
-        meet:    '여러 사람이 모인 회의에서 의견을 주고받는 형태',
-        alone:   '혼자 또는 서면으로만 하는 형태',
-        both:    '혼자 하는 활동 + 회의가 함께 있는 형태',
-        post:    '직위에 취임하는 형태',
-        foreign: '외국 기관을 대리하는 형태'
-    };
-
     /* 형태 → 상세 판정기의 활동 유형 */
     const FORM_TO_NL = { talk: 'meeting', meet: 'meeting', both: 'field', alone: 'field', post: 'post', foreign: 'foreign' };
-
-    function renderChips() {
-        const box = document.getElementById('qkChips'); if (!box) return;
-        box.innerHTML = CHIPS.map((c, i) =>
-            `<button type="button" class="qk-chip" id="qkc${i}" onclick="qkChip(${i})">${c.t}</button>`).join('');
-    }
-
-    /* 칩은 화면 아래, 형태 버튼은 위에 있습니다.
-       칩을 눌러도 위쪽만 바뀌면 눌렸는지 알 수 없으므로 양쪽 모두 표시합니다. */
-    function markChips(i) {
-        CHIPS.forEach((c, k) => {
-            const b = document.getElementById('qkc' + k);
-            if (b) b.setAttribute('aria-pressed', String(k === i));
-        });
-    }
-
-    function qkChip(i) {
-        qkSet('form', CHIPS[i].f, true);
-        markChips(i);
-        const hint = document.getElementById('qkChipHint');
-        if (hint) hint.remove();
-        const box = document.getElementById('qkForm');
-        const p = document.createElement('p');
-        p.id = 'qkChipHint';
-        p.className = 'text-sm text-indigo-800 font-bold mt-2 bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-2.5';
-        p.innerHTML = `<i class="fa-solid fa-arrow-up mr-1" aria-hidden="true"></i> ‘${CHIPS[i].t}’이라서 위에서 <strong>${FORM_LABEL[CHIPS[i].f]}</strong>를 골라 뒀습니다. 실제와 다르면 위 항목을 직접 누르세요.`;
-        box.after(p);
-
-        const echo = document.getElementById('qkChipEcho');
-        if (echo) {
-            echo.classList.remove('hidden');
-            echo.innerHTML = `<i class="fa-solid fa-circle-check mr-1" aria-hidden="true"></i> 선택됨 — <strong>${FORM_LABEL[CHIPS[i].f]}</strong>`;
-        }
-    }
 
     function qkAgencyInput(picked) {
         QK.agency = (document.getElementById('qkAgency').value || '').trim();
@@ -2708,17 +2638,11 @@
 
     function qkSubEntity(v) { QK.subEntity = v; qkRender(); }
 
-    function qkSet(field, val, fromChip) {
+    function qkSet(field, val) {
         QK[field] = val;
         const box = document.getElementById(field === 'form' ? 'qkForm' : 'qkPay');
         if (box) [...box.querySelectorAll('button')].forEach(b =>
             b.setAttribute('aria-pressed', String(b.getAttribute('onclick').includes(`'${val}'`))));
-        /* 형태를 직접 골랐다면 칩 선택과 안내는 더 이상 맞지 않으므로 지웁니다 */
-        if (field === 'form' && !fromChip) {
-            markChips(-1);
-            const h = document.getElementById('qkChipHint'); if (h) h.remove();
-            const e = document.getElementById('qkChipEcho'); if (e) e.classList.add('hidden');
-        }
         qkRender();
     }
 
@@ -2869,9 +2793,6 @@
         const sg = document.getElementById('qkAgencySuggest'); if (sg) sg.classList.add('hidden');
         const a = document.getElementById('qkAgency'); if (a) a.value = '';
         const h = document.getElementById('qkAgencyHint'); if (h) h.classList.add('hidden');
-        const ch = document.getElementById('qkChipHint'); if (ch) ch.remove();
-        const ce = document.getElementById('qkChipEcho'); if (ce) ce.classList.add('hidden');
-        markChips(-1);
         ['qkForm', 'qkPay'].forEach(id => {
             const b = document.getElementById(id);
             if (b) [...b.querySelectorAll('button')].forEach(x => x.setAttribute('aria-pressed', 'false'));
@@ -3045,7 +2966,7 @@
     function looksLikeUniv(agency)    { return UNIV_HINT.some(k => agency.includes(k)); }
 
     /* '학교' 문자열만 보고 초·중등학교 분기로 보내면 대학·산학협력단이 잘못 걸립니다. */
-    /* v9.6 — 인식 범위를 넓힙니다.
+    /* v9.7 — 인식 범위를 넓힙니다.
        ① 유치원은 '학교'라는 글자가 없어 그동안 빠졌습니다.
        ② '부설초등학교'는 SEPARATE_ENTITY의 '부설'에 먼저 걸려 별도 법인으로 갔습니다.
           국립대 부설학교는 국립학교(교육부 소속)이므로 학교로 봐야 합니다.
@@ -3063,7 +2984,7 @@
     }
 
     function classifyAgency(agency) {
-        /* v9.6 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
+        /* v9.7 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
            국립대 부설초·중·고와 병설유치원은 국립학교로서 신고 제외 대상입니다. */
         if (ATTACHED_SCHOOL_PAT.test(agency) || /병설\s*유치원/.test(agency)) {
             if (looksLikeUniv(agency) || /(국립|공립|시립|도립|병설)/.test(agency)) {
@@ -3134,7 +3055,7 @@
                 warn: '공사·공단·재단·센터 등으로 끝나는 기관은 통상 공직유관단체로 보아 신고 대상입니다. <strong>지방자치단체의 출자·출연기관도 지방자치단체에 해당하지 않아 신고 대상</strong>입니다.'
             };
         }
-        /* v9.6 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
+        /* v9.7 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
         if (looksLikeSchoolAgency(agency)) {
             if (/(국립|공립|시립|도립)/.test(agency)) {
                 return {
@@ -3512,10 +3433,10 @@
     }
 
     /* =========================================================
-       v9.6 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v9.7 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v9.6 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v9.7 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
@@ -3790,6 +3711,7 @@
        검색
        ========================================================= */
     const TOOLS = [
+        { name: '30초 판정 — 어떤 활동이든 진행 형태로 판정', kw: '강의 특강 연수 직무연수 강연 발표 원고 기고 칼럼 온라인 동영상 자문회의 심사위원회 평가회의 심의회 강평회 토론 좌담 모니터링 실태점검 현장점검 컨설팅 서면심사 서면자문 감수 검토 연구용역 수탁과제 교재개발 자료개발 문항출제 출제 집필 저술 학회임원 협회임원 재단이사 위원위촉 자문위원 심의위원 외국기관 대리 진행형태 회의형 서면 혼자 30초', run: 'goHome()' },
         { name: '나이스 외부활동 — 외부강의등록 vs 직무관련외부활동신청', kw: '나이스 NEIS 기본메뉴 외부활동 외부강의등록 직무관련외부활동신청 메뉴 경로 어디 등록 신청 차이 구분 외부활동유형 제2호 제4호 제5호 직위취임 임원 이사 위원위촉 학회 협회 외국기관대리 라디오 선택 초과사례금 별지 제4호 행동강령책임관 교감 원감 승인 상급기관 40만원 100만원 60만원 상한액 세전 이동시간 인세 저작권료 여비중복 교육공무원법 41조 연수중 출강 출자출연기관 휴직', run: 'goHome()' },
         { name: '요청 주체부터 확인 (신고·허가·금지 갈림길)', kw: '요청주체 누가 요청 소속기관 우리학교 교육청 자체사업 국가 지자체 교육부 타시도 산학협력단 외부기관 직무수행 신고불요 허가불요 직무관련자 이해충돌 제10조 1호 2호 과태료 레드게이트 금지 모니터링 점검 위탁 수탁 정산 감독', run: "route('UNKNOWN')" },
         { name: '외부강의 신고 판정',        kw: '강의 특강 강연 사례금 강사료 원고료 기고 신고 나이스 출장 토론 자문 심사 평가 의결 세미나 공청회 연수 직무연수 발표 공문 요청공문 요청서 복무 여비부지급 연가 조퇴 3종 무보수 무료 재능기부 사례금없음 사례금미수령 0원 산학협력단 산학협력법 회계처리규칙 법인격', run: 'startLecture()' },
@@ -4090,7 +4012,6 @@
        초기화
        ========================================================= */
     ORG_SUGGEST = buildOrgSuggest();
-    renderChips();
     renderFAQ();
     renderTypeOptions();
     (function initRenewTypes() {
