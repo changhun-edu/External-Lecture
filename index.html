@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v10.0</title>
+    <title>교직원 외부강의·겸직 도우미 v10.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v10.0 — 가독성 고정 확대 (노안 대응)
+           v10.2 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -116,7 +116,7 @@
                 <span>교직원 외부강의·겸직 도우미</span>
             </button>
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v10.0</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v10.2</p>
     </header>
 
     <button type="button" id="toTop" onclick="scrollTop_()" aria-label="맨 위로"
@@ -169,7 +169,7 @@
                 </div>
                 <div class="p-5 space-y-5">
 
-                    <div id="qkQ1">
+                    <div>
                         <p class="text-sm font-bold text-slate-800 mb-2">1. 어디서 요청했나요?</p>
                         <input type="text" id="qkAgency" oninput="qkAgencyInput()" placeholder="요청 공문을 보낸 기관 이름" autocomplete="off"
                                class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
@@ -178,7 +178,7 @@
                         <p class="text-xs text-slate-500 mt-1.5"><strong>요청 공문의 발신 기관</strong>을 적으세요. 후보가 뜨면 골라 주시면 가장 정확합니다.</p>
                     </div>
 
-                    <div id="qkQ2">
+                    <div>
                         <p class="text-sm font-bold text-slate-800 mb-2">2. 어떻게 진행하나요?</p>
                         <p class="text-xs text-slate-500 mb-2">활동 이름이 아니라 <strong>진행 형태</strong>가 기준입니다. 같은 모니터링이라도 회의가 끼면 결론이 달라집니다.</p>
                         <div class="grid grid-cols-1 gap-2" id="qkForm">
@@ -195,7 +195,7 @@
                         </p>
                     </div>
 
-                    <div id="qkQ3">
+                    <div>
                         <p class="text-sm font-bold text-slate-800 mb-2">3. 대가를 받나요?</p>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-2" id="qkPay">
                             <button type="button" onclick="qkSet('pay','yes')"    class="qk-opt">받습니다<span>강사료 · 수당 · 심사료 등</span></button>
@@ -908,23 +908,42 @@
         </div>
 
         <!-- ===================== 외부강의 사전 점검 ===================== -->
-        <div id="precheck-section" class="hidden bg-white border-2 border-indigo-200 rounded-xl p-5 md:p-6 shadow-md mb-6 fade-in">
-            <h2 class="text-xl font-bold text-indigo-900 mb-3 flex items-center gap-2"><i class="fa-solid fa-list-check text-indigo-600" aria-hidden="true"></i> 잠깐! 아래 항목 중 하나라도 해당하시나요?</h2>
-            <p class="text-sm text-slate-600 mb-4">행동강령 지침에 따라 아래 활동은 외부강의등 신고 대상에서 제외됩니다.</p>
+        <!-- ===================== 외부강의 입력 ===================== -->
+        <div id="section-lecture" class="hidden bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-xs mb-6 fade-in">
+            <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-pen-nib text-indigo-600" aria-hidden="true"></i> 외부강의 세부내역 입력</h2>
+                <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl" aria-hidden="true"></i></button>
+            </div>
 
-            <fieldset class="space-y-2 text-sm md:text-base font-semibold text-slate-700 bg-slate-50 p-4 rounded-lg border border-slate-200 mb-5">
+            <div id="fromQuick" class="hidden bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-3 mb-4 text-sm">
+                <div class="flex items-start justify-between gap-3">
+                    <div>
+                        <p class="text-xs font-bold text-indigo-700 mb-1">30초 판정에서 넘어온 내용</p>
+                        <p id="fromQuickText" class="text-slate-900 font-semibold"></p>
+                        <p class="text-xs text-slate-600 mt-1">아래에 남은 항목만 채우시면 됩니다.</p>
+                    </div>
+                    <button onclick="goHome()" class="no-print shrink-0 text-xs font-bold text-indigo-700 underline whitespace-nowrap" style="min-height:0">다시 고르기</button>
+                </div>
+            </div>
+
+            <details class="mb-5 border border-slate-300 rounded-xl overflow-hidden bg-white">
+                <summary class="cursor-pointer select-none px-4 py-3 font-bold text-sm text-slate-800 bg-slate-50 hover:bg-slate-100">
+                    참고 — 외부강의등 신고 대상에서 제외되는 활동
+                </summary>
+                <div class="border-t border-slate-200 p-4 space-y-4">
+                    <p class="text-sm text-slate-600">행동강령 지침상 아래 활동은 외부강의등에 해당하지 않습니다. 30초 판정의 <strong>진행 형태</strong>로 이미 갈리지만, 근거가 필요할 때 펼쳐 보세요.</p>
+<div class="space-y-2 text-sm md:text-base font-semibold text-slate-700 bg-slate-50 p-4 rounded-lg border border-slate-200 mb-5">
                 <legend class="sr-only">외부강의 신고 제외 항목</legend>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 📚 <strong>책 집필</strong> (기고 송부가 아닌 출판 목적)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 📝 <strong>시험출제위원</strong> (단순 문제 출제 참여)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> ⚖️ <strong>법정 위원회 참석</strong> (법령에 따른 위원 활동)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 🎓 <strong>사전 겸직허가를 받은 대학 출강</strong></label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 📄 <strong>단순 서면 심사·자문</strong> (다수 대상 및 회의 형태가 아님)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 🎙️ <strong>1:1 면담·인터뷰</strong> (사회자와의 개별 방송 인터뷰, 기자와 1:1 문답)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition"><input type="radio" name="precheck" value="yes" class="w-4 h-4 accent-indigo-600"> 🎻 <strong>연주·공연·전시</strong> (연주회·전시회에서의 문화예술 행위)</label>
-                <label class="flex items-center gap-3 p-2 hover:bg-white rounded cursor-pointer transition text-rose-600"><input type="radio" name="precheck" value="no" class="w-4 h-4 accent-rose-600"> ❌ <strong>해당하는 사항이 없습니다.</strong> (일반 강의·기고 등)</label>
-            </fieldset>
-
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900 mb-5 space-y-1.5">
+                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 📚 <strong>책 집필</strong> (기고 송부가 아닌 출판 목적)</div>
+                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 📝 <strong>시험출제위원</strong> (단순 문제 출제 참여)</div>
+                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> ⚖️ <strong>법정 위원회 참석</strong> (법령에 따른 위원 활동)</div>
+                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 🎓 <strong>사전 겸직허가를 받은 대학 출강</strong></div>
+                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 📄 <strong>단순 서면 심사·자문</strong> (다수 대상 및 회의 형태가 아님)</div>
+                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 🎙️ <strong>1:1 면담·인터뷰</strong> (사회자와의 개별 방송 인터뷰, 기자와 1:1 문답)</div>
+                <div class="flex items-center gap-3 p-2 hover:bg-white rounded  transition"><i class="fa-regular fa-circle-dot text-slate-400 shrink-0" aria-hidden="true"></i> 🎻 <strong>연주·공연·전시</strong> (연주회·전시회에서의 문화예술 행위)</div>
+                
+            </div>
+<div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900 mb-5 space-y-1.5">
                 <p class="font-bold"><i class="fa-solid fa-circle-exclamation mr-1" aria-hidden="true"></i> 제외 항목이라도 뒤집히는 경우</p>
                 <ul class="list-disc pl-5 space-y-1 text-xs">
                     <li><strong>서면심사·서면자문</strong>이라도 2인 이상의 평가자나 자문단이 <strong>회의 형태</strong>로 진행하며 의견·지식을 전달·교환했다면 신고 대상입니다.</li>
@@ -939,13 +958,10 @@
                 <button onclick="goHome()" class="px-5 bg-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-300 transition">취소</button>
             </div>
         </div>
+                </div>
+            </details>
 
-        <!-- ===================== 외부강의 입력 ===================== -->
-        <div id="section-lecture" class="hidden bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-xs mb-6 fade-in">
-            <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-pen-nib text-indigo-600" aria-hidden="true"></i> 외부강의 세부내역 입력</h2>
-                <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl" aria-hidden="true"></i></button>
-            </div>
+
 
             <div class="bg-slate-800 text-white rounded-xl p-4 mb-5 text-sm">
                 <p class="font-bold mb-1.5"><i class="fa-solid fa-list-check mr-1" aria-hidden="true"></i> 시작하기 전에 — 외부강의는 세 가지가 모두 갖춰져야 합니다</p>
@@ -1069,6 +1085,18 @@
                 </h2>
                 <button onclick="goHome()" aria-label="닫기" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-2xl" aria-hidden="true"></i></button>
             </div>
+
+            <div id="nlFromQuick" class="hidden bg-sky-50 border border-sky-200 rounded-xl px-4 py-3 mb-4 text-sm">
+                <div class="flex items-start justify-between gap-3">
+                    <div>
+                        <p class="text-xs font-bold text-sky-700 mb-1">30초 판정에서 넘어온 내용</p>
+                        <p id="nlFromQuickText" class="text-slate-900 font-semibold"></p>
+                        <p class="text-xs text-slate-600 mt-1">아래에 남은 항목만 채우시면 됩니다.</p>
+                    </div>
+                    <button onclick="goHome()" class="no-print shrink-0 text-xs font-bold text-sky-700 underline whitespace-nowrap" style="min-height:0">다시 고르기</button>
+                </div>
+            </div>
+
             <p class="text-sm text-slate-500 mb-5">
                 모니터링·실태조사·현장점검·컨설팅·연구용역처럼 <strong class="text-slate-700">강의·강연·기고가 아닌 활동</strong>은
                 외부강의등 신고가 아니라 <strong class="text-slate-700">영리업무 금지 및 겸직허가</strong> 쪽에서 판단해야 하는 경우가 많습니다.
@@ -1228,7 +1256,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v10.0 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v10.2 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1238,7 +1266,7 @@
        공통 유틸
        ========================================================= */
     const PANELS = [
-        'menu-section', 'precheck-section', 'section-lecture', 'result-card',
+        'menu-section', 'section-lecture', 'result-card',
         'qaSection', 'section-quiz', 'section-screener', 'section-requirements', 'section-renew',
         'section-nonlecture'
     ];
@@ -1531,7 +1559,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v10.0 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v10.2 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1576,7 +1604,7 @@
         scrollTo_(document.getElementById('router-wizard'));
     }
 
-    /* v10.0 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
+    /* v10.2 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
     const RQ_VIEW = {
         'rq-A': 'router-org', 'rq-A1': 'router-org-help', 'rq-R': 'router-red',
         'rq-0': 'router-what', 'rq-1': 'router-repeat', 'rq-1a': 'router-pay',
@@ -1591,7 +1619,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v10.0 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v10.2 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1675,7 +1703,7 @@
     }
 
     /* =========================================================
-       v10.0 — 요청 주체가 소속기관인 경우
+       v10.2 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1701,7 +1729,7 @@
     }
 
     /* =========================================================
-       v10.0 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v10.2 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -1804,7 +1832,7 @@
         });
     }
 
-    /* v10.0 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
+    /* v10.2 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
     let LAST_RESULT = null;
     let LAST_LECTURE = null;
 
@@ -2314,22 +2342,11 @@
     function openNonLectureForm() {
         hideAll();
         show('section-nonlecture');
+        if (!QK.form) hide('nlFromQuick');
         toggleNlPayer();
         scrollTo_(document.getElementById('section-nonlecture'));
     }
 
-    function openLecturePrecheck() {
-        hideAll();
-        show('precheck-section');
-        document.getElementsByName('precheck').forEach(r => { r.checked = false; });
-        scrollTo_(document.getElementById('precheck-section'));
-    }
-
-    function processPrecheck() {
-        const checked = document.querySelector('input[name="precheck"]:checked');
-        if (!checked) { alert('해당하는 항목을 하나 선택해 주세요.'); return; }
-        navigate(checked.value === 'yes' ? 'result-precheck-exempt' : 'lecture');
-    }
 
     function openPrecheckExempt() {
         hideAll();
@@ -2345,6 +2362,7 @@
     function openLectureForm() {
         hideAll();
         show('section-lecture');
+        if (currentView === 'lecture' && !QK.form) hide('fromQuick');
         checkThreshold();
         scrollTo_(document.getElementById('section-lecture'));
     }
@@ -2378,7 +2396,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v10.0 — 신분별 사례금 상한액 점검 */
+    /* v10.2 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2424,7 +2442,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v10.0 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v10.2 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2434,7 +2452,7 @@
     };
 
     /* =========================================================
-       v10.0 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v10.2 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2505,9 +2523,9 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v10.0 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v10.2 — 감사 지적 처분기준과 주요 위반사례 */
     /* =========================================================
-       v10.0 — 결론은 이 함수 하나에서만 계산합니다.
+       v10.2 — 결론은 이 함수 하나에서만 계산합니다.
        제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
        헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
        ========================================================= */
@@ -2520,18 +2538,18 @@
     };
 
     /* =========================================================
-       v10.0 — 30초 판정
+       v10.2 — 30초 판정
        사용자가 '강의인지 아닌지'를 고르지 않게 합니다.
        활동 이름만 고르면 사이트가 분류합니다.
        ========================================================= */
     /* =========================================================
-       v10.0 — 기관명 후보 제시
+       v10.2 — 기관명 후보 제시
        모기관은 신고 제외인데 산하 별도 법인은 신고 대상인 경우가 많습니다.
        (광주교육대학교 vs 광주교육대학교 산학협력단)
        사용자가 그 구분을 알아서 하도록 두지 않고, 후보로 나란히 보여 줍니다.
        ========================================================= */
     /* =========================================================
-       v10.0 — 기관 등록부
+       v10.2 — 기관 등록부
        교직원이 자주 만나는 기관은 이름만으로 확정 판별합니다.
        "추정"으로 얼버무리지 않는 것이 목적입니다.
        ========================================================= */
@@ -2808,7 +2826,7 @@
         }
 
         const multi = (QK.form === 'both');
-        return `${qkEditBar()}${multi ? '<div class="bg-amber-100 border border-amber-300 rounded-xl px-4 py-3 mb-3 text-sm text-amber-900"><strong>처리할 것이 둘입니다.</strong> 회의에서 발언한 부분과 혼자 수행한 부분을 나눠 각각 처리하세요. 사례금도 회의 부분에 해당하는 금액만 외부강의등으로 잡습니다.</div>' : ''}
+        return `${multi ? '<div class="bg-amber-100 border border-amber-300 rounded-xl px-4 py-3 mb-3 text-sm text-amber-900"><strong>처리할 것이 둘입니다.</strong> 회의에서 발언한 부분과 혼자 수행한 부분을 나눠 각각 처리하세요. 사례금도 회의 부분에 해당하는 금액만 외부강의등으로 잡습니다.</div>' : ''}
             <div class="space-y-3">${cards.join('')}</div>
             ${qkFooter()}`;
     }
@@ -2828,46 +2846,7 @@
         </div>`;
     }
 
-    /* v10.0 ① — 결과에서 한 항목만 고쳐 다시 보기 */
-    function qkEdit(which) {
-        if (which === 'agency') {
-            QK.agency = ''; QK.cls = null; QK.raw = null;
-            QK.picked = false; QK.subEntity = null; QK.orgAnswer = null; QK.orgAnswer2 = null;
-            const a = document.getElementById('qkAgency'); if (a) { a.value = ''; }
-            const h = document.getElementById('qkAgencyHint'); if (h) h.classList.add('hidden');
-            const g = document.getElementById('qkAgencySuggest'); if (g) g.classList.add('hidden');
-        } else if (which === 'form') {
-            QK.form = null;
-            const b = document.getElementById('qkForm');
-            if (b) [...b.querySelectorAll('button')].forEach(x => x.setAttribute('aria-pressed', 'false'));
-        } else if (which === 'pay') {
-            QK.pay = null;
-            const b = document.getElementById('qkPay');
-            if (b) [...b.querySelectorAll('button')].forEach(x => x.setAttribute('aria-pressed', 'false'));
-        }
-        qkRender();
-        const target = document.getElementById(which === 'agency' ? 'qkQ1' : which === 'form' ? 'qkQ2' : 'qkQ3');
-        if (target) {
-            scrollTo_(target);
-            if (which === 'agency') { const a = document.getElementById('qkAgency'); if (a) a.focus({ preventScroll: true }); }
-        }
-    }
-
-    function qkEditBar() {
-        const chip = (k, label, val) => `<button onclick="qkEdit('${k}')" class="text-left px-3 py-2 bg-white border border-slate-300 rounded-lg hover:border-indigo-500 transition" style="min-height:0">
-            <span class="block text-xs text-slate-500">${label} · 바꾸기</span>
-            <span class="block text-sm font-bold text-slate-900 truncate">${val}</span></button>`;
-        const formTxt = { talk: '여러 사람 앞에서 말함', meet: '회의에서 의견 교환', alone: '혼자 또는 서면',
-                          both: '둘 다', post: '직위 취임', foreign: '외국 기관 대리' }[QK.form] || '-';
-        const payTxt = { yes: '대가 있음', actual: '실비만', no: '무보수' }[QK.pay] || '-';
-        return `<div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-3">
-            ${chip('agency', '요청 기관', QK.agency)}
-            ${chip('form', '진행 형태', formTxt)}
-            ${chip('pay', '대가', payTxt)}
-        </div>`;
-    }
-
-    /* v10.0 ② — 다음에 무엇을 확인해야 하는지, 이유와 함께 */
+    /* 다음에 무엇을 확인해야 하는지, 이유와 함께 */
     function qkNextSteps() {
         const items = [];
         const isReport = (QK.form === 'talk' || QK.form === 'meet' || QK.form === 'both');
@@ -2875,7 +2854,7 @@
 
         if (isReport && QK.pay === 'yes') {
             items.push({ why: '사례금이 상한액을 넘는지, 월 3회·6시간을 넘는지는 금액과 실적을 넣어야 알 수 있습니다.',
-                         label: '외부강의 신고 판정으로 계속', fn: 'qkDetail()' });
+                         label: '사례금 · 월 횟수 확인하기', fn: 'qkDetail()' });
         }
         if (isApply) {
             items.push({ why: '요청한 곳이 내가 관리·감독하는 기관이면 허가로 풀리지 않습니다. 신청 전에 걸러야 합니다.',
@@ -2898,6 +2877,13 @@
             </div></div>`;
     }
 
+    /* 남은 일이 무엇인지 버튼 이름에 넣습니다 */
+    function qkDetailLabel() {
+        const isLecture = (QK.form === 'talk' || QK.form === 'meet');
+        if (isLecture) return (QK.cls && QK.cls.exempt) ? '사례금 상한액 확인하기' : '사례금 · 월 횟수 확인하기';
+        return '기간 · 직무관련성 확인하기';
+    }
+
     function qkFooter() {
         const showRed = (QK.form === 'alone' || QK.form === 'both' || QK.form === 'post' || QK.form === 'foreign');
         return `<div class="mt-3 space-y-3">
@@ -2916,24 +2902,50 @@
             </div>` : ''}
             ${qkNextSteps()}
             <div class="flex flex-col md:flex-row gap-2.5">
-                <button onclick="qkDetail()" class="flex-1 bg-slate-800 text-white font-bold py-2.5 rounded-lg hover:bg-slate-900 transition">금액·기간까지 자세히 확인하기</button>
+                <button onclick="qkDetail()" class="flex-1 bg-slate-800 text-white font-bold py-2.5 rounded-lg hover:bg-slate-900 transition">${qkDetailLabel()}</button>
                 <button onclick="qkReset()" class="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-2.5 rounded-lg hover:border-slate-500 transition">처음부터 다시</button>
             </div>
             <p class="text-xs text-slate-500">${BASIS_LINE}</p>
         </div>`;
     }
 
+    /* v10.2 — 30초 판정에서 이미 답한 것은 다시 묻지 않고 넘겨줍니다 */
+    function qkSummaryLine() {
+        const f = { talk: '여러 사람 앞에서 말함', meet: '회의에서 의견 교환', alone: '혼자 또는 서면',
+                    both: '혼자 + 회의', post: '직위 취임', foreign: '외국 기관 대리' }[QK.form] || '';
+        const p = { yes: '대가 있음', actual: '실비만', no: '무보수' }[QK.pay] || '';
+        const label = (QK.cls && QK.cls.label) ? QK.cls.label : '';
+        return `${QK.agency}${label ? ` <span class="font-normal text-slate-600">(${label})</span>` : ''} · ${f} · ${p}`;
+    }
+
+    function showFromQuick(id) {
+        const box = document.getElementById(id);
+        const txt = document.getElementById(id + 'Text');
+        if (!box || !txt) return;
+        txt.innerHTML = qkSummaryLine();
+        box.classList.remove('hidden');
+    }
+
     function qkDetail() {
         const set = (id, v) => { const e = document.getElementById(id); if (e && v) e.value = v; };
         if (QK.form === 'talk' || QK.form === 'meet') {
-            startLecture();
+            startLecture();                       /* 사전확인은 건너뜁니다 — 형태를 이미 물었습니다 */
             set('agencyName', QK.agency);
+            /* 국·공립인지 사립인지 이미 답했다면 그대로 반영합니다 */
+            if (typeof toggleSchoolRadios === 'function') toggleSchoolRadios();
+            if (QK.orgAnswer === 'pub' || QK.orgAnswer2 === 'pub' || (QK.cls && QK.cls.exempt)) {
+                const r = document.querySelector('input[name="agencyType"][value="public"]'); if (r) r.checked = true;
+            } else if (QK.orgAnswer === 'priv' || QK.orgAnswer2 === 'priv') {
+                const r = document.querySelector('input[name="agencyType"][value="private"]'); if (r) r.checked = true;
+            }
+            showFromQuick('fromQuick');
             return;
         }
         startNonLecture();
         set('nlType', FORM_TO_NL[QK.form === 'both' ? 'alone' : QK.form]);
         set('nlAgency', QK.agency);
         set('nlPayKind', QK.pay === 'yes' ? 'allowance' : QK.pay === 'actual' ? 'actual' : 'none');
+        showFromQuick('nlFromQuick');
     }
 
     function qkReset() {
@@ -3114,7 +3126,7 @@
     function looksLikeUniv(agency)    { return UNIV_HINT.some(k => agency.includes(k)); }
 
     /* '학교' 문자열만 보고 초·중등학교 분기로 보내면 대학·산학협력단이 잘못 걸립니다. */
-    /* v10.0 — 인식 범위를 넓힙니다.
+    /* v10.2 — 인식 범위를 넓힙니다.
        ① 유치원은 '학교'라는 글자가 없어 그동안 빠졌습니다.
        ② '부설초등학교'는 SEPARATE_ENTITY의 '부설'에 먼저 걸려 별도 법인으로 갔습니다.
           국립대 부설학교는 국립학교(교육부 소속)이므로 학교로 봐야 합니다.
@@ -3132,7 +3144,7 @@
     }
 
     function classifyAgency(agency) {
-        /* v10.0 — 등록부에 있으면 이름만으로 확정합니다. */
+        /* v10.2 — 등록부에 있으면 이름만으로 확정합니다. */
         const reg = lookupRegistry(agency);
         if (reg && !/(산학협력단|부설|부속|평생교육원)/.test(agency)) {
             return reg.exempt
@@ -3142,7 +3154,7 @@
                     warn: '공직유관단체는 국가·지방자치단체에 해당하지 않아 <strong>신고 대상</strong>입니다. 이를 제외 대상으로 잘못 보아 신고를 빠뜨리는 것이 감사에서 자주 지적되는 사례입니다.' };
         }
 
-        /* v10.0 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
+        /* v10.2 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
            국립대 부설초·중·고와 병설유치원은 국립학교로서 신고 제외 대상입니다. */
         if (ATTACHED_SCHOOL_PAT.test(agency) || /병설\s*유치원/.test(agency)) {
             if (looksLikeUniv(agency) || /(국립|공립|시립|도립|병설)/.test(agency)) {
@@ -3209,7 +3221,7 @@
                 warn: '공사·공단·재단·센터 등으로 끝나는 기관은 통상 공직유관단체로 보아 신고 대상입니다. <strong>지방자치단체의 출자·출연기관도 지방자치단체에 해당하지 않아 신고 대상</strong>입니다.'
             };
         }
-        /* v10.0 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
+        /* v10.2 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
         if (looksLikeSchoolAgency(agency)) {
             if (/(국립|공립|시립|도립)/.test(agency)) {
                 return {
@@ -3587,10 +3599,10 @@
     }
 
     /* =========================================================
-       v10.0 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v10.2 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v10.0 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v10.2 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
@@ -4075,7 +4087,7 @@
 
     const VIEW_RENDER = {
         'home':                   openHome,
-        'lecture-precheck':       openLecturePrecheck,
+        'lecture-precheck':       openLectureForm,
         'lecture':                openLectureForm,
         'result-precheck-exempt': openPrecheckExempt,
         'result-noreport':        openNoReport,
@@ -4110,7 +4122,7 @@
 
     let currentView = 'home';
 
-    /* v10.0 — 지금 어디에 있는지, 어디로 나갈 수 있는지를 늘 보이게 합니다 */
+    /* v10.2 — 지금 어디에 있는지, 어디로 나갈 수 있는지를 늘 보이게 합니다 */
     const VIEW_TITLE = {
         'lecture-precheck':       '외부강의 신고 판정 — 사전 확인',
         'lecture':                '외부강의 신고 판정',
@@ -4139,7 +4151,7 @@
         'router-media':           '활동 성격 확인'
     };
 
-    /* v10.0 ③ — 결과가 길 때 맨 위로 */
+    /* v10.2 ③ — 결과가 길 때 맨 위로 */
     function scrollTop_() {
         try { window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }); }
         catch (e) { window.scrollTo(0, 0); }
@@ -4195,7 +4207,7 @@
         if (currentView === 'quick-result') qkReset();
         navigate('home');
     }
-    function startLecture()      { navigate('lecture-precheck'); }
+    function startLecture()      { navigate('lecture'); }
     function startNonLecture()   { navigate('nonlecture'); }
     function startScreener()     { navigate('screener'); }
     function startRequirements() { navigate('requirements'); }
