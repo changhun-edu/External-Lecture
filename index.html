@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교직원 외부강의·겸직 도우미 v10.5</title>
+    <title>교직원 외부강의·겸직 도우미 v10.7</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =====================================================
-           v10.5 — 가독성 고정 확대 (노안 대응)
+           v10.7 — 가독성 고정 확대 (노안 대응)
            조절 기능 없이 '크게' 단계를 기본값으로 굳혔습니다.
            Tailwind 유틸리티를 덮어써야 하므로 !important를 사용합니다.
            ===================================================== */
@@ -116,7 +116,7 @@
                 <span>교직원 외부강의·겸직 도우미</span>
             </button>
         </h1>
-        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v10.5</p>
+        <p class="text-slate-500 mt-2 text-sm md:text-base px-4">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 반영 · v10.7</p>
     </header>
 
     <button type="button" id="toTop" onclick="scrollTop_()" aria-label="맨 위로"
@@ -170,7 +170,7 @@
                 <div class="p-5 space-y-5">
 
                     <div>
-                        <p class="text-sm font-bold text-slate-800 mb-2">1. 어디서 요청했나요?</p>
+                        <label for="qkAgency" class="block text-sm font-bold text-slate-800 mb-2">1. 어디서 요청했나요?</label>
                         <input type="text" id="qkAgency" oninput="qkAgencyInput()" placeholder="요청 공문을 보낸 기관 이름" autocomplete="off"
                                class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         <div id="qkAgencySuggest" class="hidden mt-1.5 border border-slate-300 rounded-lg overflow-hidden bg-white divide-y divide-slate-100"></div>
@@ -278,160 +278,7 @@
                     </div>
                 </div>
 
-                <div id="router-wizard" class="hidden bg-white border-2 border-indigo-300 rounded-2xl p-5 md:p-7 shadow-md fade-in">
-                <div class="flex justify-between items-start mb-5">
-                    <h2 class="text-xl md:text-2xl font-bold text-slate-900">몇 가지만 확인할게요</h2>
-                    <button onclick="resetRouter()" class="text-sm font-bold text-slate-500 hover:text-slate-800 shrink-0">← 처음으로</button>
-                </div>
-
-                <div id="rq-A" class="hidden fade-in">
-                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-2">먼저, <strong class="text-indigo-600">누가</strong> 요청했나요?</p>
-                    <p class="text-sm text-slate-500 mb-5">요청한 곳이 어디냐에 따라 <strong>신고·허가가 아예 필요 없을 수도</strong> 있습니다. 여기서 갈리므로 가장 먼저 확인합니다. 돈이 어디서 나왔는지가 아니라 <strong>나에게 요청하고 대가를 주는 주체</strong>를 기준으로 고르세요.</p>
-                    <div class="grid grid-cols-1 gap-3">
-                        <button onclick="rqStep('A','own')" class="flex items-start gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-xl hover:border-emerald-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">🏫</span>
-                            <span><strong class="block text-slate-900">내가 소속된 기관</strong><span class="text-sm text-slate-600">우리 학교, 내가 속한 교육지원청·교육청의 자체 사업</span></span>
-                        </button>
-                        <button onclick="rqStep('A','public')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">🏛️</span>
-                            <span><strong class="block text-slate-900">국가 또는 지방자치단체</strong><span class="text-sm text-slate-500">교육부, 다른 시·도교육청, 시청·도청, 국공립학교</span></span>
-                        </button>
-                        <button onclick="rqStep('A','ext')" class="flex items-start gap-3 p-4 bg-sky-50 border border-sky-200 rounded-xl hover:border-sky-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">🏢</span>
-                            <span><strong class="block text-slate-900">그 밖의 외부 기관</strong><span class="text-sm text-slate-600">대학·산학협력단, 공공기관, 재단·협회, 기업, 출판사</span></span>
-                        </button>
-                        <button onclick="rqStep('A','help')" class="flex items-start gap-3 p-4 bg-indigo-50 border-2 border-indigo-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">❓</span>
-                            <span><strong class="block text-indigo-900">잘 모르겠습니다</strong><span class="text-sm text-indigo-700">기관 이름으로 구분해 드립니다</span></span>
-                        </button>
-                    </div>
-                </div>
-
-                <div id="rq-A1" class="hidden fade-in">
-                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-2">요청 기관을 구분해 드릴게요</p>
-                    <p class="text-sm text-slate-500 mb-4">아래에서 가장 가까운 것을 고르세요.</p>
-                    <div class="space-y-2.5">
-                        <button onclick="rqStep('A','own')" class="w-full text-left p-3.5 bg-white border border-slate-200 rounded-xl hover:border-emerald-500 transition">
-                            <strong class="block text-slate-900 text-sm">우리 학교 / 내가 속한 교육(지원)청이 직접 하는 사업</strong>
-                            <span class="text-xs text-slate-500">공문 발신처가 내 소속기관이고, 대가도 그 기관 예산에서 나옴</span>
-                        </button>
-                        <button onclick="rqStep('A','public')" class="w-full text-left p-3.5 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 transition">
-                            <strong class="block text-slate-900 text-sm">교육부 · 다른 시·도교육청 · 시청 · 도청 · 국공립학교</strong>
-                            <span class="text-xs text-slate-500">국가나 지방자치단체 그 자체 (외부강의등이면 신고가 면제됨)</span>
-                        </button>
-                        <button onclick="rqStep('A','ext')" class="w-full text-left p-3.5 bg-white border-2 border-sky-300 rounded-xl hover:border-sky-500 transition">
-                            <strong class="block text-slate-900 text-sm">대학교 산학협력단 · 대학 부설기관</strong>
-                            <span class="text-xs text-sky-700">국립대라도 <strong>별도 법인</strong>입니다. 국가·지자체가 아닙니다.</span>
-                        </button>
-                        <button onclick="rqStep('A','ext')" class="w-full text-left p-3.5 bg-white border border-slate-200 rounded-xl hover:border-sky-500 transition">
-                            <strong class="block text-slate-900 text-sm">공공기관 · 공단 · 진흥원 · 연구원</strong>
-                            <span class="text-xs text-slate-500">공직유관단체여도 국가·지자체 그 자체는 아님</span>
-                        </button>
-                        <button onclick="rqStep('A','ext')" class="w-full text-left p-3.5 bg-white border border-slate-200 rounded-xl hover:border-sky-500 transition">
-                            <strong class="block text-slate-900 text-sm">재단 · 협회 · 학회 · 기업 · 출판사 · 사립학교</strong>
-                            <span class="text-xs text-slate-500">민간 영역</span>
-                        </button>
-                    </div>
-                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-amber-900 mt-4">
-                        <strong>재원의 출처가 아니라 법인격이 기준입니다.</strong> 교육부·교육청이 발주한 사업이라도, 그 사업을 수탁한 산학협력단이 나에게 요청하고 대가를 준다면 <strong>외부 기관</strong>입니다.
-                    </div>
-                </div>
-
-                <div id="rq-R" class="hidden fade-in">
-                    <div class="bg-rose-50 border-2 border-rose-300 rounded-xl p-4 mb-5">
-                        <p class="font-bold text-rose-900 text-base mb-1"><i class="fa-solid fa-shield-halved mr-1" aria-hidden="true"></i> 허가로도 풀리지 않는 경우를 먼저 거릅니다</p>
-                        <p class="text-sm text-rose-800">「공직자의 이해충돌 방지법」 제10조제1호는 <strong>직무관련자</strong>에게 사적으로 노무·조언·자문을 제공하고 대가를 받는 것을 금지합니다. 이 조항에는 <strong>“소속기관장이 허가한 경우”라는 예외가 없습니다.</strong></p>
-                    </div>
-                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-4">해당하는 것을 <strong class="text-rose-600">모두</strong> 골라 주세요</p>
-                    <div class="space-y-2.5 mb-5">
-                        <label class="flex gap-3 items-start p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
-                            <input type="checkbox" id="rqr1" class="w-4 h-4 mt-1 accent-rose-600">
-                            <span class="text-sm"><strong class="block text-slate-900">요청 기관이 내 소속기관의 위탁·수탁 상대방이다</strong><span class="text-slate-500">우리 교육청 사업을 수탁한 기관, 우리 기관과 계약 관계인 곳</span></span>
-                        </label>
-                        <label class="flex gap-3 items-start p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
-                            <input type="checkbox" id="rqr2" class="w-4 h-4 mt-1 accent-rose-600">
-                            <span class="text-sm"><strong class="block text-slate-900">내가 그 사업의 관리·감독·정산에 관여한다</strong><span class="text-slate-500">담당자·감독자·심사자 위치에 있거나, 예산을 다루는 업무를 맡고 있음</span></span>
-                        </label>
-                        <label class="flex gap-3 items-start p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
-                            <input type="checkbox" id="rqr3" class="w-4 h-4 mt-1 accent-rose-600">
-                            <span class="text-sm"><strong class="block text-slate-900">활동 대상이 내가 평소 지원·점검하는 기관이다</strong><span class="text-slate-500">관할 학교를 방문해 점검·컨설팅·모니터링하는 경우</span></span>
-                        </label>
-                        <label class="flex gap-3 items-start p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
-                            <input type="checkbox" id="rqr4" class="w-4 h-4 mt-1 accent-rose-600">
-                            <span class="text-sm"><strong class="block text-slate-900">소속기관이 당사자이거나 이해관계를 가진 사안에서 상대방을 대리·자문한다</strong><span class="text-slate-500">우리 기관과 다투거나 협상 중인 쪽을 돕는 위치</span></span>
-                        </label>
-                    </div>
-                    <div class="flex flex-col md:flex-row gap-3">
-                        <button onclick="rqRedGate()" class="flex-1 bg-slate-800 text-white font-bold py-3 rounded-lg hover:bg-slate-900 transition">다음</button>
-                        <button onclick="rqRedGateNone()" class="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-3 rounded-lg hover:border-slate-500 transition">해당 없음</button>
-                    </div>
-                </div>
-
-                <div id="rq-0" class="hidden fade-in">
-                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-2">그럼, <strong class="text-indigo-600">어떤 일</strong>을 하기로 하셨나요?</p>
-                    <p class="text-sm text-slate-500 mb-5">활동의 성격에 따라 적용되는 법령 자체가 달라집니다. 공문에 적힌 말이 아니라 <strong>실제로 하게 될 일</strong>을 기준으로 고르세요.</p>
-                    <div class="grid grid-cols-1 gap-3">
-                        <button onclick="rqStep(0,'talk')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">🎤</span>
-                            <span><strong class="block text-slate-900">사람들 앞에서 말한다</strong><span class="text-sm text-slate-500">강의, 강연, 특강, 발표, 토론</span></span>
-                        </button>
-                        <button onclick="rqStep(0,'write')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">✍️</span>
-                            <span><strong class="block text-slate-900">글을 써서 준다</strong><span class="text-sm text-slate-500">원고 기고, 칼럼, 수기</span></span>
-                        </button>
-                        <button onclick="rqStep(0,'meet')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">🧑‍⚖️</span>
-                            <span><strong class="block text-slate-900">회의에 참석해 의견을 낸다</strong><span class="text-sm text-slate-500">심사위원, 평가위원, 자문위원회, 심의회 (회의 형태)</span></span>
-                        </button>
-                        <button onclick="rqStep(0,'field')" class="flex items-start gap-3 p-4 bg-sky-50 border border-sky-200 rounded-xl hover:border-sky-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">📋</span>
-                            <span><strong class="block text-slate-900">현장에 가서 보고 확인해 보고서를 낸다</strong><span class="text-sm text-slate-500">모니터링, 실태조사, 현장점검, 컨설팅, 지원단·점검단 활동</span></span>
-                        </button>
-                        <button onclick="rqStep(0,'project')" class="flex items-start gap-3 p-4 bg-sky-50 border border-sky-200 rounded-xl hover:border-sky-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">🧾</span>
-                            <span><strong class="block text-slate-900">과제·용역을 맡아 결과물을 낸다</strong><span class="text-sm text-slate-500">연구용역, 자료·프로그램 개발, 수탁과제 참여</span></span>
-                        </button>
-                        <button onclick="rqStep(0,'etc')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
-                            <span class="text-xl shrink-0" aria-hidden="true">🏠</span>
-                            <span><strong class="block text-slate-900">그 밖의 활동</strong><span class="text-sm text-slate-500">인터넷 방송, 임대, 단체 임원, 개인적인 일</span></span>
-                        </button>
-                    </div>
-                </div>
-
-                <div id="rq-1" class="hidden fade-in">
-                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-5">이 활동을 <strong class="text-indigo-600">앞으로도 계속</strong> 하실 계획인가요?</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <button onclick="rqStep(1,'once')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">이번 한 번뿐입니다</button>
-                        <button onclick="rqStep(1,'cont')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">계속할 계획입니다</button>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-3">주기적으로 하거나, 계속할 의지와 가능성이 있으면 '계속'에 해당합니다.</p>
-                </div>
-
-                <div id="rq-1a" class="hidden fade-in">
-                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-5">강사료·원고료 등 <strong class="text-indigo-600">사례금</strong>을 받으시나요?</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <button onclick="rqStep(2,'pay')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">받습니다</button>
-                        <button onclick="rqStep(2,'nopay')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">받지 않습니다</button>
-                    </div>
-                </div>
-
-                <div id="rq-2" class="hidden fade-in">
-                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-5">학원·출판사·교육 관련 업체와 <strong class="text-indigo-600">관련이 있나요?</strong></p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <button onclick="rqStep(3,'yes')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-rose-500 transition font-bold text-slate-800">관련 있습니다</button>
-                        <button onclick="rqStep(3,'unsure')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-rose-500 transition font-bold text-slate-800">잘 모르겠습니다</button>
-                        <button onclick="rqStep(3,'no')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">관련 없습니다</button>
-                    </div>
-                </div>
-
-                <div id="rq-3" class="hidden fade-in">
-                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-5">인터넷에 <strong class="text-indigo-600">콘텐츠를 올리거나 방송</strong>하는 활동인가요?</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <button onclick="rqStep(4,'yes')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">예 (유튜브·블로그 등)</button>
-                        <button onclick="rqStep(4,'no')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">아니오</button>
-                    </div>
-                </div>
-            </div>
+        
 
             <div class="text-center mt-4 no-print">
                 <button id="fullMenuBtn" onclick="toggleFullMenu()" aria-expanded="false" aria-controls="full-menu"
@@ -877,7 +724,7 @@
                     <div id="quiz-fb-badge" class="text-center mb-4"></div>
                     <p id="quiz-fb-text" class="text-slate-800 bg-slate-50 border border-slate-200 p-4 rounded-xl mb-6 max-w-xl mx-auto leading-relaxed text-sm md:text-base text-left"></p>
                     <div class="text-center">
-                        <button id="quiz-fb-next" onclick="quizContinue()" class="px-8 py-2.5 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition"></button>
+                        <button id="quiz-fb-next" aria-label="다음 문제" onclick="quizContinue()" class="px-8 py-2.5 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition"></button>
                     </div>
                 </div>
 
@@ -908,6 +755,161 @@
         </div>
 
         <!-- ===================== 외부강의 사전 점검 ===================== -->
+        <div id="router-wizard" class="hidden bg-white border-2 border-indigo-300 rounded-2xl p-5 md:p-7 shadow-md fade-in">
+                <div class="flex justify-between items-start mb-5">
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-900">몇 가지만 확인할게요</h2>
+                    <button onclick="resetRouter()" class="text-sm font-bold text-slate-500 hover:text-slate-800 shrink-0">← 처음으로</button>
+                </div>
+
+                <div id="rq-A" class="hidden fade-in">
+                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-2">먼저, <strong class="text-indigo-600">누가</strong> 요청했나요?</p>
+                    <p class="text-sm text-slate-500 mb-5">요청한 곳이 어디냐에 따라 <strong>신고·허가가 아예 필요 없을 수도</strong> 있습니다. 여기서 갈리므로 가장 먼저 확인합니다. 돈이 어디서 나왔는지가 아니라 <strong>나에게 요청하고 대가를 주는 주체</strong>를 기준으로 고르세요.</p>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="rqStep('A','own')" class="flex items-start gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-xl hover:border-emerald-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">🏫</span>
+                            <span><strong class="block text-slate-900">내가 소속된 기관</strong><span class="text-sm text-slate-600">우리 학교, 내가 속한 교육지원청·교육청의 자체 사업</span></span>
+                        </button>
+                        <button onclick="rqStep('A','public')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">🏛️</span>
+                            <span><strong class="block text-slate-900">국가 또는 지방자치단체</strong><span class="text-sm text-slate-500">교육부, 다른 시·도교육청, 시청·도청, 국공립학교</span></span>
+                        </button>
+                        <button onclick="rqStep('A','ext')" class="flex items-start gap-3 p-4 bg-sky-50 border border-sky-200 rounded-xl hover:border-sky-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">🏢</span>
+                            <span><strong class="block text-slate-900">그 밖의 외부 기관</strong><span class="text-sm text-slate-600">대학·산학협력단, 공공기관, 재단·협회, 기업, 출판사</span></span>
+                        </button>
+                        <button onclick="rqStep('A','help')" class="flex items-start gap-3 p-4 bg-indigo-50 border-2 border-indigo-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">❓</span>
+                            <span><strong class="block text-indigo-900">잘 모르겠습니다</strong><span class="text-sm text-indigo-700">기관 이름으로 구분해 드립니다</span></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="rq-A1" class="hidden fade-in">
+                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-2">요청 기관을 구분해 드릴게요</p>
+                    <p class="text-sm text-slate-500 mb-4">아래에서 가장 가까운 것을 고르세요.</p>
+                    <div class="space-y-2.5">
+                        <button onclick="rqStep('A','own')" class="w-full text-left p-3.5 bg-white border border-slate-200 rounded-xl hover:border-emerald-500 transition">
+                            <strong class="block text-slate-900 text-sm">우리 학교 / 내가 속한 교육(지원)청이 직접 하는 사업</strong>
+                            <span class="text-xs text-slate-500">공문 발신처가 내 소속기관이고, 대가도 그 기관 예산에서 나옴</span>
+                        </button>
+                        <button onclick="rqStep('A','public')" class="w-full text-left p-3.5 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 transition">
+                            <strong class="block text-slate-900 text-sm">교육부 · 다른 시·도교육청 · 시청 · 도청 · 국공립학교</strong>
+                            <span class="text-xs text-slate-500">국가나 지방자치단체 그 자체 (외부강의등이면 신고가 면제됨)</span>
+                        </button>
+                        <button onclick="rqStep('A','ext')" class="w-full text-left p-3.5 bg-white border-2 border-sky-300 rounded-xl hover:border-sky-500 transition">
+                            <strong class="block text-slate-900 text-sm">대학교 산학협력단 · 대학 부설기관</strong>
+                            <span class="text-xs text-sky-700">국립대라도 <strong>별도 법인</strong>입니다. 국가·지자체가 아닙니다.</span>
+                        </button>
+                        <button onclick="rqStep('A','ext')" class="w-full text-left p-3.5 bg-white border border-slate-200 rounded-xl hover:border-sky-500 transition">
+                            <strong class="block text-slate-900 text-sm">공공기관 · 공단 · 진흥원 · 연구원</strong>
+                            <span class="text-xs text-slate-500">공직유관단체여도 국가·지자체 그 자체는 아님</span>
+                        </button>
+                        <button onclick="rqStep('A','ext')" class="w-full text-left p-3.5 bg-white border border-slate-200 rounded-xl hover:border-sky-500 transition">
+                            <strong class="block text-slate-900 text-sm">재단 · 협회 · 학회 · 기업 · 출판사 · 사립학교</strong>
+                            <span class="text-xs text-slate-500">민간 영역</span>
+                        </button>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-amber-900 mt-4">
+                        <strong>재원의 출처가 아니라 법인격이 기준입니다.</strong> 교육부·교육청이 발주한 사업이라도, 그 사업을 수탁한 산학협력단이 나에게 요청하고 대가를 준다면 <strong>외부 기관</strong>입니다.
+                    </div>
+                </div>
+
+                <div id="rq-R" class="hidden fade-in">
+                    <div class="bg-rose-50 border-2 border-rose-300 rounded-xl p-4 mb-5">
+                        <p class="font-bold text-rose-900 text-base mb-1"><i class="fa-solid fa-shield-halved mr-1" aria-hidden="true"></i> 허가로도 풀리지 않는 경우를 먼저 거릅니다</p>
+                        <p class="text-sm text-rose-800">「공직자의 이해충돌 방지법」 제10조제1호는 <strong>직무관련자</strong>에게 사적으로 노무·조언·자문을 제공하고 대가를 받는 것을 금지합니다. 이 조항에는 <strong>“소속기관장이 허가한 경우”라는 예외가 없습니다.</strong></p>
+                    </div>
+                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-4">해당하는 것을 <strong class="text-rose-600">모두</strong> 골라 주세요</p>
+                    <div class="space-y-2.5 mb-5">
+                        <label class="flex gap-3 items-start p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                            <input type="checkbox" id="rqr1" class="w-4 h-4 mt-1 accent-rose-600">
+                            <span class="text-sm"><strong class="block text-slate-900">요청 기관이 내 소속기관의 위탁·수탁 상대방이다</strong><span class="text-slate-500">우리 교육청 사업을 수탁한 기관, 우리 기관과 계약 관계인 곳</span></span>
+                        </label>
+                        <label class="flex gap-3 items-start p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                            <input type="checkbox" id="rqr2" class="w-4 h-4 mt-1 accent-rose-600">
+                            <span class="text-sm"><strong class="block text-slate-900">내가 그 사업의 관리·감독·정산에 관여한다</strong><span class="text-slate-500">담당자·감독자·심사자 위치에 있거나, 예산을 다루는 업무를 맡고 있음</span></span>
+                        </label>
+                        <label class="flex gap-3 items-start p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                            <input type="checkbox" id="rqr3" class="w-4 h-4 mt-1 accent-rose-600">
+                            <span class="text-sm"><strong class="block text-slate-900">활동 대상이 내가 평소 지원·점검하는 기관이다</strong><span class="text-slate-500">관할 학교를 방문해 점검·컨설팅·모니터링하는 경우</span></span>
+                        </label>
+                        <label class="flex gap-3 items-start p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-rose-400 transition">
+                            <input type="checkbox" id="rqr4" class="w-4 h-4 mt-1 accent-rose-600">
+                            <span class="text-sm"><strong class="block text-slate-900">소속기관이 당사자이거나 이해관계를 가진 사안에서 상대방을 대리·자문한다</strong><span class="text-slate-500">우리 기관과 다투거나 협상 중인 쪽을 돕는 위치</span></span>
+                        </label>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-3">
+                        <button onclick="rqRedGate()" class="flex-1 bg-slate-800 text-white font-bold py-3 rounded-lg hover:bg-slate-900 transition">다음</button>
+                        <button onclick="rqRedGateNone()" class="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-3 rounded-lg hover:border-slate-500 transition">해당 없음</button>
+                    </div>
+                </div>
+
+                <div id="rq-0" class="hidden fade-in">
+                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-2">그럼, <strong class="text-indigo-600">어떤 일</strong>을 하기로 하셨나요?</p>
+                    <p class="text-sm text-slate-500 mb-5">활동의 성격에 따라 적용되는 법령 자체가 달라집니다. 공문에 적힌 말이 아니라 <strong>실제로 하게 될 일</strong>을 기준으로 고르세요.</p>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="rqStep(0,'talk')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">🎤</span>
+                            <span><strong class="block text-slate-900">사람들 앞에서 말한다</strong><span class="text-sm text-slate-500">강의, 강연, 특강, 발표, 토론</span></span>
+                        </button>
+                        <button onclick="rqStep(0,'write')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">✍️</span>
+                            <span><strong class="block text-slate-900">글을 써서 준다</strong><span class="text-sm text-slate-500">원고 기고, 칼럼, 수기</span></span>
+                        </button>
+                        <button onclick="rqStep(0,'meet')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">🧑‍⚖️</span>
+                            <span><strong class="block text-slate-900">회의에 참석해 의견을 낸다</strong><span class="text-sm text-slate-500">심사위원, 평가위원, 자문위원회, 심의회 (회의 형태)</span></span>
+                        </button>
+                        <button onclick="rqStep(0,'field')" class="flex items-start gap-3 p-4 bg-sky-50 border border-sky-200 rounded-xl hover:border-sky-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">📋</span>
+                            <span><strong class="block text-slate-900">현장에 가서 보고 확인해 보고서를 낸다</strong><span class="text-sm text-slate-500">모니터링, 실태조사, 현장점검, 컨설팅, 지원단·점검단 활동</span></span>
+                        </button>
+                        <button onclick="rqStep(0,'project')" class="flex items-start gap-3 p-4 bg-sky-50 border border-sky-200 rounded-xl hover:border-sky-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">🧾</span>
+                            <span><strong class="block text-slate-900">과제·용역을 맡아 결과물을 낸다</strong><span class="text-sm text-slate-500">연구용역, 자료·프로그램 개발, 수탁과제 참여</span></span>
+                        </button>
+                        <button onclick="rqStep(0,'etc')" class="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-white transition text-left">
+                            <span class="text-xl shrink-0" aria-hidden="true">🏠</span>
+                            <span><strong class="block text-slate-900">그 밖의 활동</strong><span class="text-sm text-slate-500">인터넷 방송, 임대, 단체 임원, 개인적인 일</span></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="rq-1" class="hidden fade-in">
+                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-5">이 활동을 <strong class="text-indigo-600">앞으로도 계속</strong> 하실 계획인가요?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <button onclick="rqStep(1,'once')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">이번 한 번뿐입니다</button>
+                        <button onclick="rqStep(1,'cont')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">계속할 계획입니다</button>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-3">주기적으로 하거나, 계속할 의지와 가능성이 있으면 '계속'에 해당합니다.</p>
+                </div>
+
+                <div id="rq-1a" class="hidden fade-in">
+                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-5">강사료·원고료 등 <strong class="text-indigo-600">사례금</strong>을 받으시나요?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <button onclick="rqStep(2,'pay')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">받습니다</button>
+                        <button onclick="rqStep(2,'nopay')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">받지 않습니다</button>
+                    </div>
+                </div>
+
+                <div id="rq-2" class="hidden fade-in">
+                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-5">학원·출판사·교육 관련 업체와 <strong class="text-indigo-600">관련이 있나요?</strong></p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <button onclick="rqStep(3,'yes')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-rose-500 transition font-bold text-slate-800">관련 있습니다</button>
+                        <button onclick="rqStep(3,'unsure')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-rose-500 transition font-bold text-slate-800">잘 모르겠습니다</button>
+                        <button onclick="rqStep(3,'no')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">관련 없습니다</button>
+                    </div>
+                </div>
+
+                <div id="rq-3" class="hidden fade-in">
+                    <p class="text-lg md:text-xl font-bold text-slate-800 mb-5">인터넷에 <strong class="text-indigo-600">콘텐츠를 올리거나 방송</strong>하는 활동인가요?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <button onclick="rqStep(4,'yes')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">예 (유튜브·블로그 등)</button>
+                        <button onclick="rqStep(4,'no')" class="p-4 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-500 transition font-bold text-slate-800">아니오</button>
+                    </div>
+                </div>
+            </div>
+
         <!-- ===================== 외부강의 입력 ===================== -->
         <div id="section-lecture" class="hidden bg-white border border-slate-200 rounded-xl p-5 md:p-6 shadow-xs mb-6 fade-in">
             <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
@@ -1248,7 +1250,7 @@
             기준 자료: 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">v10.5 · 2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-700">v10.7 · 2026 최창훈</p>
     </footer>
 
     <script>
@@ -1258,7 +1260,7 @@
        공통 유틸
        ========================================================= */
     const PANELS = [
-        'menu-section', 'section-lecture', 'result-card',
+        'menu-section', 'router-wizard', 'section-lecture', 'result-card',
         'qaSection', 'section-quiz', 'section-screener', 'section-requirements', 'section-renew',
         'section-nonlecture'
     ];
@@ -1551,7 +1553,7 @@
     /* =========================================================
        입구 라우터
        ========================================================= */
-    /* v10.5 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
+    /* v10.7 — 라우터가 통과시킨 사실관계를 뒤 단계에서 재사용합니다 */
     const RQ = { org: null, redFlags: [] };
 
     const RQ_SCREENS = ['rq-A', 'rq-A1', 'rq-R', 'rq-0', 'rq-1', 'rq-1a', 'rq-2', 'rq-3'];
@@ -1565,7 +1567,6 @@
     function resetRouter() {
         hide('router-wizard');
         RQ_SCREENS.forEach(hide);
-        show('router-card');
     }
 
     function clearRQ() {
@@ -1589,14 +1590,17 @@
     }
 
     /* 라우터 화면 하나만 그립니다 (히스토리 조작 없음) */
+    /* v10.7 — 마법사는 독립 패널입니다.
+       예전에는 menu-section 안에 있어서 hideAll()이 부모째 숨겼고,
+       대신 켜지던 qaSection(자주 묻는 Q&A)만 화면에 남았습니다. */
     function rqPaint(id) {
-        hideAll(); show('qaSection');
-        hide('router-card'); show('router-wizard');
+        hideAll();
+        show('router-wizard');
         RQ_SCREENS.forEach(hide); show(id);
         scrollTo_(document.getElementById('router-wizard'));
     }
 
-    /* v10.5 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
+    /* v10.7 — 마법사 단계도 뒤로가기로 되돌아갈 수 있어야 합니다 */
     const RQ_VIEW = {
         'rq-A': 'router-org', 'rq-A1': 'router-org-help', 'rq-R': 'router-red',
         'rq-0': 'router-what', 'rq-1': 'router-repeat', 'rq-1a': 'router-pay',
@@ -1611,7 +1615,7 @@
 
     function route(choice) {
         clearRQ();
-        /* v10.5 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
+        /* v10.7 — 요청 주체를 묻는 것이 모든 경로의 첫 관문입니다.
            개인 활동과 인터넷 미디어는 요청 주체라는 개념이 없으므로 예외로 둡니다. */
         if (choice === 'MEDIA')    { resetRouter(); showGuide('MEDIA'); return; }
         if (choice === 'PERSONAL') { resetRouter(); showGuide('OTHER'); return; }
@@ -1701,7 +1705,7 @@
     }
 
     /* =========================================================
-       v10.5 — 요청 주체가 소속기관인 경우
+       v10.7 — 요청 주체가 소속기관인 경우
        ========================================================= */
     function openDuty() {
         hideAll();
@@ -1727,7 +1731,7 @@
     }
 
     /* =========================================================
-       v10.5 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
+       v10.7 — 레드 게이트에 걸린 경우 (이해충돌방지법 제10조제1호)
        ========================================================= */
     function openConflict() {
         hideAll();
@@ -1830,7 +1834,7 @@
         });
     }
 
-    /* v10.5 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
+    /* v10.7 — 계산된 결과를 담아 두고, 뒤로/앞으로에서 그대로 다시 그립니다 */
     let LAST_RESULT = null;
     let LAST_LECTURE = null;
 
@@ -2394,7 +2398,7 @@
     }
 
     /* 마친 날부터 10일 이내 (토·일이면 다음 근무일로) */
-    /* v10.5 — 신분별 사례금 상한액 점검 */
+    /* v10.7 — 신분별 사례금 상한액 점검 */
     function payLimitBlock(pay, hours, count, method) {
         const st = document.querySelector('input[name="payerStatus"]:checked');
         const isSchool = !st || st.value === 'school';
@@ -2440,7 +2444,7 @@
        외부강의 관련 모든 결론에 공통으로 붙습니다.
        ========================================================= */
     /* =========================================================
-       v10.5 — 나이스 외부활동 메뉴는 두 갈래입니다
+       v10.7 — 나이스 외부활동 메뉴는 두 갈래입니다
        기본메뉴 > 외부활동 > ① 외부강의등록  ② 직무관련외부활동신청
        ========================================================= */
     const NEIS_MENU = {
@@ -2450,7 +2454,7 @@
     };
 
     /* =========================================================
-       v10.5 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
+       v10.7 — 직무관련외부활동신청 화면의 '외부활동유형' 라디오
        나이스에 선택지가 3개뿐인 이유: 이해충돌방지법 제10조에서
        "소속기관장이 허가한 경우는 제외" 단서가 붙은 호가 2·4·5호뿐입니다.
        단서가 없는 제1호·제3호는 애초에 신청으로 풀 수 없습니다.
@@ -2520,9 +2524,9 @@
                      body: '1개월을 초과해 계속되는 활동은 신고가 아니라 겸직허가를 받아야 합니다. 활동을 시작하기 전에 신청하세요.' }
     };
 
-    /* v10.5 — 감사 지적 처분기준과 주요 위반사례 */
+    /* v10.7 — 감사 지적 처분기준과 주요 위반사례 */
     /* =========================================================
-       v10.5 — 결론은 이 함수 하나에서만 계산합니다.
+       v10.7 — 결론은 이 함수 하나에서만 계산합니다.
        제목·배지·나이스 경로·버튼이 모두 이 결과를 받아 쓰므로
        헤더와 본문이 서로 다른 말을 하는 일이 생기지 않습니다.
        ========================================================= */
@@ -2535,18 +2539,18 @@
     };
 
     /* =========================================================
-       v10.5 — 30초 판정
+       v10.7 — 30초 판정
        사용자가 '강의인지 아닌지'를 고르지 않게 합니다.
        활동 이름만 고르면 사이트가 분류합니다.
        ========================================================= */
     /* =========================================================
-       v10.5 — 기관명 후보 제시
+       v10.7 — 기관명 후보 제시
        모기관은 신고 제외인데 산하 별도 법인은 신고 대상인 경우가 많습니다.
        (광주교육대학교 vs 광주교육대학교 산학협력단)
        사용자가 그 구분을 알아서 하도록 두지 않고, 후보로 나란히 보여 줍니다.
        ========================================================= */
     /* =========================================================
-       v10.5 — 기관 등록부
+       v10.7 — 기관 등록부
        교직원이 자주 만나는 기관은 이름만으로 확정 판별합니다.
        "추정"으로 얼버무리지 않는 것이 목적입니다.
        ========================================================= */
@@ -2584,6 +2588,14 @@
         { n: '국립중앙도서관', a: [], exempt: true },
         { n: '교육부', a: [], exempt: true }
     ];
+
+    /* v10.7 — 사용자가 넣은 값을 화면에 다시 그릴 때는 반드시 이스케이프합니다.
+       기관명·주제는 자유 입력이라 태그가 섞이면 그대로 해석됩니다. */
+    function esc(x) {
+        return String(x == null ? '' : x)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
 
     function normOrg(x) { return (x || '').replace(/[\s()·.\-]/g, '').toLowerCase(); }
 
@@ -2660,7 +2672,7 @@
             sug.innerHTML = cands.map(n => {
                 const c = classifyAgency(n);
                 return `<button type="button" onclick="qkPickAgency('${n.replace(/'/g, "\\'")}')" class="w-full text-left px-3 py-2.5 hover:bg-indigo-50 transition" style="min-height:0">
-                    <span class="block font-bold text-slate-900 text-sm">${n}</span>
+                    <span class="block font-bold text-slate-900 text-sm">${esc(n)}</span>
                     <span class="block text-xs ${c.exempt ? 'text-emerald-700' : 'text-sky-700'}">${c.label} · ${c.exempt ? '신고 제외' : '신고 대상'}</span>
                 </button>`;
             }).join('');
@@ -2701,8 +2713,8 @@
             const fn = c.pending2 ? 'qkOrgAnswer2' : 'qkOrgAnswer';
             hint.className = 'mt-2 rounded-lg px-3 py-3 border bg-amber-50 border-amber-300 text-amber-900';
             hint.innerHTML = `<p class="text-sm font-bold mb-2">${kind === 'school'
-                    ? `‘${QK.agency}’은 국·공립인가요, 사립인가요?`
-                    : `‘${QK.agency}’은 처음 보는 이름입니다. 어디에 가까운가요?`}</p>
+                    ? `‘${esc(QK.agency)}’은 국·공립인가요, 사립인가요?`
+                    : `‘${esc(QK.agency)}’은 처음 보는 이름입니다. 어디에 가까운가요?`}</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     ${opts.map(o => `<button type="button" onclick="${fn}('${o.v}')" class="text-left px-3 py-2 bg-white border border-slate-300 rounded-lg hover:border-amber-500 transition" style="min-height:0">
                         <span class="block font-bold text-slate-900 text-sm">${o.t}</span>
@@ -2876,8 +2888,8 @@
     }
 
     /* 남은 일이 무엇인지 버튼 이름에 넣습니다 */
-    /* v10.5 — 30초 판정에서 이미 기관을 물었으므로 직무관련자 4문항으로 바로 갑니다 */
-    /* v10.5 — 30초 판정에서 넘어올 때는 폼을 비우고 시작합니다.
+    /* v10.7 — 30초 판정에서 이미 기관을 물었으므로 직무관련자 4문항으로 바로 갑니다 */
+    /* v10.7 — 30초 판정에서 넘어올 때는 폼을 비우고 시작합니다.
        이전에 입력했던 값이 위쪽에 남아 있으면 무엇이 넘어온 값인지 헷갈립니다. */
     const FORM_IDS = {
         'section-lecture':    ['agencyName', 'endDate', 'lectureSubject', 'payAmount',
@@ -2953,13 +2965,13 @@
         </div>`;
     }
 
-    /* v10.5 — 30초 판정에서 이미 답한 것은 다시 묻지 않고 넘겨줍니다 */
+    /* v10.7 — 30초 판정에서 이미 답한 것은 다시 묻지 않고 넘겨줍니다 */
     function qkSummaryLine() {
         const f = { talk: '여러 사람 앞에서 말함', meet: '회의에서 의견 교환', alone: '혼자 또는 서면',
                     both: '혼자 + 회의', post: '직위 취임', foreign: '외국 기관 대리' }[QK.form] || '';
         const p = { yes: '대가 있음', actual: '실비만', no: '무보수' }[QK.pay] || '';
         const label = (QK.cls && QK.cls.label) ? QK.cls.label : '';
-        return `${QK.agency}${label ? ` <span class="font-normal text-slate-600">(${label})</span>` : ''} · ${f} · ${p}`;
+        return `${esc(QK.agency)}${label ? ` <span class="font-normal text-slate-600">(${label})</span>` : ''} · ${f} · ${p}`;
     }
 
     function showFromQuick(id) {
@@ -3172,7 +3184,7 @@
     function looksLikeUniv(agency)    { return UNIV_HINT.some(k => agency.includes(k)); }
 
     /* '학교' 문자열만 보고 초·중등학교 분기로 보내면 대학·산학협력단이 잘못 걸립니다. */
-    /* v10.5 — 인식 범위를 넓힙니다.
+    /* v10.7 — 인식 범위를 넓힙니다.
        ① 유치원은 '학교'라는 글자가 없어 그동안 빠졌습니다.
        ② '부설초등학교'는 SEPARATE_ENTITY의 '부설'에 먼저 걸려 별도 법인으로 갔습니다.
           국립대 부설학교는 국립학교(교육부 소속)이므로 학교로 봐야 합니다.
@@ -3190,17 +3202,17 @@
     }
 
     function classifyAgency(agency) {
-        /* v10.5 — 등록부에 있으면 이름만으로 확정합니다. */
+        /* v10.7 — 등록부에 있으면 이름만으로 확정합니다. */
         const reg = lookupRegistry(agency);
         if (reg && !/(산학협력단|부설|부속|평생교육원)/.test(agency)) {
             return reg.exempt
-                ? { exempt: true,  resolved: true, label: reg.n + ' — 국가기관·소속기관',
+                ? { exempt: true,  resolved: true, label: esc(reg.n) + ' — 국가기관·소속기관',
                     warn: '국가나 지방자치단체(소속기관 포함)가 요청한 외부강의등은 <strong>신고 제외</strong>입니다. 다만 사전 결재와 사례금 상한액은 그대로 적용됩니다.' }
-                : { exempt: false, resolved: true, label: reg.n + ' — 공직유관단체',
+                : { exempt: false, resolved: true, label: esc(reg.n) + ' — 공직유관단체',
                     warn: '공직유관단체는 국가·지방자치단체에 해당하지 않아 <strong>신고 대상</strong>입니다. 이를 제외 대상으로 잘못 보아 신고를 빠뜨리는 것이 감사에서 자주 지적되는 사례입니다.' };
         }
 
-        /* v10.5 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
+        /* v10.7 — 부설학교는 '부설'이라는 글자 때문에 별도 법인으로 새지 않도록 먼저 거릅니다.
            국립대 부설초·중·고와 병설유치원은 국립학교로서 신고 제외 대상입니다. */
         if (ATTACHED_SCHOOL_PAT.test(agency) || /병설\s*유치원/.test(agency)) {
             if (looksLikeUniv(agency) || /(국립|공립|시립|도립|병설)/.test(agency)) {
@@ -3219,7 +3231,7 @@
                 const isIUCF = (key === '산학협력단' || key === '산학협력');
                 return {
                     exempt: false,
-                    label: `별도 법인 [${key}]`,
+                    label: `별도 법인 [${esc(key)}]`,
                     warn: '산학협력단·부설기관·재단 등은 모기관(국립대학, 국가기관 등)과 <strong>별개의 법인</strong>입니다. ' +
                           '국가·지방자치단체의 위탁사업이라도 <strong>계약과 대가 지급의 주체가 이 법인</strong>이면 이 법인을 기준으로 판단하므로, 신고 제외 대상으로 보기 어렵습니다.',
                     legal: isIUCF ? IUCF_LEGAL : ''
@@ -3228,7 +3240,7 @@
         }
         for (const org of KNOWN_PUBLIC_ORGS) {
             if (agency.includes(org)) {
-                return { exempt: false, label: `공직유관단체 [${org}]`, warn: '' };
+                return { exempt: false, label: `공직유관단체 [${esc(org)}]`, warn: '' };
             }
         }
         /* ② 대학은 초·중등학교 분기로 보내지 않습니다. */
@@ -3267,7 +3279,7 @@
                 warn: '공사·공단·재단·센터 등으로 끝나는 기관은 통상 공직유관단체로 보아 신고 대상입니다. <strong>지방자치단체의 출자·출연기관도 지방자치단체에 해당하지 않아 신고 대상</strong>입니다.'
             };
         }
-        /* v10.5 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
+        /* v10.7 — 초·중등학교. 이 사이트에서 가장 흔한 입력인데 그동안 폴백으로 흘렀습니다. */
         if (looksLikeSchoolAgency(agency)) {
             if (/(국립|공립|시립|도립)/.test(agency)) {
                 return {
@@ -3335,7 +3347,7 @@
         const overLimit = (count > 3 || hours > 6);
 
         let html = `<div class="bg-slate-100 p-4 rounded-lg space-y-1 text-sm border border-slate-200 mb-4">
-            <div>• 입력한 기관: <strong>${agency}</strong></div>
+            <div>• 입력한 기관: <strong>${esc(agency)}</strong></div>
             <div>• 판별 범주: <span class="${result.exempt ? 'text-green-700' : 'text-indigo-700'} font-bold">${result.label}</span></div>
             <div class="text-xs text-slate-500 pt-1.5 mt-1.5 border-t border-slate-200">${result.resolved ? '등록된 기관명과 <strong>정확히 일치</strong>하여 판별했습니다.' : '입력하신 <strong>기관명을 기준으로</strong> 판별했습니다. 정식 명칭과 다르게 적으셨다면 결과가 달라질 수 있습니다.'}</div>
         </div>`;
@@ -3645,10 +3657,10 @@
     }
 
     /* =========================================================
-       v10.5 — 겸직·외부활동 허가 신청서 사유란 문구 생성
+       v10.7 — 겸직·외부활동 허가 신청서 사유란 문구 생성
        ========================================================= */
     /* =========================================================
-       v10.5 — 나이스 「직무관련외부활동상세」 입력 도우미
+       v10.7 — 나이스 「직무관련외부활동상세」 입력 도우미
        이 화면이 곧 운영지침 별지 제11호 서식입니다.
        자유 서술칸은 '외부활동주제'와 '외부활동방법' 둘뿐이므로,
        긴 사유서 대신 칸별로 넣을 문장을 만들어 줍니다.
@@ -3719,9 +3731,9 @@
         /* ---------- 입력 요약 (결과 최상단 고정) ---------- */
         const summaryRows = [
             `활동: <strong>${NL_TYPE_LABEL[type]}</strong>`,
-            `요청 기관: <strong>${agency}</strong>`,
-            (diff && payerIn) ? `대가 지급: <strong class="text-sky-700">${payer}</strong> (요청 기관과 다름)` : null,
-            source ? `발주처: <strong>${source}</strong>` : null,
+            `요청 기관: <strong>${esc(agency)}</strong>`,
+            (diff && payerIn) ? `대가 지급: <strong class="text-sky-700">${esc(payer)}</strong> (요청 기관과 다름)` : null,
+            source ? `발주처: <strong>${esc(source)}</strong>` : null,
             `대가: <strong>${NL_PAY_LABEL[payKind]}</strong>`,
             `기간: <strong>${(start && end) ? (start + ' ~ ' + end + (cont === true ? ' (1개월 초과)' : cont === false ? ' (1개월 이내)' : '')) : '미입력'}</strong>`
         ];
@@ -3822,9 +3834,6 @@
                 <p><strong>근무시간 중 일정이 포함되어 있습니다.</strong> 본연의 직무 수행에 지장이 없어야 하며, 반복되면 허가가 제한될 수 있습니다.</p>
             </div>`;
         }
-
-        const nlTriad = (type === 'meeting' || payKind === 'lecture') ? 'report'
-                      : (!hasPay ? 'nopay' : (cont === true ? 'gyeomjik' : 'nonlect'));
 
         /* ---------- ⑥ 허가 신청 사유란 문구 ---------- */
         if (hasPay && type !== 'meeting') {
@@ -4139,7 +4148,7 @@
 
     let currentView = 'home';
 
-    /* v10.5 — 지금 어디에 있는지, 어디로 나갈 수 있는지를 늘 보이게 합니다 */
+    /* v10.7 — 지금 어디에 있는지, 어디로 나갈 수 있는지를 늘 보이게 합니다 */
     const VIEW_TITLE = {
         'lecture-precheck':       '외부강의 신고 판정 — 사전 확인',
         'lecture':                '외부강의 신고 판정',
@@ -4168,7 +4177,7 @@
         'router-media':           '활동 성격 확인'
     };
 
-    /* v10.5 ③ — 결과가 길 때 맨 위로 */
+    /* v10.7 ③ — 결과가 길 때 맨 위로 */
     function scrollTop_() {
         try { window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }); }
         catch (e) { window.scrollTo(0, 0); }
