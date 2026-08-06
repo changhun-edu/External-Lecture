@@ -2501,26 +2501,24 @@
         return 'ho2';
     }
 
-    function actTypeBlock(key) {
+    /* 활동유형의 근거 — 실행에 필요한 것은 결론 카드가 말하고,
+       여기에는 '왜 그 번째인가'만 남겨 접어 둡니다. */
+    function actTypeWhy(key) {
         const t = ACT_TYPE[key]; if (!t) return '';
         const rows = ['ho2', 'ho4', 'ho5'].map(k => {
             const x = ACT_TYPE[k], on = (k === key);
-            return `<li class="flex gap-2.5 items-start ${on ? 'font-bold text-sky-900' : 'text-slate-400'}">
+            return `<li class="flex gap-2.5 items-start ${on ? 'font-bold text-sky-900' : 'text-slate-500'}">
                 <span class="shrink-0 mt-0.5">${on ? '<i class="fa-solid fa-circle-dot" aria-hidden="true"></i>' : '<i class="fa-regular fa-circle" aria-hidden="true"></i>'}</span>
-                <span>${x.label}<span class="block text-xs font-normal ${on ? 'text-sky-700' : 'text-slate-400'}">${x.ho}</span></span></li>`;
+                <span>${x.label}<span class="block text-xs font-normal ${on ? 'text-sky-700' : 'text-slate-500'}">${x.ho}</span></span></li>`;
         }).join('');
-        return `<div class="border-2 border-sky-400 rounded-xl overflow-hidden mt-3">
-            <div class="bg-sky-600 text-white px-4 py-2 font-bold text-sm">신청 화면에서 <span class="underline">외부활동유형</span>은 ${t.no}번째를 고르세요</div>
-            <div class="bg-white p-4">
-                <ul class="space-y-2.5 text-sm">${rows}</ul>
-                <p class="text-xs text-slate-600 mt-3 pt-3 border-t border-slate-100">${t.note}</p>
-                <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 mt-3 text-xs text-slate-700 space-y-1.5">
-                    <p class="font-bold text-slate-900">이 화면이 곧 별지 제11호 서식입니다</p>
-                    <p>「공직자의 이해충돌 방지제도 운영지침」 제9조(2024. 8. 14. 전부개정)로 신설된 절차입니다. 종이 서식을 따로 낼 필요 없이 나이스 신청이 곧 서면 제출을 갈음합니다.</p>
-                    <p class="pt-1.5 border-t border-slate-200">신청을 받은 <strong>이해충돌방지담당관</strong>이 지휘·감독 상급자 또는 소속기관장의 의견을 들어 판단하며, 결과 통보(별지 제12호)는 <strong>나이스 결재로 갈음</strong>합니다.</p>
-                    <p class="text-rose-700 font-bold">결재가 떨어지기 전에 시작하면 무허가입니다. 여유를 두고 신청하세요.</p>
-                </div>
-            </div></div>`;
+        return `<p class="text-sm text-slate-700">나이스 신청 화면의 <strong>외부활동유형</strong> 선택지는 셋뿐입니다. 이해충돌방지법 제10조에서 <strong>“소속기관장이 허가한 경우는 제외”</strong> 단서가 붙은 호가 제2호·제4호·제5호뿐이기 때문입니다.</p>
+            <ul class="space-y-2.5 text-sm">${rows}</ul>
+            <p class="text-xs text-slate-600">${t.note}</p>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-700 space-y-1.5">
+                <p class="font-bold text-slate-900">이 화면이 곧 별지 제11호 서식입니다</p>
+                <p>「공직자의 이해충돌 방지제도 운영지침」 제9조(2024. 8. 14. 전부개정)로 신설된 절차입니다. 종이 서식을 따로 낼 필요 없이 나이스 신청이 곧 서면 제출을 갈음합니다.</p>
+                <p class="pt-1.5 border-t border-slate-200">신청을 받은 <strong>이해충돌방지담당관</strong>이 지휘·감독 상급자 또는 소속기관장의 의견을 들어 판단하며, 결과 통보(별지 제12호)는 <strong>나이스 결재로 갈음</strong>합니다.</p>
+            </div>`;
     }
 
     function neisPath(kind, note) {
@@ -3069,7 +3067,7 @@
         if (t.menu === 'activity') steps.push('나이스 &gt; 외부활동 &gt; <strong>직무관련외부활동신청</strong>');
         if (at) steps.push(`외부활동유형은 <strong>${at.no}번째</strong> (${at.ho})`);
         if (t.menu === 'lecture' && d.hasPay) steps.push('마친 날부터 <strong>10일 이내</strong>');
-        if (t.menu === 'activity') steps.push('활동 시작 전 신청 &middot; <strong>결재 완료까지</strong>');
+        if (t.menu === 'activity') steps.push('활동 시작 전 신청 &middot; <strong>결재가 완료돼야 허가</strong>입니다 <span class="text-rose-700 font-bold">(그전에 시작하면 무허가)</span>');
         if (t.menu === 'gyeomjik') steps.push('활동 시작 전 <strong>겸직허가</strong> 신청');
         v.also.forEach(x => steps.push(`<strong>${x}</strong>도 함께 확인`));
 
@@ -3723,7 +3721,7 @@
  연락처   : (공문의 연락처)
 
 [신청내역]
- 외부활동유형 : ${ACT_TYPE[actTypeOf(d.type)].no}번째 — ${ACT_TYPE[actTypeOf(d.type)].label}
+ 외부활동유형 : ${ACT_TYPE[actTypeOf(d.type)].no}번째
  외부활동주제 : ${subject}
  외부활동방법 : ${how}
  시작일자     : ${d.start || '(YYYY-MM-DD)'}
@@ -3885,20 +3883,6 @@
 
         const isLectureRoute = (type === 'meeting' || payKind === 'lecture');
 
-        if (!(type === 'meeting' || payKind === 'lecture')) {
-            doNow += actTypeBlock(actTypeOf(type));
-            if (type === 'post' && cont !== true) {
-                doNow += `<div class="bg-amber-50 border border-amber-300 rounded-xl p-4 text-sm text-amber-900 mt-3">
-                    <p><strong>직무와 관련된 직위</strong>라면 보수가 없어도 취임 자체가 대상입니다(제10조제5호).</p>
-                </div>`;
-            }
-            if (type === 'foreign') {
-                doNow += `<div class="bg-slate-100 border border-slate-300 rounded-xl p-4 text-sm text-slate-800 mt-3">
-                    <p>제10조제4호는 다른 호와 달리 <strong>“대가를 받는”이라는 요건이 없습니다.</strong> 무보수라도 대리 행위 자체가 제한 대상입니다.</p>
-                </div>`;
-            }
-        }
-
         /* ---------- ⑦ 보관 서류 ---------- */
         doNow += `<div class="border border-slate-300 rounded-xl overflow-hidden mt-4">
             <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-folder-open mr-1" aria-hidden="true"></i> 감사 대비 — 이 네 가지를 모아 두세요</div>
@@ -3906,7 +3890,7 @@
                 <ul class="space-y-2">
                     <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>요청 공문 또는 요청서</strong> — 요청 주체와 활동 내용이 확정되는 근거. 전화·문자로만 받은 요청은 근거가 되지 않습니다.</span></li>
                     <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>대가 지급 근거</strong> — 위탁계약서, 사업운영지침, 수당 지급기준 중 하나</span></li>
-                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>결재문</strong> — 나이스 결재 완료 화면 갈무리. 별도 허가증이 나오지 않으므로 이것이 허가서입니다.</span></li>
+                    <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>결재문</strong> — 나이스 완료 화면 갈무리. 별도 허가증이 나오지 않으므로 이것이 허가서입니다.</span></li>
                     <li class="flex gap-2"><i class="fa-regular fa-square text-slate-400 mt-1" aria-hidden="true"></i><span><strong>복무 처리 내역</strong> — 근무지를 벗어난다면 신고·허가 여부와 무관하게 출장 또는 연가·조퇴를 결재받으세요.</span></li>
                 </ul>
                 <p class="text-xs text-slate-500 mt-3 pt-3 border-t border-slate-100">대가 지급 근거가 없으면, 외부강의등이 아닌 활동의 수당은 <strong>정당한 권원 없는 금품 수수</strong>로 볼 여지가 생깁니다(청탁금지법 제8조).</p>
@@ -3923,6 +3907,7 @@
             `<div class="mt-5 space-y-2.5">
                 <p class="text-xs font-bold text-slate-500">아래는 근거입니다. 필요할 때만 펼쳐 보세요.</p>
                 ${why('이 결론이 나온 이유 — 단계별 판단', html)}
+                ${(!isLectureRoute && v.actType) ? why(`왜 ${ACT_TYPE[v.actType].no}번째인가 — 제10조 각 호와 나이스 선택지`, actTypeWhy(v.actType)) : ''}
                 ${why('실제로 지적되는 것들 · 행동강령책임관', violationBlock())}
             </div>
             <p class="text-xs text-slate-500 mt-4 pt-3 border-t border-slate-200">${BASIS_LINE}</p>
