@@ -271,7 +271,7 @@
                             <span class="text-lg shrink-0" aria-hidden="true">📅</span>
                             <span><strong class="block text-slate-900 text-sm">허가 기간 계산기</strong><span class="text-xs text-slate-500">만료일과 갱신 시기</span></span>
                         </button>
-                        <button onclick="route('NONLECT')" class="flex items-start gap-3 p-3.5 bg-rose-50 border border-rose-200 rounded-xl hover:border-rose-500 hover:bg-white transition text-left">
+                        <button id="cardRedCheck" onclick="qkRedCheck()" class="flex items-start gap-3 p-3.5 bg-rose-50 border border-rose-200 rounded-xl hover:border-rose-500 hover:bg-white transition text-left">
                             <span class="text-lg shrink-0" aria-hidden="true">🛡️</span>
                             <span><strong class="block text-slate-900 text-sm">직무관련자 여부 확인</strong><span class="text-xs text-rose-700">허가로 풀리지 않는 유형인지</span></span>
                         </button>
@@ -1627,6 +1627,11 @@
     /* 요청 주체를 확정한 뒤 원래 가려던 곳으로 보냅니다 */
     function rqDispatch() {
         const choice = RQ.next || 'UNKNOWN';
+        if (choice === 'REDONLY') {         /* 단독으로 직무관련자만 확인한 경우 */
+            resetRouter();
+            showRedOnlyPass();
+            return;
+        }
         if (choice === 'QUICK') {           /* 30초 판정에서 온 확인 — 결과로 되돌립니다 */
             QK.redChecked = 'none';
             resetRouter();
@@ -1650,6 +1655,8 @@
             if (answer === 'help') { rqShow('rq-A1'); return; }
             RQ.org = answer;
             if (answer === 'own') { resetRouter(); showDuty(); return; }
+            /* 직무관련자 확인만 하러 온 경우에는 주체와 무관하게 4문항으로 */
+            if (RQ.next === 'REDONLY' || RQ.next === 'QUICK') { rqShow('rq-R'); return; }
             /* 외부 기관이면 레드 게이트를 먼저 통과해야 합니다 */
             if (answer === 'ext') { rqShow('rq-R'); return; }
             rqDispatch();
@@ -1852,6 +1859,23 @@
         if (!LAST_RESULT) { openHome(); return; }
         hideAll();
         openResult(LAST_RESULT.header, LAST_RESULT.content, LAST_RESULT.showNeis);
+    }
+
+    /* 직무관련자 확인만 단독으로 마친 경우 */
+    function openRedOnlyPass() {
+        hideAll();
+        openResult(
+            `<h3 class="text-2xl font-bold text-emerald-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 직무관련자에 해당하지 않습니다</h3>`,
+            `<div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 font-semibold text-emerald-900">
+                4문항 모두 해당 사항이 없어, <strong>허가로 풀리지 않는 유형</strong>은 아닙니다.
+             </div>
+             <p class="text-sm text-slate-700 mt-3">다만 이것만으로 무엇을 해야 하는지가 정해지지는 않습니다. 요청 기관과 진행 형태에 따라 <strong>외부강의등록</strong>인지 <strong>직무관련외부활동신청</strong>인지가 갈립니다.</p>
+             <div class="mt-4 flex flex-col md:flex-row gap-3 no-print">
+                <button onclick="goHome()" class="flex-1 bg-slate-800 text-white font-bold py-2.5 rounded-lg hover:bg-slate-900 transition">30초 판정으로 확인하기</button>
+             </div>
+             <p class="text-xs text-slate-500 mt-4 pt-3 border-t border-slate-200">${BASIS_LINE}</p>`,
+            false
+        );
     }
 
     function openNoReport() {
@@ -2753,13 +2777,25 @@
 
     function qkToggleCont() { QK.cont = !QK.cont; qkRender(); }
 
+    /* 30초 판정 결과가 떠 있으면 결론 카드의 전용 상자가 직무관련자 확인을 소유합니다.
+       하단 '그 밖에 확인할 것'의 같은 항목은 감춰 중복 입구를 없앱니다. */
+    function syncRedCheckCard() {
+        const card = document.getElementById('cardRedCheck');
+        const res = document.getElementById('qkResult');
+        if (!card) return;
+        const resultUp = res && !res.classList.contains('hidden');
+        const applyTrack = (QK.form === 'alone' || QK.form === 'both' || QK.form === 'post' || QK.form === 'foreign');
+        card.classList.toggle('hidden', !!(resultUp && applyTrack));
+    }
+
     function qkRender() {
         const box = document.getElementById('qkResult');
-        if (!(QK.agency && QK.form && QK.pay) || (QK.cls && QK.cls.ask)) { box.classList.add('hidden'); return; }
+        if (!(QK.agency && QK.form && QK.pay) || (QK.cls && QK.cls.ask)) { box.classList.add('hidden'); syncRedCheckCard(); return; }
         const wasHidden = box.classList.contains('hidden');
         box.classList.remove('hidden');
         box.innerHTML = qkVerdictHtml();
         /* 결과가 처음 나타날 때만 기록을 남깁니다. 선택을 바꿀 때마다 쌓지 않습니다. */
+        syncRedCheckCard();
         if (wasHidden && currentView === 'home') markState('quick-result');
     }
 
@@ -2922,9 +2958,15 @@
 
     function qkRedCheck() {
         clearRQ();
-        RQ.org = (QK.cls && QK.cls.exempt) ? 'public' : 'ext';
-        RQ.next = 'QUICK';
-        rqShow('rq-R');
+        /* 30초 판정을 거쳐 왔으면 결과 자리로, 아니면 단독 확인으로 끝냅니다 */
+        RQ.next = (QK.form && QK.cls) ? 'QUICK' : 'REDONLY';
+        if (QK.cls) {
+            /* 기관을 이미 물었으므로 요청 주체를 되묻지 않습니다 */
+            RQ.org = QK.cls.exempt ? 'public' : 'ext';
+            rqShow('rq-R');
+            return;
+        }
+        rqShow('rq-A');          /* 아무 정보가 없을 때만 요청 주체부터 */
     }
 
     function qkDetailLabel() {
@@ -3015,6 +3057,7 @@
         });
         const r = document.getElementById('qkResult');
         if (r) { r.classList.add('hidden'); r.innerHTML = ''; }
+        syncRedCheckCard();
     }
 
     /* 1층 — 결론 카드. 이것만 읽어도 할 일이 끝나야 합니다. */
@@ -4135,6 +4178,7 @@
         'router-kind':            function () { rqPaint('rq-2'); },
         'router-media':           function () { rqPaint('rq-3'); },
         'result-conflict':        openConflict,
+        'result-redonly':         openRedOnlyPass,
         'nonlecture':             openNonLectureForm,
         'result-repeat':          openRepeatLecture,
         'screener':               openScreener,
@@ -4175,6 +4219,7 @@
         'router-org':             '요청 주체 확인',
         'router-org-help':        '기관 판별 도우미',
         'router-red':             '직무관련자 확인',
+        'result-redonly':         '직무관련자 확인 결과',
         'router-what':            '활동 성격 확인',
         'router-repeat':          '활동 성격 확인',
         'router-pay':             '활동 성격 확인',
@@ -4248,6 +4293,7 @@
     function showNoReport()      { navigate('result-noreport'); }
     function showDuty()          { navigate('result-duty'); }
     function showConflict()      { navigate('result-conflict'); }
+    function showRedOnlyPass()   { navigate('result-redonly'); }
     function showRepeatLecture() { navigate('result-repeat'); }
 
     window.addEventListener('popstate', function (e) {
