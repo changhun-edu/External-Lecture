@@ -1351,7 +1351,7 @@
         {
             q: '대학 산학협력단에서 모니터링·실태조사를 맡아 달라고 합니다. 외부강의 신고인가요, 겸직 허가인가요?',
             s: '실무 사례',
-            a: '<strong>강의가 아니라면 외부강의 신고 대상이 아닐 가능성이 큽니다.</strong> 외부강의등은 교육·홍보·토론회·세미나·공청회 등에서의 <strong>강의·강연·기고</strong>와 <strong>회의 형태의 심사·평가·자문</strong>을 말합니다. 현장을 방문해 확인하고 보고서를 제출하는 모니터링·실태조사·현장점검은 이 정의에 들어가지 않는 것으로 보는 것이 일반적입니다.' +
+            a: '<strong>강의가 아니라면 외부강의 신고 대상이 아닙니다.</strong> 외부강의등은 교육·홍보·토론회·세미나·공청회 등에서의 <strong>강의·강연·기고</strong>와 <strong>회의 형태의 심사·평가·자문</strong>을 말합니다. 현장을 방문해 확인하고 보고서를 제출하는 모니터링·실태조사·현장점검은 이 정의에 들어가지 않습니다.' +
                '<p class=\'mt-2\'>대신 확인해야 할 것은 <strong class=\'text-amber-600\'>영리업무 금지와 겸직 허가</strong>입니다. 수당·활동비·연구비 등 대가를 받고 활동 기간이 <strong>1개월을 초과</strong>하면 계속성이 인정되어 사전 겸직허가 대상이 됩니다.</p>' +
                '<div class=\'mt-3 bg-sky-50 border border-sky-200 rounded-lg p-3 text-sm\'><strong class=\'text-sky-900\'>기관 판단에 주의하세요.</strong> 국립대학이라도 <strong>산학협력단은 별도의 법인</strong>입니다. 교육부·교육청 사업을 대학이 수탁해 지급하는 구조라도, 계약과 대가 지급의 주체가 산학협력단이면 국가기관·지방자치단체가 요청한 경우로 보아 신고를 면제하기 어렵습니다.</div>' +
                '<div class=\'mt-2 bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-900\'><strong>담당 업무와 같은 분야라면</strong> 겸직 허가와 별개로 이해충돌 여부를 복무·감사 담당 부서에 함께 확인하세요.</div>' +
@@ -1714,7 +1714,7 @@
                 <p class="font-bold mb-2">선택하신 항목</p>
                 <ul class="list-disc pl-5 space-y-1 text-sm">${flags.map(f => `<li>${f}</li>`).join('')}</ul>
              </div>
-             <p class="font-semibold text-slate-900 mt-4">요청 기관이 <strong>직무관련자</strong>에 해당할 수 있습니다. 이 경우는 허가를 받아도 해소되지 않습니다.</p>
+             <p class="font-semibold text-slate-900 mt-4">요청 기관이 <strong>직무관련자</strong>에 해당합니다. 이 경우는 허가를 받아도 해소되지 않습니다.</p>
              <div class="border-2 border-slate-800 rounded-xl overflow-hidden mt-4">
                 <div class="bg-slate-800 text-white px-4 py-2 font-bold text-sm">왜 허가로 풀리지 않는가</div>
                 <div class="bg-white p-4 text-sm space-y-3">
@@ -1846,7 +1846,7 @@
     function openNoReport() {
         hideAll();
         openResult(
-            `<h3 class="text-2xl font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-500" aria-hidden="true"></i> 신고·허가 대상이 아닐 가능성이 큽니다</h3>`,
+            `<h3 class="text-2xl font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-circle-info text-slate-500" aria-hidden="true"></i> 신고·허가 대상이 아닙니다</h3>`,
             `<p class="font-semibold text-slate-800">사례금이 없는 <strong>1회성 활동</strong>은 계속성이 없어 겸직 허가 대상이 아니고, 사례금이 없으므로 외부강의등 신고 대상에도 해당하지 않는 것이 일반적입니다.</p>
              <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-900 mt-3">
                 <p class="font-bold mb-1">그래도 확인하셔야 할 것</p>
@@ -1867,7 +1867,7 @@
     function openRepeatLecture() {
         hideAll();
         openResult(
-            `<h3 class="text-2xl font-bold text-emerald-700 flex items-center gap-2"><i class="fa-solid fa-repeat" aria-hidden="true"></i> 겸직 허가 대상으로 보입니다</h3>`,
+            `<h3 class="text-2xl font-bold text-emerald-700 flex items-center gap-2"><i class="fa-solid fa-repeat" aria-hidden="true"></i> 겸직 허가 대상입니다</h3>`,
             `<div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 font-semibold text-emerald-900 mb-4">
                 월 강의 횟수와 관계없이 <strong>1개월을 초과해 지속적으로 출강</strong>하는 경우에는 외부강의 신고가 아니라 <strong>겸직 허가</strong>가 필요합니다. 대학 정기 출강이 대표적입니다.
              </div>
@@ -1897,7 +1897,7 @@
     }
 
     const ORIGIN_HINT = {
-        academy:   '학원에서 온 제안입니다. <strong>첫 번째 항목</strong>(학교교과교습학원) 또는 <strong>두 번째 항목</strong>(입시·편입 등 사교육 유발 요인이 있는 평생직업교육학원)에 해당할 가능성이 큽니다. 학원 종류는 설립·운영 등록 증명서로 확인하세요.',
+        academy:   '학원에서 온 제안입니다. <strong>첫 번째 항목</strong>(학교교과교습학원) 또는 <strong>두 번째 항목</strong>(입시·편입 등 사교육 유발 요인이 있는 평생직업교육학원) 중 하나에 해당합니다. 어느 쪽인지는 학원의 설립·운영 등록 증명서로 확인하세요.',
         publisher: '출판사·교재 회사에서 온 제안입니다. <strong>세 번째 항목</strong>을 중점적으로 보세요. 학원으로 등록하지 않았더라도 업무에 (원격) 컨설팅이나 유상 강의영상 제작 등 교습행위가 포함되면 해당합니다.',
         edtech:    '에듀테크·IT 기업에서 온 제안입니다. 학원업과 관련성이 있는지 먼저 확인하세요. 정부사업으로 이루어지는 컨설팅·개발·자문이라면 다음 단계에서 공익성 예외를 검토하게 됩니다.'
     };
@@ -1971,7 +1971,7 @@
               <div class="rounded-xl border-2 border-rose-300 bg-rose-50 p-5 mb-4">
                 <div class="flex items-center gap-2 mb-2">
                   <i class="fa-solid fa-circle-xmark text-rose-600 text-2xl" aria-hidden="true"></i>
-                  <h3 class="text-xl md:text-2xl font-bold text-rose-800">원칙적으로 금지되는 영리업무로 보입니다</h3>
+                  <h3 class="text-xl md:text-2xl font-bold text-rose-800">원칙적으로 금지되는 영리업무입니다</h3>
                 </div>
                 <p class="text-rose-900 font-semibold">사교육업체 관련 일체의 행위는 「국가공무원 복무규정」 제25조 및 겸직 허가 요건에 따라 원칙적으로 금지됩니다.</p>
                 <div class="text-rose-900 text-sm mt-2">${extra}</div>
@@ -2004,7 +2004,7 @@
                 <div class="bg-rose-600 text-white rounded-lg p-3 mb-3 text-sm font-bold">
                   이 결과는 <strong>심사를 받아볼 수 있다</strong>는 뜻이지 <strong>허가된다는 뜻이 아닙니다.</strong> 원칙은 금지이며, 예외 인정 여부는 심사에서 개별적·구체적으로 판단됩니다. 허가 전에는 활동을 시작하지 마세요.
                 </div>
-                <p class="text-amber-900 font-semibold">원칙적으로는 금지되는 영역이지만, 겸직 목적의 공익성과 결과물의 성격을 종합 고려해 <strong>허가 기준에 부합하면 겸직 허가가 가능</strong>한 경우로 보입니다.</p>
+                <p class="text-amber-900 font-semibold">원칙적으로는 금지되는 영역이지만, 겸직 목적의 공익성과 결과물의 성격을 종합 고려해 <strong>허가 기준에 부합하면 겸직 허가가 가능</strong>합니다.</p>
                 <p class="text-amber-900 text-sm mt-2">스스로 판단하지 마시고, 아래 사항을 갖춰 복무 담당 부서에 정식으로 신청·심사받으세요.</p>
               </div>
               <div class="bg-rose-100 border border-rose-300 rounded-lg p-3 text-sm text-rose-900 font-bold mb-4">
@@ -2148,7 +2148,7 @@
         if (!isWork || !isCont) {
             box.innerHTML = `
               <div class="rounded-xl border-2 border-slate-300 bg-slate-50 p-5">
-                <h3 class="text-xl font-bold text-slate-800 mb-2"><i class="fa-solid fa-circle-info text-slate-500 mr-1" aria-hidden="true"></i> 겸직 허가 신청 대상이 아닐 수 있습니다</h3>
+                <h3 class="text-xl font-bold text-slate-800 mb-2"><i class="fa-solid fa-circle-info text-slate-500 mr-1" aria-hidden="true"></i> 겸직 허가 신청 대상이 아닙니다</h3>
                 <p class="text-slate-700 text-sm md:text-base">겸직 허가 대상은 <strong>공무가 아닌, 계속성 있는 영리·비영리업무</strong>입니다. 누가 보더라도 명백하게 계속성이 없는 일시적 행위이거나, 직업·사회적 지위와 무관한 단순 취미·자기계발 활동은 신청 대상에서 제외됩니다.</p>
                 <p class="text-slate-600 text-sm mt-3">다만 본인이 단순 취미·자기계발이라 판단하는 경우에도 <strong>계속성이 있다면</strong> 신청 대상 여부에 대해 복무담당부서의 판단을 받으시기 바랍니다.</p>
               </div>`;
@@ -2342,7 +2342,7 @@
     function openPrecheckExempt() {
         hideAll();
         openResult(
-            `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 신고 제외 대상으로 보입니다</h3>`,
+            `<h3 class="text-2xl font-bold text-green-700 flex items-center gap-2"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> 신고 제외 대상입니다</h3>`,
             `<p class="font-semibold text-green-900">별도의 외부강의등 신고 의무가 없습니다.</p>
              <p class="text-sm text-slate-600">다만 활동을 위해 근무지를 벗어난다면 출장·연가 등 복무 처리는 별도로 해야 합니다. 복무 처리 없이 활동한 것은 부적정 사례로 지적됩니다.</p>
              ${reportTriad('exempt')}`,
@@ -2858,24 +2858,18 @@
     /* 다음에 무엇을 확인해야 하는지, 이유와 함께 */
     function qkNextSteps() {
         const items = [];
-        const isReport = (QK.form === 'talk' || QK.form === 'meet' || QK.form === 'both');
-        const isApply = (QK.form === 'alone' || QK.form === 'both' || QK.form === 'post' || QK.form === 'foreign');
-
-        if (isReport && QK.pay === 'yes') {
-            items.push({ why: '사례금이 상한액을 넘는지, 월 3회·6시간을 넘는지는 금액과 실적을 넣어야 알 수 있습니다.',
-                         label: '사례금 · 월 횟수 확인하기', fn: 'qkDetail()' });
-        }
-        /* 직무관련자 확인은 결론 카드 아래 전용 상자가 소유합니다.
-           같은 4문항으로 가는 입구를 둘 두면 확인을 마친 뒤에도 또 하라고 보입니다. */
+        /* 상세 판정으로 가는 버튼은 하단 주 버튼이,
+           직무관련자 확인은 결론 카드 아래 전용 상자가 소유합니다.
+           같은 곳으로 가는 입구를 둘 두면 이름도 동작도 똑같은 버튼이 겹쳐 보입니다. */
         if (QK.cont) {
-            items.push({ why: '허가가 날 수 있는 건인지 먼저 보세요.',
+            items.push({ why: '계속되는 활동이라 겸직허가가 함께 필요합니다. 허가가 날 수 있는 건인지 먼저 보세요.',
                          label: '겸직 허가 4대 요건 자가체크', fn: 'startRequirements()' });
             items.push({ why: '허가를 받으면 만료일과 갱신 시기를 챙겨야 합니다.',
                          label: '허가 만료일 · 갱신 계산기', fn: 'startRenew()' });
         }
         if (!items.length) return '';
         return `<div class="bg-white border border-slate-300 rounded-xl overflow-hidden">
-            <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-forward mr-1" aria-hidden="true"></i> 다음으로 확인할 것</div>
+            <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-id-card-clip mr-1" aria-hidden="true"></i> 겸직허가도 필요한 경우</div>
             <div class="p-4 space-y-2.5">
                 ${items.map(x => `<button onclick="${x.fn}" class="w-full text-left p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-white transition">
                     <span class="block text-xs text-slate-600 mb-1">${x.why}</span>
@@ -2932,6 +2926,17 @@
         rqShow('rq-A');          /* 아무 정보가 없을 때만 요청 주체부터 */
     }
 
+    /* 하단 주 버튼을 왜 눌러야 하는지 — 이름만으로는 알 수 없습니다 */
+    function qkDetailWhy() {
+        const isLecture = (QK.form === 'talk' || QK.form === 'meet');
+        if (isLecture) {
+            return (QK.cls && QK.cls.exempt)
+                ? '신고는 면제되지만 사례금 상한액은 그대로 적용됩니다. 금액을 넣어야 초과 여부를 알 수 있습니다.'
+                : '사례금이 상한액을 넘는지, 월 3회·6시간을 넘는지는 금액과 실적을 넣어야 알 수 있습니다.';
+        }
+        return '활동 기간과 직무관련성까지 넣으면 겸직허가가 함께 필요한지, 허가로 풀리지 않는 유형인지 가려집니다.';
+    }
+
     function qkDetailLabel() {
         const isLecture = (QK.form === 'talk' || QK.form === 'meet');
         if (isLecture) return (QK.cls && QK.cls.exempt) ? '사례금 상한액 확인하기' : '사례금 · 월 횟수 확인하기';
@@ -2960,6 +2965,7 @@
                     <button onclick="qkRedCheck()" class="w-full bg-rose-600 text-white font-bold py-2.5 rounded-lg hover:bg-rose-700 transition text-sm">4문항으로 확인하기</button>
                 </div>`)}
             ${qkNextSteps()}
+            <p class="text-xs text-slate-600">${qkDetailWhy()}</p>
             <div class="flex flex-col md:flex-row gap-2.5">
                 <button onclick="qkDetail()" class="flex-1 bg-slate-800 text-white font-bold py-2.5 rounded-lg hover:bg-slate-900 transition">${qkDetailLabel()}</button>
                 <button onclick="qkReset()" class="flex-1 bg-white border border-slate-300 text-slate-700 font-bold py-2.5 rounded-lg hover:border-slate-500 transition">처음부터 다시</button>
@@ -3384,7 +3390,7 @@
         } else if (result.exempt && result.tentative) {
             /* 확정적으로 보기 어려운 예외는 초록 확정 표시를 쓰지 않습니다. */
             triadMode = 'tentative';
-            header = `<h3 class="text-2xl font-bold text-amber-700 flex items-center gap-2"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> 신고 제외 가능성이 있습니다 — 확인이 필요합니다</h3>`;
+            header = `<h3 class="text-2xl font-bold text-amber-700 flex items-center gap-2"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> 신고 제외 대상입니다 — 다만 확인이 필요합니다</h3>`;
             html += `<p class="text-amber-900 font-semibold">신고 대상에서 제외될 여지가 있으나, 기관 성격에 따라 판단이 갈리는 유형입니다.</p>
                      <p class="text-sm text-slate-600">복무 담당 부서의 판단을 받기 전에는 <strong>신고 대상으로 보고 준비</strong>하시는 편이 안전합니다. 복무는 <strong>출장(여비 부지급) 또는 연가·조퇴</strong>로 결재받으세요.</p>`;
         } else if (result.exempt) {
@@ -3394,7 +3400,7 @@
                      <p class="text-sm text-slate-600">복무는 <strong>출장(여비 부지급) 또는 연가·조퇴</strong>로 결재받으세요. 복무 처리 없이 활동하는 것은 부적정 사례입니다.</p>`;
         } else {
             triadMode = 'report';
-            header = `<h3 class="text-2xl font-bold text-indigo-700 flex items-center gap-2"><i class="fa-solid fa-file-signature" aria-hidden="true"></i> 신고 대상으로 보입니다</h3>`;
+            header = `<h3 class="text-2xl font-bold text-indigo-700 flex items-center gap-2"><i class="fa-solid fa-file-signature" aria-hidden="true"></i> 신고 대상입니다</h3>`;
             html += `<div class="border border-indigo-200 rounded-xl overflow-hidden">
                 <div class="bg-indigo-600 text-white px-4 py-2 font-bold text-sm">처리 순서</div>
                 <div class="divide-y divide-slate-100">
@@ -3752,17 +3758,17 @@
             <div class="bg-indigo-600 text-white px-4 py-2 font-bold text-sm">① 외부강의등 신고 대상인가</div>
             <div class="p-4 text-sm space-y-2">`;
         if (type === 'meeting') {
-            html += `<p class="font-bold text-indigo-800">해당할 가능성이 큽니다.</p>
+            html += `<p class="font-bold text-indigo-800">해당합니다.</p>
                 <p>여럿이 모이는 <strong>회의 형태의 심사·평가·자문·심의</strong>는 외부강의등에 포함됩니다. 사례금을 받는다면 신고 절차를 밟으세요.</p>
                 <div class="no-print pt-1"><button onclick="startLecture()" class="font-bold text-indigo-700 underline">→ 외부강의 신고 판정으로 이동</button></div>`;
         } else if (payKind === 'lecture') {
-            html += `<p class="font-bold text-indigo-800">일부가 해당할 수 있습니다.</p>
-                <p>대가의 이름이 <strong>강사료·원고료</strong>라면 실제 수행 내용에 강의나 기고가 섞여 있을 가능성이 있습니다. 그 부분은 외부강의등으로 보아 별도로 신고해야 합니다.</p>
+            html += `<p class="font-bold text-indigo-800">일부가 해당합니다.</p>
+                <p>대가의 이름이 <strong>강사료·원고료</strong>입니다. 실제 수행 내용에 강의나 기고가 섞여 있다면 <strong>그 부분은 외부강의등</strong>이므로 별도로 신고해야 합니다.</p>
                 <div class="no-print pt-1"><button onclick="startLecture()" class="font-bold text-indigo-700 underline">→ 외부강의 신고 판정으로 이동</button></div>`;
         } else {
-            html += `<p class="font-bold text-emerald-700">해당하지 않을 가능성이 큽니다.</p>
+            html += `<p class="font-bold text-emerald-700">해당하지 않습니다.</p>
                 <p>외부강의등은 교육·홍보·토론회·세미나·공청회 등에서의 <strong>강의·강연·기고</strong>와 <strong>회의 형태의 심사·평가·자문</strong>을 말합니다.
-                현장을 방문해 확인하고 보고서를 제출하는 활동, 서면으로만 이루어지는 검토, 결과물을 납품하는 용역은 이 정의에 들어가지 않는 것으로 보는 것이 일반적입니다.</p>
+                현장을 방문해 확인하고 보고서를 제출하는 활동, 서면으로만 이루어지는 검토, 결과물을 납품하는 용역은 이 정의에 들어가지 않습니다.</p>
                 <p class="text-slate-600">다만 활동 중에 <strong>집합 연수·설명회에서 강의하는 일정</strong>이 포함된다면, 그 부분만은 외부강의등으로 별도 신고해야 합니다.</p>`;
         }
         html += `</div></div>`;
@@ -3772,7 +3778,7 @@
             <div class="bg-emerald-600 text-white px-4 py-2 font-bold text-sm">② 겸직허가 대상인가</div>
             <div class="p-4 text-sm space-y-2">`;
         if (!hasPay) {
-            html += `<p class="font-bold text-emerald-800">허가 대상이 아닐 가능성이 큽니다.</p>
+            html += `<p class="font-bold text-emerald-800">허가 대상이 아닙니다.</p>
                 <p>대가를 받지 않거나 실비만 받는 활동은 영리업무로 보기 어렵습니다. 다만 근무지를 벗어난다면 <strong>출장·연가 등 복무 처리</strong>는 반드시 해야 합니다.</p>`;
         } else if (cont === true) {
             html += `<p class="font-bold text-rose-700">사전 겸직허가가 필요합니다.</p>
@@ -3876,20 +3882,17 @@
                 ${why('실제로 지적되는 것들 · 행동강령책임관', violationBlock())}
             </div>
             <p class="text-xs text-slate-500 mt-4 pt-3 border-t border-slate-200">${BASIS_LINE}</p>
-            <div class="mt-5 border border-slate-300 rounded-xl overflow-hidden no-print">
-                <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-forward mr-1" aria-hidden="true"></i> 다음으로 확인할 것</div>
+            ${cont === true ? `<div class="mt-5 border border-slate-300 rounded-xl overflow-hidden no-print">
+                <div class="bg-slate-100 px-4 py-2 font-bold text-sm text-slate-800"><i class="fa-solid fa-id-card-clip mr-1" aria-hidden="true"></i> 겸직허가도 필요한 경우</div>
                 <div class="p-4 space-y-2.5">
-                    ${cont === true ? `<button onclick="startRequirements()" class="w-full text-left p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-white transition">
+                    <button onclick="startRequirements()" class="w-full text-left p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-white transition">
                         <span class="block text-xs text-slate-600 mb-1">허가가 날 수 있는 건인지 먼저 보세요.</span>
                         <span class="block font-bold text-indigo-700 text-sm">겸직 허가 4대 요건 자가체크 <i class="fa-solid fa-angle-right ml-0.5" aria-hidden="true"></i></span></button>
                     <button onclick="startRenew()" class="w-full text-left p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-white transition">
                         <span class="block text-xs text-slate-600 mb-1">만료일과 갱신 시기를 계산합니다.</span>
-                        <span class="block font-bold text-emerald-700 text-sm">허가 만료일 · 갱신 계산기 <i class="fa-solid fa-angle-right ml-0.5" aria-hidden="true"></i></span></button>` : ''}
-                    <button onclick="backToNonLecture()" class="w-full text-left p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-slate-500 hover:bg-white transition">
-                        <span class="block text-xs text-slate-600 mb-1">기관·기간·대가를 바꿔 보면 결론이 달라질 수 있습니다.</span>
-                        <span class="block font-bold text-slate-800 text-sm">입력 수정 <i class="fa-solid fa-angle-right ml-0.5" aria-hidden="true"></i></span></button>
+                        <span class="block font-bold text-emerald-700 text-sm">허가 만료일 · 갱신 계산기 <i class="fa-solid fa-angle-right ml-0.5" aria-hidden="true"></i></span></button>
                 </div>
-            </div>`;
+            </div>` : ''}`;
 
         const header = `<h3 class="text-2xl font-bold text-${t.tone}-700 flex items-center gap-2"><i class="fa-solid ${t.icon}" aria-hidden="true"></i> ${t.label}</h3>`;
 
