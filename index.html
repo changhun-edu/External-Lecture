@@ -57,9 +57,106 @@
         .qk-opt span { display:block; font-size:15px; font-weight:400; color:#475569; margin-top:0.15rem; }
         .qk-opt[aria-pressed="true"] { background:#eef2ff; border-color:#4f46e5; box-shadow:inset 0 0 0 1px #4f46e5; }
 
+        /* 4대 요건 번호 배지
+           .text-sm 이 line-height:1.7 로 덮어써져 18px×1.7=30.6px 가 24px 상자를
+           넘치던 문제가 있어, 크기·행간을 고정한 전용 클래스를 씁니다. */
+        .req-num {
+            width: 1.75rem; height: 1.75rem; flex: none;
+            border-radius: 0.375rem;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 16px !important; line-height: 1 !important; font-weight: 700;
+        }
+
+        /* =====================================================
+           30초 판정 — 단계 구분
+           순수 CSS입니다. 스크립트는 한 줄도 바뀌지 않았습니다.
+           ===================================================== */
+        .qk-step { position: relative; padding-left: 3.5rem; padding-bottom: 2rem; }
+        .qk-step.is-last { padding-bottom: 0; }
+
+        /* 단계를 잇는 세로 레일 */
+        .qk-step::before {
+            content: ""; position: absolute; left: 1.15rem; top: 2.6rem; bottom: 0.5rem;
+            width: 2px; background: #e2e8f0;
+        }
+        .qk-step.is-last::before { display: none; }
+
+        /* 번호 배지 */
+        .qk-num {
+            position: absolute; left: 0; top: 0; width: 2.4rem; height: 2.4rem;
+            border-radius: 9999px; background: #4f46e5; color: #fff;
+            font-size: 19px; font-weight: 700; line-height: 1;
+            display: inline-flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 0 4px #fff;            /* 배지 뒤로 지나가는 레일을 가립니다 */
+        }
+
+        /* 제목은 선택지(.qk-opt = 19px/700)보다 커야 위계가 섭니다 */
+        .qk-step-title {
+            display: flex; align-items: center; min-height: 2.4rem;
+            font-size: 23px; font-weight: 800; color: #0f172a;
+            line-height: 1.3; margin-bottom: 0.15rem;
+        }
+        label.qk-step-title { cursor: pointer; }
+        .qk-step-lead { font-size: 16px !important; color: #475569; line-height: 1.6; margin-bottom: 0.625rem; }
+
+        /* 완료 표시 — qkSet()이 붙이는 aria-pressed와 입력값을 CSS가 읽습니다.
+           미지원 브라우저에서는 이 규칙만 무시되어 인디고 숫자로 남습니다. */
+        .qk-step:has(.qk-opt[aria-pressed="true"]) .qk-num,
+        .qk-step:has(#qkAgency:not(:placeholder-shown)) .qk-num { background: #059669; }
+        .qk-step:has(.qk-opt[aria-pressed="true"])::before,
+        .qk-step:has(#qkAgency:not(:placeholder-shown))::before { background: #6ee7b7; }
+        .qk-step:has(.qk-opt[aria-pressed="true"]) .qk-num b,
+        .qk-step:has(#qkAgency:not(:placeholder-shown)) .qk-num b { display: none; }
+        .qk-step:has(.qk-opt[aria-pressed="true"]) .qk-num::after,
+        .qk-step:has(#qkAgency:not(:placeholder-shown)) .qk-num::after { content: "\2713"; font-size: 22px; }
+
+        @media (max-width: 640px) {
+            .qk-step { padding-left: 2.9rem; padding-bottom: 1.75rem; }
+            .qk-step::before { left: 0.95rem; top: 2.2rem; }
+            .qk-num { width: 2rem; height: 2rem; font-size: 17px; }
+            .qk-step-title { font-size: 21px; min-height: 2rem; }
+        }
+
         /* 옅은 회색은 노안에서 특히 읽기 어렵습니다 — 대비를 올립니다 */
         .text-slate-500 { color: #475569 !important; }
         .text-slate-400 { color: #64748b !important; }
+
+        /* =====================================================
+           푸터 전용 스타일
+           위의 .text-slate-400/500 override는 '흰 배경'을 전제로
+           색을 더 어둡게 만듭니다. 어두운 푸터에서는 역효과이므로
+           푸터에서는 저 두 클래스를 쓰지 않고 아래 전용 클래스를 씁니다.
+           ===================================================== */
+
+        /* 가장 낮은 단계 — 라이선스·크레딧 */
+        .ftr-fine { color: #8fa0b5 !important; font-size: 15px !important; line-height: 1.7; }
+
+        /* 한글 어절 단위 줄바꿈 + 마지막 줄 고아 조각 방지 */
+        footer p, footer li, footer summary { word-break: keep-all; text-wrap: pretty; }
+
+        /* 법령 목록 칩 — 제목이 중간에서 잘리지 않도록 nowrap */
+        .ftr-chip {
+            display: inline-block; white-space: nowrap;
+            background: #1e293b; border: 1px solid #334155; color: #cbd5e1;
+            border-radius: 9999px; padding: 0.25rem 0.75rem;
+            font-size: 15px !important; line-height: 1.5;
+        }
+        /* 좁은 화면에서는 nowrap이 가로 넘침을 만들므로 블록형으로 전환합니다 */
+        @media (max-width: 640px) {
+            .ftr-chip { white-space: normal; border-radius: 0.6rem; text-align: left; }
+        }
+
+        /* 접이식 블록 */
+        .ftr-details summary { list-style: none; }
+        .ftr-details summary::-webkit-details-marker { display: none; }
+        .ftr-details summary .chev { transition: transform 0.2s ease; }
+        .ftr-details[open] summary .chev { transform: rotate(180deg); }
+
+        /* 인쇄할 때는 접혀 있어도 기준 자료·저작권 표기가 함께 나오게 합니다 */
+        @media print {
+            .ftr-details > *:not(summary) { display: block !important; }
+            .ftr-details summary .chev { display: none; }
+        }
 
         /* 글꼴은 <head>의 <link>로 불러옵니다. @import는 스타일시트 맨 앞에만 유효하므로 사용하지 않습니다. */
         body { font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; }
@@ -170,20 +267,22 @@
                     <p class="font-bold text-lg"><i class="fa-solid fa-bolt mr-1.5" aria-hidden="true"></i> 30초 판정</p>
                     <p class="text-xs text-indigo-100 mt-1">세 가지만 고르면 무엇을 해야 하는지 알려드립니다. 강의인지 아닌지는 고르실 필요 없습니다.</p>
                 </div>
-                <div class="p-5 space-y-5">
+                <div class="p-5">
 
-                    <div>
-                        <label for="qkAgency" class="block text-sm font-bold text-slate-800 mb-2">1. 어디서 요청했나요?</label>
+                    <div class="qk-step">
+                        <span class="qk-num" aria-hidden="true"><b>1</b></span>
+                        <label for="qkAgency" class="qk-step-title">어디서 요청했나요?</label>
+                        <p class="qk-step-lead"><strong>요청 공문의 발신 기관</strong>을 적으세요. 후보가 뜨면 골라 주시면 가장 정확합니다.</p>
                         <input type="text" id="qkAgency" oninput="qkAgencyInput()" placeholder="요청 공문을 보낸 기관 이름" autocomplete="off"
                                class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         <div id="qkAgencySuggest" class="hidden mt-1.5 border border-slate-300 rounded-lg overflow-hidden bg-white divide-y divide-slate-100"></div>
                         <div id="qkAgencyHint" class="hidden mt-2 text-sm rounded-lg px-3 py-2.5"></div>
-                        <p class="text-xs text-slate-500 mt-1.5"><strong>요청 공문의 발신 기관</strong>을 적으세요. 후보가 뜨면 골라 주시면 가장 정확합니다.</p>
                     </div>
 
-                    <div>
-                        <p class="text-sm font-bold text-slate-800 mb-2">2. 어떻게 진행하나요?</p>
-                        <p class="text-xs text-slate-500 mb-2">활동 이름이 아니라 <strong>진행 형태</strong>가 기준입니다. 같은 모니터링이라도 회의가 끼면 결론이 달라집니다.</p>
+                    <div class="qk-step">
+                        <span class="qk-num" aria-hidden="true"><b>2</b></span>
+                        <p class="qk-step-title">어떻게 진행하나요?</p>
+                        <p class="qk-step-lead">활동 이름이 아니라 <strong>진행 형태</strong>가 기준입니다. 같은 모니터링이라도 회의가 끼면 결론이 달라집니다.</p>
                         <div class="grid grid-cols-1 gap-2" id="qkForm">
                             <button type="button" onclick="qkSet('form','talk')"   class="qk-opt">여러 사람 앞에서 말하거나, 신문·잡지에 글을 싣습니다<span>강의 · 특강 · 연수 · 직무연수 · 강연 · 발표 · 원고 기고 · 칼럼 · 온라인 동영상 강의</span></button>
                             <button type="button" onclick="qkSet('form','meet')"   class="qk-opt">여러 사람이 모인 회의에서 의견을 주고받습니다<span>자문회의 · 심사위원회 · 평가회의 · 심의회 · 강평회 · 토론 · 좌담 (이름이 심사·자문이어도 회의면 여기)</span></button>
@@ -198,8 +297,9 @@
                         </p>
                     </div>
 
-                    <div>
-                        <p class="text-sm font-bold text-slate-800 mb-2">3. 대가를 받나요?</p>
+                    <div class="qk-step is-last">
+                        <span class="qk-num" aria-hidden="true"><b>3</b></span>
+                        <p class="qk-step-title">대가를 받나요?</p>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-2" id="qkPay">
                             <button type="button" onclick="qkSet('pay','yes')"    class="qk-opt">받습니다<span>강사료 · 수당 · 심사료 등</span></button>
                             <button type="button" onclick="qkSet('pay','actual')" class="qk-opt">실비만<span>교통비 · 식비만 실비로</span></button>
@@ -207,7 +307,7 @@
                         </div>
                     </div>
 
-                    <div id="qkResult" class="hidden"></div>
+                    <div id="qkResult" class="hidden mt-5"></div>
                 </div>
             </div>
 
@@ -560,9 +660,9 @@
 
             <form id="reqForm" class="space-y-6 no-print" onsubmit="event.preventDefault(); analyzeRequirements();">
 
-                <!-- 0. 대상 여부 -->
+                <!-- 사전 확인: 겸직 허가 대상 여부 -->
                 <fieldset class="bg-slate-50 border border-slate-200 rounded-xl p-4 md:p-5">
-                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="bg-slate-700 text-white w-6 h-6 rounded flex items-center justify-center text-sm">0</span> 겸직 허가 대상인지 먼저 확인</legend>
+                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="req-num bg-slate-200 text-slate-700"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i></span> 사전 확인 — 겸직 허가 대상인지부터</legend>
                     <p class="text-xs text-slate-500 mt-2 mb-3">세 가지 모두 답해 주세요. 답하지 않으면 판정하지 않습니다.</p>
                     <div class="space-y-3 text-sm md:text-base">
                         <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
@@ -598,7 +698,7 @@
 
                 <!-- 1. 직무 능률 -->
                 <fieldset class="border border-indigo-200 bg-indigo-50/40 rounded-xl p-4 md:p-5">
-                    <legend class="font-bold text-indigo-900 px-2 flex items-center gap-2"><span class="bg-indigo-600 text-white w-6 h-6 rounded flex items-center justify-center text-sm">1</span> 직무 능률을 떨어뜨릴 우려</legend>
+                    <legend class="font-bold text-indigo-900 px-2 flex items-center gap-2"><span class="req-num bg-indigo-600 text-white">1</span> 직무 능률을 떨어뜨릴 우려</legend>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
                         <div>
                             <label for="reqWorkHours" class="block text-xs font-bold text-slate-600 mb-1">주당 근무시간</label>
@@ -627,19 +727,34 @@
 
                 <!-- 2. 공무에 부당한 영향 -->
                 <fieldset class="border border-slate-200 rounded-xl p-4 md:p-5">
-                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="bg-slate-700 text-white w-6 h-6 rounded flex items-center justify-center text-sm">2</span> 공무에 부당한 영향을 끼칠 우려</legend>
+                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="req-num bg-indigo-600 text-white">2</span> 공무에 부당한 영향을 끼칠 우려</legend>
                     <div class="space-y-2 mt-3">
                         <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req2_conflict" class="w-4 h-4 mt-1 accent-rose-600"> <span>공무와 <strong>이해충돌 가능성</strong>이 있다 <span class="text-slate-500">(보조금 등 재정보조 제공, 인·허가 관계, 법령에 근거한 지도·감독 등)</span></span></label>
                         <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req2_secret" class="w-4 h-4 mt-1 accent-rose-600"> <span>직무 수행 중 알게 된 <strong>비밀 또는 미공개 정보</strong>를 이용한다 <span class="text-slate-500">(학교 기출문제 활용 등 포함)</span></span></label>
                     </div>
                 </fieldset>
 
-                <!-- 3·4 -->
+                <!-- 3. 국가 이익 상반 -->
                 <fieldset class="border border-slate-200 rounded-xl p-4 md:p-5">
-                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="bg-slate-700 text-white w-6 h-6 rounded flex items-center justify-center text-sm">3·4</span> 국가 이익 상반 / 정부 불명예 우려</legend>
+                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="req-num bg-indigo-600 text-white">3</span> 국가의 이익과 상반되는 이익을 취득할 우려</legend>
                     <div class="space-y-2 mt-3">
                         <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req3_against" class="w-4 h-4 mt-1 accent-rose-600"> <span>겸직 업무가 <strong>국가 및 공공의 이익에 반하거나 충돌</strong>할 우려가 있다</span></label>
+                    </div>
+                </fieldset>
+
+                <!-- 4. 정부 불명예 -->
+                <fieldset class="border border-slate-200 rounded-xl p-4 md:p-5">
+                    <legend class="font-bold text-slate-900 px-2 flex items-center gap-2"><span class="req-num bg-indigo-600 text-white">4</span> 정부에 불명예스러운 영향을 끼칠 우려</legend>
+                    <div class="space-y-2 mt-3">
                         <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req4_disrepute" class="w-4 h-4 mt-1 accent-rose-600"> <span>사회 통념상 바람직하지 못해 <strong>정부의 명예나 신뢰를 저해</strong>할 우려가 있다 <span class="text-slate-500">(유흥·사행업 등 선량한 풍속을 해치거나 장애인·학생·노인 등 사회적 약자를 부당하게 이용하는 경우)</span></span></label>
+                    </div>
+                </fieldset>
+
+                <!-- 4대 요건과 별개인 법령상 제한 -->
+                <fieldset class="border border-amber-300 bg-amber-50/50 rounded-xl p-4 md:p-5">
+                    <legend class="font-bold text-amber-900 px-2 flex items-center gap-2"><span class="req-num bg-amber-500 text-white"><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i></span> 추가 확인 — 다른 법령의 겸직 제한</legend>
+                    <p class="text-xs text-amber-800 mt-2 mb-1">4대 요건과는 별개로, 다른 법령이 겸직 자체를 막고 있으면 허가할 수 없습니다.</p>
+                    <div class="space-y-2 mt-2">
                         <label class="flex gap-3 items-start p-1.5 cursor-pointer text-sm md:text-base"><input type="checkbox" id="req_law" class="w-4 h-4 mt-1 accent-rose-600"> <span>해당 업무를 규율하는 <strong>다른 법령에서 교원의 겸직을 제한</strong>하고 있다 <span class="text-slate-500">(「학원법」 제3조 교원의 과외교습 제한 등)</span></span></label>
                     </div>
                 </fieldset>
@@ -1244,22 +1359,51 @@
 
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 py-5 px-4 text-center text-sm mt-8">
-        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-center items-center gap-2 text-rose-400 font-semibold">
-            <span><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 외부강의 미신고·지연신고 및 무허가 겸직은 처분 대상입니다.</span>
+    <footer class="bg-slate-900 text-slate-300 py-6 px-4 text-center text-sm mt-8">
+        <div class="max-w-3xl mx-auto">
+
+            <!-- 1순위 · 처분 경고 -->
+            <p class="flex flex-col md:flex-row justify-center items-center gap-2 text-rose-400 font-semibold">
+                <span><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> 외부강의 미신고·지연신고 및 무허가 겸직은 처분 대상입니다.</span>
+            </p>
+
+            <!-- 2순위 · 면책 (푸터에서 가장 밝게) -->
+            <p class="mt-4 text-slate-200 leading-relaxed">
+                본 자가진단은 <strong class="text-white">참고용</strong>입니다.
+                최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
+            </p>
+
+            <hr class="my-5 border-slate-700/70 max-w-xs mx-auto">
+
+            <!-- 3순위 · 기준 자료 + 저작권 표기 (접이식) -->
+            <details class="ftr-details">
+                <summary class="cursor-pointer text-slate-300 hover:text-white inline-flex items-center gap-2">
+                    기준 자료 7건 및 저작권 표기
+                    <i class="fa-solid fa-chevron-down chev text-xs" aria-hidden="true"></i>
+                </summary>
+
+                <ul class="mt-4 flex flex-wrap justify-center gap-2">
+                    <li class="ftr-chip">「공직자의 이해충돌 방지법」 제10조</li>
+                    <li class="ftr-chip">「공직자의 이해충돌 방지제도 운영지침」 제9조</li>
+                    <li class="ftr-chip">「부정청탁 및 금품등 수수의 금지에 관한 법률」 제10조</li>
+                    <li class="ftr-chip">「국가공무원법」 제64조</li>
+                    <li class="ftr-chip">「국가공무원 복무규정」 제25조</li>
+                    <li class="ftr-chip">「국가공무원 복무·징계 관련 예규」</li>
+                    <li class="ftr-chip">전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」</li>
+                </ul>
+
+                <p class="mt-4 ftr-fine max-w-2xl mx-auto">
+                    법령·예규·지침 본문은 「저작권법」 제7조에 따른 비보호저작물이며,
+                    교육청 안내 자료는 같은 법 제24조의2(공공저작물의 자유이용)에 따라 이용하였습니다.<br>
+                    글꼴 Pretendard (OFL) · 아이콘 Font Awesome Free (CC BY 4.0) · 스타일 Tailwind CSS (MIT)
+                </p>
+            </details>
+
+            <!-- 4순위 · 크레딧 -->
+            <p class="mt-5 ftr-fine">
+                © 2026 최창훈 · 개인이 제작한 참고용 도구이며 어떤 기관의 공식 자료도 아닙니다.
+            </p>
         </div>
-        <p class="mt-3 text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            기준 자료: 「공직자의 이해충돌 방지법」 제10조 · 「공직자의 이해충돌 방지제도 운영지침」 제9조 · 「부정청탁 및 금품등 수수의 금지에 관한 법률」 제10조 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」 · 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」<br>
-            본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
-        </p>
-        <p class="mt-4 text-[10px] text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            © 2026 최창훈 · 개인이 제작한 참고용 도구이며 어떤 기관의 공식 자료도 아닙니다.<br>
-            글꼴 Pretendard (SIL Open Font License 1.1) ·
-            아이콘 Font Awesome Free 6.4.0 (CC BY 4.0) ·
-            스타일 Tailwind CSS (MIT)<br>
-            법령·예규·지침 본문은 「저작권법」 제7조에 따른 비보호저작물이며,
-            교육청 안내 자료는 같은 법 제24조의2(공공저작물의 자유이용)에 따라 이용하였습니다.
-        </p>
     </footer>
 
     <script>
@@ -2108,7 +2252,7 @@
             <div class="flex items-start gap-2 mb-1.5">
                 <i class="fa-solid ${icon} text-lg mt-0.5" aria-hidden="true"></i>
                 <div>
-                    <p class="font-bold ${titleColor} text-sm md:text-base">${no}. ${title} <span class="basis-tag">Q14·붙임3</span></p>
+                    <p class="font-bold ${titleColor} text-sm md:text-base">${no ? no + '. ' : ''}${title} <span class="basis-tag">Q14·붙임3</span></p>
                     <p class="${subColor} text-xs font-bold">${verdict}</p>
                 </div>
             </div>
@@ -2125,7 +2269,7 @@
         const a0 = pick0('req0_work'), b0 = pick0('req0_cont'), c0 = pick0('req0_out');
 
         const missing = [];
-        if (!a0 || !b0 || !c0) missing.push('0단계의 세 가지 질문에 모두 답해 주세요.');
+        if (!a0 || !b0 || !c0) missing.push('맨 위 <strong>사전 확인</strong>의 세 가지 질문에 모두 답해 주세요.');
         if (!typeId) missing.push('겸직 유형을 선택해 주세요. 유형에 따라 허가 기간과 위원회 심사 여부가 달라집니다.');
         if (missing.length) {
             box0.innerHTML = `<div class="rounded-xl border-2 border-amber-400 bg-amber-50 p-5">
@@ -2154,7 +2298,7 @@
 
         const box = box0;
 
-        /* 0단계 — 대상 여부 */
+        /* 사전 확인 — 대상 여부 */
         if (!isWork || !isCont) {
             box.innerHTML = `
               <div class="rounded-xl border-2 border-slate-300 bg-slate-50 p-5">
@@ -2183,15 +2327,26 @@
         if (secret) { pass2 = false; l2.push('직무 수행 중 알게 된 <strong>비밀 또는 미공개 정보</strong>를 이용하는 것은 금지됩니다. 직무 관련 지식·정보를 이용한 겸직은 겸직심사위원회 심사 대상입니다.'); }
         if (pass2) l2.push('이해충돌 및 미공개 정보 이용 사항이 확인되지 않았습니다.');
 
-        /* 3·4 */
+        /* 3 — 국가 이익 상반 */
         const l3 = [];
-        let pass3 = true;
-        if (against) { pass3 = false; l3.push('국가 및 공공의 이익에 반하거나 충돌할 우려가 있습니다.'); }
-        if (disrepute) { pass3 = false; l3.push('정부의 명예나 신뢰를 저해할 우려가 있습니다.'); }
-        if (lawLimit) { pass3 = false; l3.push('다른 법령에서 교원의 겸직을 제한하고 있습니다. 「학원법」 제3조에 따라 교원은 과외교습을 할 수 없습니다.'); }
-        if (pass3) l3.push('국가 이익 상반·정부 불명예·법령 제한 사항이 확인되지 않았습니다.');
+        const pass3 = !against;
+        if (against) l3.push('국가 및 공공의 이익에 반하거나 충돌할 우려가 있습니다.');
+        else l3.push('국가 이익과 상반되는 이익 취득 사항이 확인되지 않았습니다.');
 
-        const allPass = pass1 && pass2 && pass3;
+        /* 4 — 정부 불명예 */
+        const l4 = [];
+        const pass4 = !disrepute;
+        if (disrepute) l4.push('정부의 명예나 신뢰를 저해할 우려가 있습니다.');
+        else l4.push('정부에 불명예스러운 영향을 끼칠 우려가 확인되지 않았습니다.');
+
+        /* 4대 요건과 별개 — 다른 법령의 겸직 제한 */
+        const lLaw = [];
+        const passLaw = !lawLimit;
+        if (lawLimit) lLaw.push('다른 법령에서 교원의 겸직을 제한하고 있습니다. 「학원법」 제3조에 따라 교원은 과외교습을 할 수 없습니다.');
+        else lLaw.push('겸직을 제한하는 다른 법령 사항이 확인되지 않았습니다.');
+
+        const reqPass = pass1 && pass2 && pass3 && pass4;   /* 4대 요건만의 결과 */
+        const allPass = reqPass && passLaw;
 
         /* 위원회 회부 판정 */
         const committee = [];
@@ -2210,8 +2365,10 @@
             </div>`;
         } else {
             header = `<div class="rounded-xl border-2 border-rose-400 bg-rose-50 p-5 mb-4">
-                <h3 class="text-xl md:text-2xl font-bold text-rose-800 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> 금지요건에 해당하는 항목이 있습니다</h3>
-                <p class="text-rose-900 text-sm md:text-base mt-2">겸직 허가는 4가지 금지요건에 <strong>모두 해당하지 않는 경우에만</strong> 가능합니다. 아래 항목을 조정하거나, 복무 담당 부서와 사전에 상의하세요.</p>
+                <h3 class="text-xl md:text-2xl font-bold text-rose-800 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> ${reqPass ? '4대 요건 외의 법령상 제한에 해당합니다' : '금지요건에 해당하는 항목이 있습니다'}</h3>
+                <p class="text-rose-900 text-sm md:text-base mt-2">${reqPass
+                    ? '4가지 금지요건에는 해당하지 않으나, <strong>다른 법령이 겸직 자체를 제한</strong>하고 있어 허가가 어렵습니다.'
+                    : '겸직 허가는 4가지 금지요건에 <strong>모두 해당하지 않는 경우에만</strong> 가능합니다.'} 아래 항목을 조정하거나, 복무 담당 부서와 사전에 상의하세요.</p>
             </div>`;
         }
 
@@ -2225,7 +2382,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                 ${reqCard(1, '직무 능률 저하 우려', pass1, l1)}
                 ${reqCard(2, '공무에 부당한 영향 우려', pass2, l2)}
-                ${reqCard(3, '국가 이익 상반 · 정부 불명예 우려', pass3, l3)}
+                ${reqCard(3, '국가 이익 상반 우려', pass3, l3)}
+                ${reqCard(4, '정부 불명예 우려', pass4, l4)}
+                ${reqCard(null, '다른 법령의 겸직 제한 <span class="text-xs font-normal">(4대 요건 외)</span>', passLaw, lLaw)}
                 <div class="border-2 border-indigo-300 bg-indigo-50 rounded-xl p-4">
                     <p class="font-bold text-indigo-900 text-sm md:text-base mb-1.5"><i class="fa-solid fa-calendar-check mr-1" aria-hidden="true"></i> 허가 기간 및 절차</p>
                     <ul class="list-disc pl-5 text-xs md:text-sm text-slate-700 space-y-1">
