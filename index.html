@@ -6,6 +6,9 @@
     <title>교직원 외부강의·겸직 도우미</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pretendard (SIL Open Font License 1.1) — 공식 배포처: https://github.com/orioncactus/pretendard -->
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
     <style>
         /* =====================================================
            가독성 고정 확대 (노안 대응)
@@ -58,8 +61,8 @@
         .text-slate-500 { color: #475569 !important; }
         .text-slate-400 { color: #64748b !important; }
 
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
-        body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; }
+        /* 글꼴은 <head>의 <link>로 불러옵니다. @import는 스타일시트 맨 앞에만 유효하므로 사용하지 않습니다. */
+        body { font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; }
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -312,7 +315,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <button onclick="showGuide('MEDIA')" class="flex items-start gap-4 p-5 bg-white border border-slate-200 rounded-xl shadow-xs hover:border-amber-500 hover:shadow-md transition text-left w-full group">
                         <div class="p-3 bg-amber-50 text-amber-600 rounded-lg group-hover:bg-amber-600 group-hover:text-white transition shrink-0">
-                            <i class="fa-brands fa-youtube text-xl" aria-hidden="true"></i>
+                            <i class="fa-solid fa-video text-xl" aria-hidden="true"></i>
                         </div>
                         <div>
                             <h3 class="font-bold text-lg text-slate-900">B. 인터넷 개인 미디어 활동</h3>
@@ -374,7 +377,7 @@
 
             <div class="mb-2 border-2 border-rose-300 bg-rose-50/60 rounded-2xl p-4 md:p-6 shadow-sm relative overflow-hidden">
                 <div class="absolute right-0 top-0 w-16 h-16 bg-rose-600 flex items-center justify-center rounded-bl-3xl shadow-md" aria-hidden="true">
-                    <i class="fa-solid fa-siren-on text-white text-2xl"></i>
+                    <i class="fa-solid fa-triangle-exclamation text-white text-2xl"></i>
                 </div>
                 <h2 class="text-lg md:text-xl font-bold text-rose-900 mb-2 flex items-center gap-2">
                     <i class="fa-solid fa-ban text-rose-600" aria-hidden="true"></i> [구역 3] 사교육업체 관련 (원칙적 금지)
@@ -397,7 +400,7 @@
 
         <!-- ===================== 사각지대 경고 ===================== -->
         <div id="trap-warning" class="no-print bg-slate-800 text-white rounded-xl p-5 mb-6 flex gap-4 items-start shadow-md">
-            <i class="fa-solid fa-siren-on text-rose-500 text-2xl mt-1 shrink-0" aria-hidden="true"></i>
+            <i class="fa-solid fa-circle-exclamation text-rose-500 text-2xl mt-1 shrink-0" aria-hidden="true"></i>
             <div>
                 <h4 class="font-bold text-rose-300 text-base md:text-lg mb-2">징계 단골 사례! 교직원 사각지대 필수 체크</h4>
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-200 list-disc pl-4">
@@ -1249,7 +1252,14 @@
             기준 자료: 「공직자의 이해충돌 방지법」 제10조 · 「공직자의 이해충돌 방지제도 운영지침」 제9조 · 「부정청탁 및 금품등 수수의 금지에 관한 법률」 제10조 · 「국가공무원법」 제64조 · 「국가공무원 복무규정」 제25조 · 「국가공무원 복무·징계 관련 예규」 · 전남광주통합특별시교육청 「교원 겸직 허가 제도 안내」<br>
             본 자가진단은 참고용입니다. 최종 판단은 소속 기관 복무 담당 부서에 확인하시기 바랍니다.
         </p>
-        <p class="mt-4 text-[10px] text-slate-700">2026 최창훈</p>
+        <p class="mt-4 text-[10px] text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            © 2026 최창훈 · 개인이 제작한 참고용 도구이며 어떤 기관의 공식 자료도 아닙니다.<br>
+            글꼴 Pretendard (SIL Open Font License 1.1) ·
+            아이콘 Font Awesome Free 6.4.0 (CC BY 4.0) ·
+            스타일 Tailwind CSS (MIT)<br>
+            법령·예규·지침 본문은 「저작권법」 제7조에 따른 비보호저작물이며,
+            교육청 안내 자료는 같은 법 제24조의2(공공저작물의 자유이용)에 따라 이용하였습니다.
+        </p>
     </footer>
 
     <script>
